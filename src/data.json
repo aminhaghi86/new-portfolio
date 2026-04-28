@@ -1,0 +1,116 @@
+{
+  "myProjects": [
+    {
+      "id": 0,
+      "title": "Scheduling Application with React,node and Socket.IO",
+      "github": "https://github.com/aminhaghi86/school-full",
+      "image": "../socket.png",
+      "desc": "Built interactive React calendar app with real-time updates and user authentication using FullCalendar, Axios, Socket.IO, and context.",
+      "tech": [
+        { "skill": "React", "img": "../icon/react.svg" },
+        { "skill": "Postgres", "img": "../icon/sequelize.svg" },
+        { "skill": "Nodejs", "img": "../icon/nodejs.svg" },
+        { "skill": "Express", "img": "../icon/expressjs.svg" },
+        { "skill": "Web Socket", "img": "../icon/socket.svg" }
+      ],
+      "demo": "https://github.com/aminhaghi86/school-full/assets/90243818/36cbff62-ab97-4200-8019-998c2e76a25b"
+    },
+    {
+      "id": 1,
+      "title": "Interactive Chat with Nuxt.js and Stella",
+      "github": "https://github.com/aminhaghi86/stella-app",
+      "image": "../stella.png",
+      "desc": "This project simplifies building interactive chat applications with Nuxt.js 3 and Stella, a framework for AI-powered chatbots. It utilizes Gsap for captivating animations and Socket.IO for real-time communication, ensuring a seamless and engaging user experience.",
+      "tech": [
+        { "skill": "NuxtJS", "img": "../icon/nuxt.svg" },
+        { "skill": "Web Socket", "img": "../icon/socket.svg" },
+        { "skill": "Chat", "img": "../icon/chat.svg" },
+        { "skill": "Viss AI", "img": "../icon/viss.png" }
+      ],
+      "demo": "https://github.com/aminhaghi86/stella-app/assets/90243818/c634610f-ccd5-45ff-b7b2-16b388a62f75"
+    },
+    {
+      "id": 2,
+      "title": "React Portfolio",
+      "github": "https://github.com/aminhaghi86/maryam-portfolio",
+      "image": "../portfoliomaryam.png",
+      "desc": "I've built a portfolio website using React and SCSS for design. I created and developed it entirely myself for a friend who is a designer.",
+      "tech": [
+        { "skill": "React", "img": "../icon/react.svg" },
+        { "skill": "Scss", "img": "../icon/sass.png" }
+      ],
+      "demo": "https://maryamfadaei.netlify.app/"
+    },
+    {
+      "id": 3,
+      "title": "fullstack-app * book",
+      "github": "https://github.com/aminhaghi86/app-book",
+      "image": "../appbook.png",
+      "desc": "I implemented a CRUD system for managing books, along with user registration and login functionalities.",
+      "tech": [
+        { "skill": "C#", "img": "../icon/csharp.svg" },
+        { "skill": "SQLServer", "img": "../icon/sqlserver.svg" },
+        { "skill": "TypeScript", "img": "../icon/typescript.svg" },
+        { "skill": "Angular", "img": "../icon/angular.svg" }
+      ],
+      "demo": "https://github.com/aminhaghi86/app-book"
+    },
+    {
+      "id": 4,
+      "title": "Three.JS Project",
+      "github": "https://github.com/aminhaghi86/GP-ExploringCode",
+      "image": "./threejs.png",
+      "desc": "Hyper Island Assessment Race is an exciting game where players assist students in driving their car and navigating through a series of assessments without colliding with them. The objective is to reach a 100% score and successfully pass the assessments.",
+      "tech": [
+        { "skill": "React.js", "img": "../icon/react.svg" },
+        { "skill": "ThreeJS", "img": "../icon/th3js.png" },
+        { "skill": "GSAP", "img": "../icon/gsap.png" }
+      ],
+      "demo": "https://hyper-race.netlify.app/"
+    },
+    {
+      "id": 5,
+      "title": "PERN-TodoList",
+      "github": "https://github.com/aminhaghi86/todolist-pernstack",
+      "image": "../pernstack-todo.png",
+      "desc": "Our group successfully created a full-stack to-do list application. Once a user logs in, user gains the ability to add, update, and remove tasks. Additionally, users can retrieve all tasks for easy reference.",
+      "tech": [
+        { "skill": "React.js", "img": "../icon/react.svg" },
+        { "skill": "Postgres", "img": "../icon/sequelize.svg" },
+        { "skill": "Nodejs", "img": "../icon/nodejs.svg" },
+        { "skill": "Express", "img": "../icon/expressjs.svg" }
+      ],
+      "demo": "https://todolist-fullstack.netlify.app/"
+    }
+  ],
+  "myPersonalInfo": [
+    {
+      "id": 1,
+      "name": "Amin",
+      "family": "Haghi",
+      "linkedin": "https://www.linkedin.com/in/aminhaghi",
+      "github": "https://github.com/aminhaghi86"
+    }
+  ],
+  "navbarItems": [
+    { "id": 0, "link": "home", "url": "/" },
+    { "id": 1, "link": "tech", "url": "/tech" },
+    { "id": 2, "link": "projects", "url": "/projects" },
+    { "id": 3, "link": "contact", "url": "/contact" },
+    { "id": 4, "link": "View My Resume", "url": "cv.pdf" }
+
+  ],
+  "MyInformation": [
+    {
+      "id": 0,
+      "name": "Amin Haghi",
+      "role": "Frontend Developer",
+
+      "bio": "Combining design and coding to create cool websites and apps is what has piqued my interest in this field",
+
+      "description": "I'm a frontend developer who loves working with React and has a good grasp of HTML, CSS, and JavaScript. I enjoy creating apps that are easy to use and look great, and I make sure they work smoothly with APIs and databases.",
+
+      "image": "/mypic.jpeg"
+    }
+  ]
+}
