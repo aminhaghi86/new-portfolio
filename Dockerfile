@@ -1,5 +1,11 @@
 # Stage 1: Build
 FROM node:20-alpine AS builder
+
+# تعریف آرگومان برای دریافت از سیستم بیلد
+ARG VITE_N8N_WEBHOOK_URL
+# قرار دادن آرگومان در محیط سیستم برای استفاده Vite
+ENV VITE_N8N_WEBHOOK_URL=$VITE_N8N_WEBHOOK_URL
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install

@@ -20,23 +20,23 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/portfolio-new
+            # اطمینان از هماهنگی کامل با ریپازیتوری گیت‌هاب
             git reset --hard origin/main
             git pull origin main
             
-            # ۱. ساخت ایمیج جدید
-            docker build -t portfolio-app .
+            # ۱. ساخت ایمیج با تزریق متغیر محیطی (Build Argument)
+            docker build --build-arg VITE_N8N_WEBHOOK_URL=${{ secrets.VITE_N8N_WEBHOOK_URL }} -t portfolio-app .
             
-            # ۲. پیدا کردن و متوقف کردن هر کانتینری که پورت 3000 را اشغال کرده
-            # این دستور هوشمندانه کانتینر مزاحم را پیدا و حذف می‌کند
+            # ۲. آزاد کردن پورت 3000 اگر توسط کانتینر دیگری اشغال شده باشد
             CONF_ID=$(docker ps -q --filter "publish=3000")
             if [ ! -z "$CONF_ID" ]; then
               docker stop $CONF_ID
               docker rm $CONF_ID
             fi
 
-            # ۳. اطمینان از حذف کانتینر با نام مشابه برای جلوگیری از تداخل نام
+            # ۳. حذف کانتینر هم‌نام قبلی برای جلوگیری از تداخل
             docker stop portfolio-container || true
             docker rm portfolio-container || true
             
-            # ۴. اجرای نهایی کانتینر جدید
+            # ۴. اجرای کانتینر جدید و متصل کردن پورت 3000 سرور به 80 داکر
             docker run -d --name portfolio-container -p 3000:80 portfolio-app
