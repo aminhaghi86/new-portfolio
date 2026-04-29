@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
+import { Phone, MessageCircle } from "lucide-react";
 import myData from "./data.json";
 import cv from "/cv.pdf";
 
 export default function App() {
   const [dark, setDark] = useState(true);
+  const [showPolicy, setShowPolicy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -32,6 +34,49 @@ export default function App() {
     }
   }, [dark]);
 
+  // const sendToN8N = async () => {
+  //   if (!form.name || !form.message) {
+  //     alert("Please fill your name and message");
+  //     return;
+  //   }
+
+  //   try {
+  //     setLoading(true);
+
+  //     // خواندن URL از فایل .env
+  //     const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+
+  //     // چک ایمنی
+  //     if (!webhookUrl) {
+  //       alert("Error: Webhook URL is not configured. Please contact the developer.");
+  //       console.error("VITE_N8N_WEBHOOK_URL is missing in .env file");
+  //       return;
+  //     }
+
+  //     const response = await fetch(webhookUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(form),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+
+  //     alert("Message sent successfully! 🚀");
+
+  //     // ریست کردن فرم
+  //     setForm({ name: "", company: "", message: "" });
+
+  //   } catch (err) {
+  //     console.error("Error sending message:", err);
+  //     alert("Failed to send message. Please try again later.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const sendToN8N = async () => {
     if (!form.name || !form.message) {
       alert("Please fill your name and message");
@@ -41,41 +86,60 @@ export default function App() {
     try {
       setLoading(true);
 
-      // خواندن URL از فایل .env
       const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
 
-      // چک ایمنی
       if (!webhookUrl) {
-        alert("Error: Webhook URL is not configured. Please contact the developer.");
-        console.error("VITE_N8N_WEBHOOK_URL is missing in .env file");
+        alert("Webhook not configured");
         return;
       }
+
+      // گرفتن اطلاعات IP
+      const ipData = await fetch("https://ipapi.co/json/")
+        .then(res => res.json());
+
+      const payload = {
+        ...form,
+
+        ip: ipData.ip,
+        city: ipData.city,
+        country: ipData.country_name,
+        region: ipData.region,
+        isp: ipData.org,
+
+        browser: navigator.userAgent,
+        language: navigator.language,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        screen: `${window.innerWidth}x${window.innerHeight}`,
+        referrer: document.referrer || "Direct",
+        page: window.location.href,
+        submittedAt: new Date().toLocaleString(),
+      };
 
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      if (!response.ok) throw new Error();
 
-      alert("Message sent successfully! 🚀");
+      alert("Message sent successfully 🚀");
 
-      // ریست کردن فرم
-      setForm({ name: "", company: "", message: "" });
+      setForm({
+        name: "",
+        company: "",
+        message: "",
+      });
 
     } catch (err) {
-      console.error("Error sending message:", err);
-      alert("Failed to send message. Please try again later.");
+      alert("Failed to send");
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen bg-white dark:bg-[#0b0b10] text-zinc-900 dark:text-white transition-colors duration-300">
 
@@ -324,6 +388,19 @@ export default function App() {
               </div>
             </a>
 
+            {/* phone number */}
+            <a
+              href="tel:+96890928200"
+              className="group flex items-center gap-5 p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
+            >
+              <div className="w-12 h-12 flex items-center justify-center bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl group-hover:scale-110 transition">
+                <Phone size={26} />
+              </div>
+              <div>
+                <p className="font-semibold">Call me</p>
+                <p className="text-zinc-500 dark:text-zinc-400">+968 9092 8400</p>
+              </div>
+            </a>
             {/* Email */}
             <a
               href="mailto:aminhaghi@gmail.com"
@@ -346,7 +423,9 @@ export default function App() {
 
           {/* فرم ارسال پیام */}
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl font-semibold text-center mb-8">Hire Me Instantly</h3>
+            <h3 className="text-2xl font-semibold text-center mb-8">
+              Hire Me Instantly
+            </h3>
 
             <div className="space-y-4">
               <input
@@ -382,16 +461,111 @@ export default function App() {
               </button>
             </div>
 
-            <p className="text-center text-xs text-zinc-500 mt-6">
-              Your message will be sent to my Telegram via n8n
-            </p>
+            <div className="mt-6 space-y-2 text-center">
+              <p className="text-xs text-zinc-500">
+                Your message will be delivered securely to my private inbox.
+              </p>
+
+              <p className="text-xs text-zinc-500 max-w-md mx-auto leading-relaxed">
+                By submitting this form, you acknowledge that your message may be processed
+                for communication and professional recruitment purposes.
+              </p>
+
+              <button
+                onClick={() => setShowPolicy(true)}
+                className="text-xs text-blue-600 hover:underline"
+              >
+                Read Privacy Policy
+              </button>
+            </div>
           </div>
         </div>
       </section>
+      {/* FLOATING WHATSAPP */}
+      <a
+        href="https://wa.me/96890928400?text=Hello%20Amin%2C%20I%20visited%20your%20portfolio."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110"
+      >
+        <MessageCircle size={28} />
+      </a>
+      {showPolicy && (
+        <div className="fixed inset-0 z-[100] bg-black/60 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 max-w-2xl w-full rounded-3xl p-8 shadow-2xl max-h-[85vh] overflow-y-auto">
 
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Privacy Policy</h2>
+
+              <button
+                onClick={() => setShowPolicy(false)}
+                className="text-zinc-500 hover:text-red-500 text-xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-5 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+
+              <p>
+                This website is operated by Amin Haghi as a personal portfolio for professional networking and career opportunities.
+              </p>
+
+              <p>
+                When you use the contact form, only the information you voluntarily provide (such as your name, company, and message) is collected and processed.
+              </p>
+
+              <p>
+                Basic technical information may be used in a minimal and anonymous way to ensure website security and improve communication reliability.
+              </p>
+
+              <p>
+                The collected information is used only for:
+              </p>
+
+              <ul className="list-disc ml-6 space-y-1">
+                <li>Responding to professional and job-related inquiries</li>
+                <li>Preventing spam and misuse of the contact form</li>
+                <li>Maintaining secure and reliable website operation</li>
+              </ul>
+
+              <p>
+                Your information is never sold, shared, or used for advertising purposes.
+              </p>
+
+              <p>
+                If you would like your submitted information to be removed, you can contact:
+              </p>
+
+              <p className="font-medium">
+                aminhaghi@gmail.com
+              </p>
+
+            </div>
+          </div>
+        </div>
+      )}
       {/* FOOTER */}
-      <footer className="py-12 text-center text-sm text-zinc-500 border-t border-zinc-200 dark:border-white/10">
-        © 2026 Amin Haghi • Built with React & Tailwind
+      <footer className="py-12 text-center text-sm text-zinc-500 border-t border-zinc-200 dark:border-white/10 space-y-4">
+
+        <p>© 2026 Amin Haghi • Built with React & Tailwind</p>
+
+        <div className="flex justify-center gap-6 text-xs">
+          <button
+            onClick={() => setShowPolicy(true)}
+            className="hover:text-blue-600 transition"
+          >
+            Privacy Policy
+          </button>
+
+          <a
+            href="mailto:aminhaghi@gmail.com"
+            className="hover:text-blue-600 transition"
+          >
+            Contact
+          </a>
+        </div>
+
       </footer>
     </div>
   );
