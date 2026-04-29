@@ -3,8 +3,10 @@ FROM node:20-alpine AS builder
 
 # تعریف آرگومان برای دریافت از سیستم بیلد
 ARG VITE_N8N_WEBHOOK_URL
+ARG VITE_TURNSTILE_SITE_KEY
 # قرار دادن آرگومان در محیط سیستم برای استفاده Vite
 ENV VITE_N8N_WEBHOOK_URL=$VITE_N8N_WEBHOOK_URL
+ENV VITE_TURNSTILE_SITE_KEY=$VITE_TURNSTILE_SITE_KEY
 
 WORKDIR /app
 COPY package*.json ./

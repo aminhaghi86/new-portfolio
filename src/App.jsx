@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
+import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
 
@@ -11,10 +12,12 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
+    email: "",
+    phone: "",
     company: "",
     message: "",
   });
-  console.log(myData)
+  const [captchaToken, setCaptchaToken] = useState(null);
   const personal = myData.MyInformation[0];
   const projects = myData.myProjects;
 
@@ -34,52 +37,16 @@ export default function App() {
     }
   }, [dark]);
 
-  // const sendToN8N = async () => {
-  //   if (!form.name || !form.message) {
-  //     alert("Please fill your name and message");
-  //     return;
-  //   }
-
-  //   try {
-  //     setLoading(true);
-
-  //     // خواندن URL از فایل .env
-  //     const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
-
-  //     // چک ایمنی
-  //     if (!webhookUrl) {
-  //       alert("Error: Webhook URL is not configured. Please contact the developer.");
-  //       console.error("VITE_N8N_WEBHOOK_URL is missing in .env file");
-  //       return;
-  //     }
-
-  //     const response = await fetch(webhookUrl, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(form),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-
-  //     alert("Message sent successfully! 🚀");
-
-  //     // ریست کردن فرم
-  //     setForm({ name: "", company: "", message: "" });
-
-  //   } catch (err) {
-  //     console.error("Error sending message:", err);
-  //     alert("Failed to send message. Please try again later.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   const sendToN8N = async () => {
-    if (!form.name || !form.message) {
-      alert("Please fill your name and message");
+    // ۱. اعتبارسنجی فیلدهای اجباری (نام، ایمیل و پیام)
+    if (!form.name || !form.email || !form.message) {
+      alert("Please fill all required fields (Name, Email, Message)");
+      return;
+    }
+
+    // ۲. بررسی اینکه آیا کپچا با موفقیت تیک خورده است یا خیر
+    if (!captchaToken) {
+      alert("Please complete the security check (Cloudflare Turnstile)");
       return;
     }
 
@@ -93,18 +60,22 @@ export default function App() {
         return;
       }
 
-      // گرفتن اطلاعات IP
+      // ۳. گرفتن اطلاعات IP (همانند قبل)
       const ipData = await fetch("https://ipapi.co/json/")
-        .then(res => res.json());
+        .then(res => res.json())
+        .catch(() => ({})); // در صورت خطا در IP API، برنامه متوقف نشود
 
+      // ۴. ترکیب داده‌های فرم با اطلاعات فنی و توکن کپچا
       const payload = {
-        ...form,
+        ...form, // شامل name, email, phone, company, message
 
-        ip: ipData.ip,
-        city: ipData.city,
-        country: ipData.country_name,
-        region: ipData.region,
-        isp: ipData.org,
+        captcha: captchaToken, // ارسال توکن برای تایید در n8n
+
+        ip: ipData.ip || "Unknown",
+        city: ipData.city || "Unknown",
+        country: ipData.country_name || "Unknown",
+        region: ipData.region || "Unknown",
+        isp: ipData.org || "Unknown",
 
         browser: navigator.userAgent,
         language: navigator.language,
@@ -115,6 +86,7 @@ export default function App() {
         submittedAt: new Date().toLocaleString(),
       };
 
+      // ۵. ارسال نهایی به n8n
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -123,19 +95,23 @@ export default function App() {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error();
+      if (!response.ok) throw new Error("Server responded with error");
 
       alert("Message sent successfully 🚀");
 
+      // ۶. ریست کردن فرم و کپچا پس از ارسال موفق
       setForm({
         name: "",
+        email: "",
+        phone: "",
         company: "",
         message: "",
       });
+      setCaptchaToken(null); // ریست کردن توکن برای ارسال‌های بعدی
 
     } catch (err) {
-      alert("Failed to send");
-      console.error(err);
+      alert("Failed to send. Please try again.");
+      console.error("Submission Error:", err);
     } finally {
       setLoading(false);
     }
@@ -459,6 +435,13 @@ export default function App() {
               >
                 {loading ? "Sending..." : "Send Message"}
               </button>
+              <div className="flex justify-center my-4">
+                <Turnstile
+                  siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                  onSuccess={(token) => setCaptchaToken(token)}
+                  onExpire={() => setCaptchaToken(null)}
+                />
+              </div>
             </div>
 
             <div className="mt-6 space-y-2 text-center">

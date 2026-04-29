@@ -24,9 +24,13 @@ jobs:
             git reset --hard origin/main
             git pull origin main
             
-            # ۱. ساخت ایمیج با تزریق متغیر محیطی (Build Argument)
-            docker build --build-arg VITE_N8N_WEBHOOK_URL=${{ secrets.VITE_N8N_WEBHOOK_URL }} -t portfolio-app .
-            
+            # ساخت ایمیج با تزریق هر دو متغیر (Webhook و Site Key)
+            docker build \
+              --build-arg VITE_N8N_WEBHOOK_URL=${{ secrets.VITE_N8N_WEBHOOK_URL }} \
+              --build-arg VITE_TURNSTILE_SITE_KEY=${{ secrets.VITE_TURNSTILE_SITE_KEY }} \
+              -t portfolio-app .
+  
+              
             # ۲. آزاد کردن پورت 3000 اگر توسط کانتینر دیگری اشغال شده باشد
             CONF_ID=$(docker ps -q --filter "publish=3000")
             if [ ! -z "$CONF_ID" ]; then
