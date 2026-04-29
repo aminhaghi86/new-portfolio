@@ -409,8 +409,12 @@ export default function App() {
                 placeholder="Your Name *"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
-              />
+                className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
+           text-zinc-900 dark:text-white 
+           placeholder-zinc-400 dark:placeholder-zinc-500
+           border border-zinc-200 dark:border-white/10 
+           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+           outline-none transition-all" />
 
               {/* ردیف دوم: ایمیل و تلفن */}
               <div className="grid md:grid-cols-2 gap-4">
@@ -419,15 +423,23 @@ export default function App() {
                   placeholder="Email Address *"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
-                />
+                  className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
+           text-zinc-900 dark:text-white 
+           placeholder-zinc-400 dark:placeholder-zinc-500
+           border border-zinc-200 dark:border-white/10 
+           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+           outline-none transition-all"/>
                 <input
                   type="tel"
                   placeholder="Phone (e.g. +968...)"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
-                />
+                  className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
+           text-zinc-900 dark:text-white 
+           placeholder-zinc-400 dark:placeholder-zinc-500
+           border border-zinc-200 dark:border-white/10 
+           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+           outline-none transition-all" />
               </div>
 
               {/* شرکت */}
@@ -436,8 +448,12 @@ export default function App() {
                 placeholder="Company (Optional)"
                 value={form.company}
                 onChange={(e) => setForm({ ...form, company: e.target.value })}
-                className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
-              />
+                className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
+           text-zinc-900 dark:text-white 
+           placeholder-zinc-400 dark:placeholder-zinc-500
+           border border-zinc-200 dark:border-white/10 
+           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+           outline-none transition-all" />
 
               {/* متن پیام */}
               <textarea
@@ -445,8 +461,12 @@ export default function App() {
                 rows={5}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent resize-y"
-              />
+                className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
+           text-zinc-900 dark:text-white 
+           placeholder-zinc-400 dark:placeholder-zinc-500
+           border border-zinc-200 dark:border-white/10 
+           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+           outline-none transition-all" />
 
               {/* ویجت کپچا - بهتر است بالای دکمه باشد تا کاربر اول آن را ببیند */}
               <div className="flex justify-center my-2">
