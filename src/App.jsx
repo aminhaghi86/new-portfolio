@@ -5,7 +5,6 @@ import { Phone, MessageCircle } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
-console.log("Check Key:", import.meta.env.VITE_TURNSTILE_SITE_KEY);
 export default function App() {
   const [dark, setDark] = useState(true);
   const [showPolicy, setShowPolicy] = useState(false);
@@ -404,6 +403,7 @@ export default function App() {
             </h3>
 
             <div className="space-y-4">
+              {/* نام */}
               <input
                 type="text"
                 placeholder="Your Name *"
@@ -412,6 +412,25 @@ export default function App() {
                 className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
               />
 
+              {/* ردیف دوم: ایمیل و تلفن */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <input
+                  type="email"
+                  placeholder="Email Address *"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone (e.g. +968...)"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
+                />
+              </div>
+
+              {/* شرکت */}
               <input
                 type="text"
                 placeholder="Company (Optional)"
@@ -420,6 +439,7 @@ export default function App() {
                 className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent"
               />
 
+              {/* متن پیام */}
               <textarea
                 placeholder="Your Message *"
                 rows={5}
@@ -428,6 +448,16 @@ export default function App() {
                 className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 focus:border-blue-500 outline-none border border-transparent resize-y"
               />
 
+              {/* ویجت کپچا - بهتر است بالای دکمه باشد تا کاربر اول آن را ببیند */}
+              <div className="flex justify-center my-2">
+                <Turnstile
+                  siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                  onSuccess={(token) => setCaptchaToken(token)}
+                  onExpire={() => setCaptchaToken(null)}
+                />
+              </div>
+
+              {/* دکمه ارسال */}
               <button
                 onClick={sendToN8N}
                 disabled={loading}
@@ -435,13 +465,6 @@ export default function App() {
               >
                 {loading ? "Sending..." : "Send Message"}
               </button>
-              <div className="flex justify-center my-4">
-                <Turnstile
-                  siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
-                  onSuccess={(token) => setCaptchaToken(token)}
-                  onExpire={() => setCaptchaToken(null)}
-                />
-              </div>
             </div>
 
             <div className="mt-6 space-y-2 text-center">
