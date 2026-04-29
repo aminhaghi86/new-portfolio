@@ -20,11 +20,23 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/portfolio-new
+            git reset --hard origin/main
             git pull origin main
-            # ساخت ایمیج داکر (نام آن را portfolio-app می‌گذاریم)
+            
+            # ۱. ساخت ایمیج جدید
             docker build -t portfolio-app .
-            # متوقف کردن کانتینر قبلی اگر وجود داشته باشد
+            
+            # ۲. پیدا کردن و متوقف کردن هر کانتینری که پورت 3000 را اشغال کرده
+            # این دستور هوشمندانه کانتینر مزاحم را پیدا و حذف می‌کند
+            CONF_ID=$(docker ps -q --filter "publish=3000")
+            if [ ! -z "$CONF_ID" ]; then
+              docker stop $CONF_ID
+              docker rm $CONF_ID
+            fi
+
+            # ۳. اطمینان از حذف کانتینر با نام مشابه برای جلوگیری از تداخل نام
             docker stop portfolio-container || true
             docker rm portfolio-container || true
-            # اجرای کانتینر جدید روی پورت 3000
+            
+            # ۴. اجرای نهایی کانتینر جدید
             docker run -d --name portfolio-container -p 3000:80 portfolio-app
