@@ -1,0 +1,30 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches:
+      - main  # نام برنچ اصلی خود را چک کنید، اگر master است به master تغییر دهید
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/portfolio-new
+            git pull origin main
+            # ساخت ایمیج داکر (نام آن را portfolio-app می‌گذاریم)
+            docker build -t portfolio-app .
+            # متوقف کردن کانتینر قبلی اگر وجود داشته باشد
+            docker stop portfolio-container || true
+            docker rm portfolio-container || true
+            # اجرای کانتینر جدید روی پورت 3000
+            docker run -d --name portfolio-container -p 3000:80 portfolio-app
