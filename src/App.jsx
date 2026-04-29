@@ -5,7 +5,7 @@ import { Phone, MessageCircle } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
-
+console.log("Check Key:", import.meta.env.VITE_TURNSTILE_SITE_KEY);
 export default function App() {
   const [dark, setDark] = useState(true);
   const [showPolicy, setShowPolicy] = useState(false);
