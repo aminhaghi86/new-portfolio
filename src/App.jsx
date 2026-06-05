@@ -117,7 +117,7 @@ export default function App() {
   };
   return (
     <div className="min-h-screen bg-white dark:bg-[#0b0b10] text-zinc-900 dark:text-white transition-colors duration-300">
-
+      <h1>2026!</h1>
       {/* HEADER / NAVBAR */}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
