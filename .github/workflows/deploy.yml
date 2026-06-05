@@ -3,7 +3,7 @@ name: Deploy Portfolio
 on:
   push:
     branches:
-      - main  # نام برنچ اصلی خود را چک کنید، اگر master است به master تغییر دهید
+      - main
 
 jobs:
   deploy:
@@ -17,30 +17,28 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # استفاده از کلید جدید
+          key: ${{ secrets.SSH_PRIVATE_KEY_USA_VPS }}
+          # تنظیمات برای جلوگیری از خطای Timeout
+          script_stop: true
+          timeout: 60s
+          command_timeout: 10m
           script: |
             cd /var/www/portfolio-new
-            # اطمینان از هماهنگی کامل با ریپازیتوری گیت‌هاب
-            git reset --hard origin/main
-            git pull origin main
             
-            # ساخت ایمیج با تزریق هر دو متغیر (Webhook و Site Key)
+            # بروزرسانی کدها
+            git fetch origin main
+            git reset --hard origin/main
+            
+            # ساخت ایمیج با متغیرهای لازم
             docker build \
               --build-arg VITE_N8N_WEBHOOK_URL=${{ secrets.VITE_N8N_WEBHOOK_URL }} \
               --build-arg VITE_TURNSTILE_SITE_KEY=${{ secrets.VITE_TURNSTILE_SITE_KEY }} \
               -t portfolio-app .
-  
-              
-            # ۲. آزاد کردن پورت 3000 اگر توسط کانتینر دیگری اشغال شده باشد
-            CONF_ID=$(docker ps -q --filter "publish=3000")
-            if [ ! -z "$CONF_ID" ]; then
-              docker stop $CONF_ID
-              docker rm $CONF_ID
-            fi
-
-            # ۳. حذف کانتینر هم‌نام قبلی برای جلوگیری از تداخل
+            
+            # حذف کانتینر قدیمی با نام درست
             docker stop portfolio-container || true
             docker rm portfolio-container || true
             
-            # ۴. اجرای کانتینر جدید و متصل کردن پورت 3000 سرور به 80 داکر
+            # اجرای کانتینر جدید
             docker run -d --name portfolio-container -p 3000:80 portfolio-app
