@@ -7,6 +7,7 @@ import myData from "./data.json";
 import cv from "/cv.pdf";
 export default function App() {
   const [dark, setDark] = useState(true);
+  const [captchaKey, setCaptchaKey] = useState(0); // این کلید باعث ریست شدن کپچا می‌شود
   const [showPolicy, setShowPolicy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -107,6 +108,7 @@ export default function App() {
         message: "",
       });
       setCaptchaToken(null); // ریست کردن توکن برای ارسال‌های بعدی
+      setCaptchaKey(prev => prev + 1);
 
     } catch (err) {
       alert("Failed to send. Please try again.");
@@ -117,7 +119,6 @@ export default function App() {
   };
   return (
     <div className="min-h-screen bg-white dark:bg-[#0b0b10] text-zinc-900 dark:text-white transition-colors duration-300">
-      <h1>2026!</h1>
       {/* HEADER / NAVBAR */}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
@@ -471,6 +472,7 @@ export default function App() {
               {/* ویجت کپچا - بهتر است بالای دکمه باشد تا کاربر اول آن را ببیند */}
               <div className="flex justify-center my-2">
                 <Turnstile
+                  key={captchaKey}
                   siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
                   onSuccess={(token) => setCaptchaToken(token)}
                   onExpire={() => setCaptchaToken(null)}
