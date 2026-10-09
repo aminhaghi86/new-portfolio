@@ -37,4 +37,4 @@ jobs:
           source: "dist/*"
           target: "/root/services/portfolio/dist"
           strip_components: 1
-          rm: true
+          overwrite: true
