@@ -374,7 +374,7 @@ export default function App() {
               </div>
               <div>
                 <p className="font-semibold">Call me</p>
-                <p className="text-zinc-500 dark:text-zinc-400">+968 9092 8400</p>
+                <p className="text-zinc-500 dark:text-zinc-400">+989304978625</p>
               </div>
             </a>
             {/* Email */}
