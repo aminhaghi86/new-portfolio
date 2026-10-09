@@ -366,7 +366,7 @@ export default function App() {
 
             {/* phone number */}
             <a
-              href="tel:+96890928200"
+              href="tel:+989304978625"
               className="group flex items-center gap-5 p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
             >
               <div className="w-12 h-12 flex items-center justify-center bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl group-hover:scale-110 transition">
