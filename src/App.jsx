@@ -347,7 +347,7 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-6 mb-14">
             {/* Location */}
             <a
-              href="https://maps.google.com/?q=Muscat+Oman"
+              href="https://www.google.com/maps?q=Mashhad+Iran"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-5 p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
@@ -360,7 +360,7 @@ export default function App() {
               </div>
               <div>
                 <p className="font-semibold">Location</p>
-                <p className="text-zinc-500 dark:text-zinc-400">Muscat, Oman</p>
+                <p className="text-zinc-500 dark:text-zinc-400">Mashhad, Iran</p>
               </div>
             </a>
 
