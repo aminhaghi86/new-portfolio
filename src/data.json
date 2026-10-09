@@ -2,85 +2,157 @@
   "myProjects": [
     {
       "id": 0,
-      "title": "Scheduling Application with React,node and Socket.IO",
+      "title": "Real-time Scheduling Application",
       "github": "https://github.com/aminhaghi86/school-full",
-      "image": "../socket.png",
-      "desc": "Built interactive React calendar app with real-time updates and user authentication using FullCalendar, Axios, Socket.IO, and context.",
+      "image": "/socket.png",
+      "desc": "A React scheduling application with a FullCalendar interface, user authentication, and real-time updates using Node.js and Socket.IO.",
       "tech": [
-        { "skill": "React", "img": "../icon/react.svg" },
-        { "skill": "Postgres", "img": "../icon/sequelize.svg" },
-        { "skill": "Nodejs", "img": "../icon/nodejs.svg" },
-        { "skill": "Express", "img": "../icon/expressjs.svg" },
-        { "skill": "Web Socket", "img": "../icon/socket.svg" }
+        {
+          "skill": "React",
+          "img": "../icon/react.svg"
+        },
+        {
+          "skill": "Postgres",
+          "img": "../icon/sequelize.svg"
+        },
+        {
+          "skill": "Nodejs",
+          "img": "../icon/nodejs.svg"
+        },
+        {
+          "skill": "Express",
+          "img": "../icon/expressjs.svg"
+        },
+        {
+          "skill": "Web Socket",
+          "img": "../icon/socket.svg"
+        }
       ],
-      "demo": "https://github.com/aminhaghi86/school-full/assets/90243818/36cbff62-ab97-4200-8019-998c2e76a25b"
-    },
-    {
-      "id": 1,
-      "title": "Interactive Chat with Nuxt.js and Stella",
-      "github": "https://github.com/aminhaghi86/stella-app",
-      "image": "../stella.png",
-      "desc": "This project simplifies building interactive chat applications with Nuxt.js 3 and Stella, a framework for AI-powered chatbots. It utilizes Gsap for captivating animations and Socket.IO for real-time communication, ensuring a seamless and engaging user experience.",
-      "tech": [
-        { "skill": "NuxtJS", "img": "../icon/nuxt.svg" },
-        { "skill": "Web Socket", "img": "../icon/socket.svg" },
-        { "skill": "Chat", "img": "../icon/chat.svg" },
-        { "skill": "Viss AI", "img": "../icon/viss.png" }
-      ],
-      "demo": "https://github.com/aminhaghi86/stella-app/assets/90243818/c634610f-ccd5-45ff-b7b2-16b388a62f75"
+      "demo": "https://github.com/aminhaghi86/school-full/assets/90243818/36cbff62-ab97-4200-8019-998c2e76a25b",
+      "demoLabel": "Watch Demo"
     },
     {
       "id": 2,
-      "title": "React Portfolio",
+      "title": "Designer Portfolio Website",
       "github": "https://github.com/aminhaghi86/maryam-portfolio",
-      "image": "../portfoliomaryam.png",
-      "desc": "I've built a portfolio website using React and SCSS for design. I created and developed it entirely myself for a friend who is a designer.",
+      "image": "/portfoliomaryam.png",
+      "desc": "Designed and developed a React and SCSS portfolio for a designer, presenting her work through a responsive website.",
       "tech": [
-        { "skill": "React", "img": "../icon/react.svg" },
-        { "skill": "Scss", "img": "../icon/sass.png" }
+        {
+          "skill": "React",
+          "img": "../icon/react.svg"
+        },
+        {
+          "skill": "Scss",
+          "img": "../icon/sass.png"
+        }
       ],
-      "demo": "https://maryamfadaei.netlify.app/"
+      "demo": "https://maryamfadaei.netlify.app/",
+      "demoLabel": "Live Demo"
+    },
+    {
+      "id": 1,
+      "title": "Interactive Chat Application",
+      "github": "https://github.com/aminhaghi86/stella-app",
+      "image": "/stella.png",
+      "desc": "An interactive chat application built with Nuxt.js, Stella, Socket.IO, and GSAP animations.",
+      "tech": [
+        {
+          "skill": "NuxtJS",
+          "img": "../icon/nuxt.svg"
+        },
+        {
+          "skill": "Web Socket",
+          "img": "../icon/socket.svg"
+        },
+        {
+          "skill": "Chat",
+          "img": "../icon/chat.svg"
+        },
+        {
+          "skill": "Viss AI",
+          "img": "../icon/viss.png"
+        }
+      ],
+      "demo": "https://github.com/aminhaghi86/stella-app/assets/90243818/c634610f-ccd5-45ff-b7b2-16b388a62f75",
+      "demoLabel": "Watch Demo"
     },
     {
       "id": 3,
-      "title": "fullstack-app * book",
+      "title": "Book Management Application",
       "github": "https://github.com/aminhaghi86/app-book",
-      "image": "../appbook.png",
-      "desc": "I implemented a CRUD system for managing books, along with user registration and login functionalities.",
+      "image": "/appbook.png",
+      "desc": "A full-stack application for creating, viewing, updating, and deleting book records, with user registration and login.",
       "tech": [
-        { "skill": "C#", "img": "../icon/csharp.svg" },
-        { "skill": "SQLServer", "img": "../icon/sqlserver.svg" },
-        { "skill": "TypeScript", "img": "../icon/typescript.svg" },
-        { "skill": "Angular", "img": "../icon/angular.svg" }
+        {
+          "skill": "C#",
+          "img": "../icon/csharp.svg"
+        },
+        {
+          "skill": "SQLServer",
+          "img": "../icon/sqlserver.svg"
+        },
+        {
+          "skill": "TypeScript",
+          "img": "../icon/typescript.svg"
+        },
+        {
+          "skill": "Angular",
+          "img": "../icon/angular.svg"
+        }
       ],
-      "demo": "https://github.com/aminhaghi86/app-book"
+      "demo": "",
+      "demoLabel": "Live Demo"
     },
     {
       "id": 4,
-      "title": "Three.JS Project",
+      "title": "Interactive Three.js Game",
       "github": "https://github.com/aminhaghi86/GP-ExploringCode",
-      "image": "./threejs.png",
-      "desc": "Hyper Island Assessment Race is an exciting game where players assist students in driving their car and navigating through a series of assessments without colliding with them. The objective is to reach a 100% score and successfully pass the assessments.",
+      "image": "/threejs.png",
+      "desc": "A browser game where players navigate a car through obstacles to complete assessments. Built with React, Three.js, and GSAP.",
       "tech": [
-        { "skill": "React.js", "img": "../icon/react.svg" },
-        { "skill": "ThreeJS", "img": "../icon/th3js.png" },
-        { "skill": "GSAP", "img": "../icon/gsap.png" }
+        {
+          "skill": "React.js",
+          "img": "../icon/react.svg"
+        },
+        {
+          "skill": "ThreeJS",
+          "img": "../icon/th3js.png"
+        },
+        {
+          "skill": "GSAP",
+          "img": "../icon/gsap.png"
+        }
       ],
-      "demo": "https://hyper-race.netlify.app/"
+      "demo": "https://hyper-race.netlify.app/",
+      "demoLabel": "Live Demo"
     },
     {
       "id": 5,
-      "title": "PERN-TodoList",
+      "title": "Full-stack Task Manager",
       "github": "https://github.com/aminhaghi86/todolist-pernstack",
-      "image": "../pernstack-todo.png",
-      "desc": "Our group successfully created a full-stack to-do list application. Once a user logs in, user gains the ability to add, update, and remove tasks. Additionally, users can retrieve all tasks for easy reference.",
+      "image": "/pernstack-todo.png",
+      "desc": "A group project using the PERN stack. Users can register, sign in, and create, view, update, and delete tasks.",
       "tech": [
-        { "skill": "React.js", "img": "../icon/react.svg" },
-        { "skill": "Postgres", "img": "../icon/sequelize.svg" },
-        { "skill": "Nodejs", "img": "../icon/nodejs.svg" },
-        { "skill": "Express", "img": "../icon/expressjs.svg" }
+        {
+          "skill": "React.js",
+          "img": "../icon/react.svg"
+        },
+        {
+          "skill": "Postgres",
+          "img": "../icon/sequelize.svg"
+        },
+        {
+          "skill": "Nodejs",
+          "img": "../icon/nodejs.svg"
+        },
+        {
+          "skill": "Express",
+          "img": "../icon/expressjs.svg"
+        }
       ],
-      "demo": "https://todolist-fullstack.netlify.app/"
+      "demo": "https://todolist-fullstack.netlify.app/",
+      "demoLabel": "Live Demo"
     }
   ],
   "myPersonalInfo": [
@@ -93,24 +165,64 @@
     }
   ],
   "navbarItems": [
-    { "id": 0, "link": "home", "url": "/" },
-    { "id": 1, "link": "tech", "url": "/tech" },
-    { "id": 2, "link": "projects", "url": "/projects" },
-    { "id": 3, "link": "contact", "url": "/contact" },
-    { "id": 4, "link": "View My Resume", "url": "cv.pdf" }
-
+    {
+      "id": 0,
+      "link": "About",
+      "url": "#about"
+    },
+    {
+      "id": 1,
+      "link": "Services",
+      "url": "#services"
+    },
+    {
+      "id": 2,
+      "link": "Projects",
+      "url": "#projects"
+    },
+    {
+      "id": 3,
+      "link": "Contact",
+      "url": "#contact"
+    }
   ],
   "MyInformation": [
     {
       "id": 0,
       "name": "Amin Haghi",
-      "role": "Frontend Developer",
-
-      "bio": "Combining design and coding to create cool websites and apps is what has piqued my interest in this field",
-
-      "description": "I'm a frontend developer who loves working with React and has a good grasp of HTML, CSS, and JavaScript. I enjoy creating apps that are easy to use and look great, and I make sure they work smoothly with APIs and databases.",
-
-      "image": "/mypic.jpeg"
+      "role": "Web Developer & Automation Specialist",
+      "bio": "I hold a degree in software engineering and completed frontend development training in Sweden. I build web applications, online stores, and workflow automations.",
+      "description": "I help businesses build web applications, improve WordPress and WooCommerce websites, and automate repetitive tasks with n8n. From customer inquiries to connected business tools, I turn your requirements into practical solutions.",
+      "image": "/mypic.jpeg",
+      "about": "I work with React and Next.js, REST APIs, PostgreSQL and MongoDB, and integrations between business tools. I can collaborate directly with your team or support an agency with development and automation work."
+    }
+  ],
+  "services": [
+    {
+      "title": "Web Applications",
+      "description": "Custom websites and applications with React and Next.js, connected to APIs and databases. I can build a new product or improve an existing application."
+    },
+    {
+      "title": "WordPress & WooCommerce",
+      "description": "Business websites and online stores, including setup, customization, checkout improvements, and integrations with the tools you already use."
+    },
+    {
+      "title": "Workflow Automation",
+      "description": "n8n workflows that connect forms, Telegram, databases, and business tools to reduce repetitive manual work and keep information moving."
+    }
+  ],
+  "skills": [
+    {
+      "title": "Web Development",
+      "items": "React, Next.js, JavaScript, TypeScript, Tailwind CSS"
+    },
+    {
+      "title": "Stores & Databases",
+      "items": "WordPress, WooCommerce, PostgreSQL, MongoDB, Sequelize"
+    },
+    {
+      "title": "APIs & Automation",
+      "items": "Node.js, Express, REST APIs, n8n, Telegram integrations, Socket.IO"
     }
   ]
 }
