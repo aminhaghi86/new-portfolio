@@ -2,34 +2,30 @@
   "myProjects": [
     {
       "id": 0,
-      "title": "Real-time Scheduling Application",
-      "github": "https://github.com/aminhaghi86/school-full",
-      "image": "/socket.png",
-      "desc": "A React scheduling application with a FullCalendar interface, user authentication, and real-time updates using Node.js and Socket.IO.",
+      "title": "Debasun Staging E-commerce Website",
+      "github": "#",
+      "image": "/ecommerce.png",
+      "desc": "A modern staging e-commerce platform built for a packaging company using WordPress and WooCommerce, customized with Elementor and interactive animations.",
       "tech": [
         {
-          "skill": "React",
-          "img": "../icon/react.svg"
+          "skill": "WordPress",
+          "img": "../icon/wordpress.svg"
         },
         {
-          "skill": "Postgres",
-          "img": "../icon/sequelize.svg"
+          "skill": "WooCommerce",
+          "img": "../icon/woocommerce.svg"
         },
         {
-          "skill": "Nodejs",
-          "img": "../icon/nodejs.svg"
+          "skill": "Elementor",
+          "img": "../icon/elementor.svg"
         },
         {
-          "skill": "Express",
-          "img": "../icon/expressjs.svg"
-        },
-        {
-          "skill": "Web Socket",
-          "img": "../icon/socket.svg"
+          "skill": "GSAP",
+          "img": "../icon/gsap.svg"
         }
       ],
-      "demo": "https://github.com/aminhaghi86/school-full/assets/90243818/36cbff62-ab97-4200-8019-998c2e76a25b",
-      "demoLabel": "Watch Demo"
+      "demo": "https://dibasan.com/",
+      "demoLabel": "Live Demo"
     },
     {
       "id": 2,
@@ -156,30 +152,34 @@
     },
     {
       "id": 6,
-      "title": "Debasun Staging E-commerce Website",
-      "github": "#",
-      "image": "/ecommerce.png",
-      "desc": "A modern staging e-commerce platform built for a packaging company using WordPress and WooCommerce, customized with Elementor and interactive animations.",
+      "title": "Real-time Scheduling Application",
+      "github": "https://github.com/aminhaghi86/school-full",
+      "image": "/socket.png",
+      "desc": "A React scheduling application with a FullCalendar interface, user authentication, and real-time updates using Node.js and Socket.IO.",
       "tech": [
         {
-          "skill": "WordPress",
-          "img": "../icon/wordpress.svg"
+          "skill": "React",
+          "img": "../icon/react.svg"
         },
         {
-          "skill": "WooCommerce",
-          "img": "../icon/woocommerce.svg"
+          "skill": "Postgres",
+          "img": "../icon/sequelize.svg"
         },
         {
-          "skill": "Elementor",
-          "img": "../icon/elementor.svg"
+          "skill": "Nodejs",
+          "img": "../icon/nodejs.svg"
         },
         {
-          "skill": "GSAP",
-          "img": "../icon/gsap.svg"
+          "skill": "Express",
+          "img": "../icon/expressjs.svg"
+        },
+        {
+          "skill": "Web Socket",
+          "img": "../icon/socket.svg"
         }
       ],
-      "demo": "https://dibasan.com/",
-      "demoLabel": "Live Demo"
+      "demo": "https://github.com/aminhaghi86/school-full/assets/90243818/36cbff62-ab97-4200-8019-998c2e76a25b",
+      "demoLabel": "Watch Demo"
     }
   ],
   "myPersonalInfo": [
@@ -250,6 +250,10 @@
     {
       "title": "APIs & Automation",
       "items": "Node.js, Express, REST APIs, n8n, Telegram integrations, Socket.IO"
+    },
+    {
+      "title": "DevOps & CI/CD",
+      "items": "GitHub Actions, CI/CD Pipelines, Linux VPS, SSH/SCP Deployment"
     }
   ]
 }
