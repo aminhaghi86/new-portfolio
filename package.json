@@ -14,9 +14,11 @@
     "@tailwindcss/vite": "^4.2.4",
     "axios": "^1.15.2",
     "framer-motion": "^12.38.0",
+    "i18next": "^26.4.4",
     "lucide-react": "^1.11.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-i18next": "^17.0.16",
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {

@@ -5,13 +5,18 @@ import { Phone, MessageCircle } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
+import { useTranslation } from "react-i18next";
+import "./i18n";
 export default function App() {
+  const { t, i18n } = useTranslation();
+  const language = i18n.resolvedLanguage === "fa" ? "fa" : "en";
+  const services = t("serviceCards", { returnObjects: true });
   const [dark, setDark] = useState(() => {
     try { return localStorage.getItem("theme") !== "light"; }
     catch { return true; }
   });
   const policyRef = useRef(null);
-  const [status, setStatus] = useState({ type: "", message: "" });
+  const [status, setStatus] = useState({ type: "", messageKey: "" });
   const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
   const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
   const [captchaKey, setCaptchaKey] = useState(0); // این کلید باعث ریست شدن کپچا می‌شود
@@ -25,8 +30,12 @@ export default function App() {
     message: "",
   });
   const [captchaToken, setCaptchaToken] = useState(null);
-  const personal = myData.MyInformation[0];
-  const projects = myData.myProjects;
+  const personal = { ...myData.MyInformation[0], ...t("personal", { returnObjects: true }) };
+  const projects = myData.myProjects.map((project) => ({
+    ...project, ...t(`projectContent.${project.id}`, { returnObjects: true }),
+  }));
+  const navigation = myData.navbarItems.map((item, index) => ({ ...item, link: t(`nav.${index}`) }));
+  const skills = t("skillCards", { returnObjects: true });
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -48,19 +57,19 @@ export default function App() {
     );
     if (!cleaned.name || !cleaned.message ||
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned.email)) {
-      setStatus({ type: "error", message: "Please enter your name, a valid email address, and a message." });
+      setStatus({ type: "error", messageKey: "validation" });
       return;
     }
     if (!siteKey || !webhookUrl) {
-      setStatus({ type: "error", message: "The contact form is temporarily unavailable. Please email aminhaghi@gmail.com." });
+      setStatus({ type: "error", messageKey: "unconfigured" });
       return;
     }
     if (!captchaToken) {
-      setStatus({ type: "error", message: "Please complete the security check (Cloudflare Turnstile)." });
+      setStatus({ type: "error", messageKey: "captchaRequired" });
       return;
     }
     setLoading(true);
-    setStatus({ type: "", message: "" });
+    setStatus({ type: "", messageKey: "" });
     try {
       const response = await fetch(webhookUrl, {
         method: "POST",
@@ -70,10 +79,10 @@ export default function App() {
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || result?.ok !== true) throw new Error("Submission was not confirmed");
-      setStatus({ type: "success", message: "Your message has been sent. Thank you — I will reply by email." });
+      setStatus({ type: "success", messageKey: "success" });
       setForm({ name: "", email: "", phone: "", company: "", message: "" });
     } catch {
-      setStatus({ type: "error", message: "Delivery could not be confirmed. Please email aminhaghi@gmail.com, or try again. If the connection timed out, your message may already have arrived." });
+      setStatus({ type: "error", messageKey: "failed" });
     } finally {
       setCaptchaToken(null);
       setCaptchaKey((previous) => previous + 1);
@@ -85,21 +94,26 @@ export default function App() {
       {/* HEADER / NAVBAR ****/}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-          <a href="#home" className="text-xl sm:text-2xl font-bold tracking-tight">Amin Haghi</a>
-          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6 text-sm">
-            {myData.navbarItems.map((item) => <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>)}
+          <a href="#home" className="text-xl sm:text-2xl font-bold ">{t("brand")}</a>
+          <nav aria-label={t("mainNav")} className="hidden md:flex items-center gap-6 text-sm">
+            {navigation.map((item) => <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>)}
           </nav>
 
+          <div className="flex items-center gap-2">
+          <button type="button" onClick={() => i18n.changeLanguage(language === "fa" ? "en" : "fa")} aria-label={t("language")} className="px-3 py-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20" lang={language === "fa" ? "en" : "fa"}>
+            {language === "fa" ? "English" : "فارسی"}
+          </button>
           <button
             onClick={() => setDark((previous) => !previous)}
-            aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+            aria-label={dark ? t("lightTheme") : t("darkTheme")}
             className="p-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 transition-all"
           >
             {dark ? <Sun size={22} /> : <Moon size={22} />}
           </button>
+          </div>
         </div>
-        <nav aria-label="Mobile navigation" className="md:hidden flex justify-center gap-5 px-4 pb-4 text-sm">
-          {myData.navbarItems.map((item) => <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>)}
+        <nav aria-label={t("mobileNav")} className="md:hidden flex justify-center gap-5 px-4 pb-4 text-sm">
+          {navigation.map((item) => <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>)}
         </nav>
       </header>
 
@@ -112,7 +126,7 @@ export default function App() {
             transition={{ duration: 0.7 }}
             className="text-4xl sm:text-6xl md:text-7xl font-bold leading-tight"
           >
-            Hi, I'm <span className="text-blue-600 dark:text-blue-500">{personal.name}</span>
+            {t("hello")} <span className="text-blue-600 dark:text-blue-500">{personal.name}</span>
           </motion.h1>
 
           <motion.h2
@@ -133,7 +147,7 @@ export default function App() {
               href="#contact"
               className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-medium text-lg transition-all active:scale-95"
             >
-              Discuss Your Project
+              {t("discuss")}
             </motion.a>
             <motion.a
               href={cv}
@@ -141,7 +155,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="px-10 py-4 border border-zinc-300 dark:border-white/20 hover:bg-zinc-100 dark:hover:bg-white/5 rounded-2xl font-medium text-lg transition-all"
             >
-              View CV
+              {t("cv")}
             </motion.a>
           </div>
         </div>
@@ -153,7 +167,7 @@ export default function App() {
         <div className="grid md:grid-cols-2 gap-16 items-center">
 
           <div>
-            <h2 className="text-4xl font-bold mb-6">About Me</h2>
+            <h2 className="text-4xl font-bold mb-6">{t("about")}</h2>
 
             <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 mb-6">
               {personal.bio}
@@ -171,7 +185,7 @@ export default function App() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-6 py-3 bg-[#0A66C2] text-white rounded-2xl hover:bg-[#0A66C2]/90 transition-all"
               >
-                <span>LinkedIn</span>
+                <span>{t("linkedin")}</span>
               </a>
 
               <a
@@ -180,7 +194,7 @@ export default function App() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-6 py-3 bg-zinc-800 dark:bg-white text-white dark:text-zinc-900 rounded-2xl hover:bg-zinc-700 dark:hover:bg-zinc-100 transition-all"
               >
-                <span>GitHub</span>
+                <span>{t("github")}</span>
               </a>
             </div>
           </div>
@@ -196,14 +210,14 @@ export default function App() {
       </section>
 
       <section id="services" className="scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
-        <h2 className="text-4xl font-bold text-center mb-4">How I Can Help</h2>
-        <p className="text-center text-zinc-600 dark:text-zinc-400 mb-12">Practical development services for businesses and agencies.</p>
+        <h2 className="text-4xl font-bold text-center mb-4">{t("services")}</h2>
+        <p className="text-center text-zinc-600 dark:text-zinc-400 mb-12">{t("servicesIntro")}</p>
         <div className="grid md:grid-cols-3 gap-6">
-          {myData.services.map((service) => (
+          {services.map((service) => (
             <article key={service.title} className="flex flex-col p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900">
               <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
               <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">{service.description}</p>
-              <a href="#contact" className="mt-auto text-blue-600 dark:text-blue-400 font-medium">Discuss Your Requirements →</a>
+              <a href="#contact" className="mt-auto text-blue-600 dark:text-blue-400 font-medium">{t("requirements")}</a>
             </article>
           ))}
         </div>
@@ -212,16 +226,16 @@ export default function App() {
       {/* SKILLS */}
       <section className="px-6 py-20 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Skills & Expertise</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{t("skills")}</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {myData.skills.map((skill, i) => (
+            {skills.map((skill, i) => (
               <div
                 key={i}
                 className="p-8 rounded-3xl bg-white dark:bg-zinc-900 hover:shadow-xl transition-all duration-300"
               >
                 <h3 className="text-2xl font-bold mb-4">{skill.title}</h3>
                 <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  {skill.items}
+                  <bdi dir="ltr">{skill.items}</bdi>
                 </p>
               </div>
             ))}
@@ -231,7 +245,7 @@ export default function App() {
 
       {/* FEATURED PROJECTS */}
       <section id="projects" className="scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-12">Featured Projects</h2>
+        <h2 className="text-4xl font-bold text-center mb-12">{t("projects")}</h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
@@ -264,20 +278,20 @@ export default function App() {
                       key={i}
                       className="text-xs px-3 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full text-zinc-700 dark:text-zinc-300"
                     >
-                      {tech.skill}
+                      <bdi dir="ltr">{tech.skill}</bdi>
                     </span>
                   ))}
                 </div>
 
                 <div className="flex gap-4 mt-auto">
-                  <a
+                  {project.github && project.github !== "#" && <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center py-3 border border-zinc-300 dark:border-white/20 rounded-2xl hover:bg-zinc-100 dark:hover:bg-white/5 transition"
                   >
-                    GitHub
-                  </a>
+                    {t("github")}
+                  </a>}
                   {project.demo && project.demo !== project.github && (
                     <a
                       href={project.demo}
@@ -285,7 +299,7 @@ export default function App() {
                       rel="noopener noreferrer"
                       className="flex-1 text-center py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl transition"
                     >
-                      {project.demoLabel || "Live Demo"}
+                      {t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}
                     </a>
                   )}
                 </div>
@@ -297,32 +311,32 @@ export default function App() {
 
       <section className="px-6 pb-20 max-w-6xl mx-auto">
         <article className="p-8 md:p-12 rounded-3xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30">
-          <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-3">Automation in use on this website</p>
-          <h2 className="text-3xl font-bold mb-4">Portfolio Inquiry Automation</h2>
-          <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">I connected this contact form to a workflow on my n8n server. Project inquiries are delivered to my Telegram inbox, so I can follow up with the sender by email.</p>
-          <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">React · n8n · Telegram · Cloudflare Turnstile</p>
-          <a href="#contact" className="inline-block mt-6 text-blue-600 dark:text-blue-400 font-medium">Discuss a Similar Workflow →</a>
+          <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-3">{t("automationLabel")}</p>
+          <h2 className="text-3xl font-bold mb-4">{t("automationTitle")}</h2>
+          <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">{t("automationDescription")}</p>
+          <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400"><bdi dir="ltr">React · n8n · Telegram · Cloudflare Turnstile</bdi></p>
+          <a href="#contact" className="inline-block mt-6 text-blue-600 dark:text-blue-400 font-medium">{t("similarWorkflow")}</a>
         </article>
       </section>
 
       {/* EXPERIENCE */}
       <section className="px-6 py-20 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Background & Experience</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{t("experience")}</h2>
           <div className="space-y-10">
-            <div className="border-l-4 border-blue-600 pl-6">
-              <h3 className="font-semibold text-xl">Freelance Web Developer</h3>
-              <p className="text-zinc-500 dark:text-zinc-400">2023 - Present</p>
+            <div className="border-s-4 border-blue-600 ps-6">
+              <h3 className="font-semibold text-xl">{t("freelance")}</h3>
+              <p className="text-zinc-500 dark:text-zinc-400">{t("freelanceDates")}</p>
               <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-                Developing web applications and workflow integrations. Available for freelance projects and collaboration with agencies.
+                {t("freelanceDescription")}
               </p>
             </div>
 
-            <div className="border-l-4 border-blue-600 pl-6">
-              <h3 className="font-semibold text-xl">Frontend Development Training — Sweden</h3>
-              <p className="text-zinc-500 dark:text-zinc-400">2022 - 2023</p>
+            <div className="border-s-4 border-blue-600 ps-6">
+              <h3 className="font-semibold text-xl">{t("training")}</h3>
+              <p className="text-zinc-500 dark:text-zinc-400">{t("trainingDates")}</p>
               <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-                Completed frontend development training in Sweden, working on practical web development projects.
+                {t("trainingDescription")}
               </p>
             </div>
           </div>
@@ -332,8 +346,8 @@ export default function App() {
       {/* CONTACT */}
       {/* CONTACT SECTION */}
       <section id="contact" className="scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
-        <div className="bg-zinc-100 dark:bg-white/5 rounded-3xl p-8 md:p-12">
-          <h2 className="text-4xl font-bold text-center mb-10">Get In Touch</h2>
+        <div className="bg-zinc-100 dark:bg-white/5 rounded-3xl p-5 sm:p-8 md:p-12">
+          <h2 className="text-4xl font-bold text-center mb-10">{t("contact")}</h2>
 
           {/* اطلاعات تماس */}
           <div className="grid md:grid-cols-2 gap-6 mb-14">
@@ -342,47 +356,47 @@ export default function App() {
               href="https://www.google.com/maps?q=Mashhad+Iran"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-5 p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
+              className="group flex items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
             >
-              <div className="w-12 h-12 flex items-center justify-center bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-2xl group-hover:scale-110 transition">
+              <div className="w-12 h-12 shrink-0 flex items-center justify-center bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-2xl group-hover:scale-110 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
               </div>
               <div>
-                <p className="font-semibold">Location</p>
-                <p className="text-zinc-500 dark:text-zinc-400">Mashhad, Iran</p>
+                <p className="font-semibold">{t("location")}</p>
+                <p className="text-zinc-500 dark:text-zinc-400">{t("city")}</p>
               </div>
             </a>
 
             {/* phone number */}
             <a
               href="tel:+989304978625"
-              className="group flex items-center gap-5 p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
+              className="group flex items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
             >
-              <div className="w-12 h-12 flex items-center justify-center bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl group-hover:scale-110 transition">
+              <div className="w-12 h-12 shrink-0 flex items-center justify-center bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl group-hover:scale-110 transition">
                 <Phone size={26} />
               </div>
               <div>
-                <p className="font-semibold">Call me</p>
-                <p className="text-zinc-500 dark:text-zinc-400">+989304978625</p>
+                <p className="font-semibold">{t("call")}</p>
+                <p dir="ltr" className="text-start text-zinc-500 dark:text-zinc-400">+989304978625</p>
               </div>
             </a>
             {/* Email */}
             <a
               href="mailto:aminhaghi@gmail.com"
-              className="group flex items-center gap-5 p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
+              className="group flex items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
             >
-              <div className="w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl group-hover:scale-110 transition">
+              <div className="w-12 h-12 shrink-0 flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl group-hover:scale-110 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
               </div>
               <div>
-                <p className="font-semibold">Email</p>
-                <p className="text-zinc-500 dark:text-zinc-400">aminhaghi@gmail.com</p>
+                <p className="font-semibold">{t("email")}</p>
+                <p dir="ltr" className="text-zinc-500 dark:text-zinc-400 break-all">aminhaghi@gmail.com</p>
               </div>
             </a>
 
@@ -392,20 +406,21 @@ export default function App() {
           {/* فرم ارسال پیام */}
           <div className="max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold text-center mb-8">
-              Tell Me About Your Project
+              {t("formTitle")}
             </h3>
 
             <form onSubmit={sendToN8N} className="space-y-4" aria-busy={loading}>
               {/* نام */}
-              <label htmlFor="contact-name" className="block text-sm font-medium">Name *</label>
+              <label htmlFor="contact-name" className="block text-sm font-medium">{t("nameLabel")}</label>
               <input
                 type="text"
                 id="contact-name"
                 name="name"
+                dir="auto"
                 maxLength={100}
                 required
                 autoComplete="name"
-                placeholder="Your Name *"
+                placeholder={t("namePlaceholder")}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
@@ -418,15 +433,16 @@ export default function App() {
               {/* ردیف دوم: ایمیل و تلفن */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                <label htmlFor="contact-email" className="block text-sm font-medium">Email address *</label>
+                <label htmlFor="contact-email" className="block text-sm font-medium">{t("emailLabel")}</label>
               <input
                   type="email"
+                  dir="ltr"
                   id="contact-email"
                 name="email"
                 maxLength={254}
                 required
                 autoComplete="email"
-                placeholder="Email Address *"
+                placeholder={t("emailPlaceholder")}
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
@@ -437,14 +453,15 @@ export default function App() {
            outline-none transition-all"/>
                 </div>
                 <div>
-                <label htmlFor="contact-phone" className="block text-sm font-medium">Phone (optional)</label>
+                <label htmlFor="contact-phone" className="block text-sm font-medium">{t("phoneLabel")}</label>
               <input
                   type="tel"
+                  dir="ltr"
                   id="contact-phone"
                 name="phone"
                 maxLength={50}
                 autoComplete="tel"
-                placeholder="e.g. +98…"
+                placeholder={t("phonePlaceholder")}
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
@@ -457,14 +474,15 @@ export default function App() {
               </div>
 
               {/* شرکت */}
-              <label htmlFor="contact-company" className="block text-sm font-medium">Company (optional)</label>
+              <label htmlFor="contact-company" className="block text-sm font-medium">{t("companyLabel")}</label>
               <input
                 type="text"
                 id="contact-company"
                 name="company"
+                dir="auto"
                 maxLength={150}
                 autoComplete="organization"
-                placeholder="Company (Optional)"
+                placeholder={t("companyPlaceholder")}
                 value={form.company}
                 onChange={(e) => setForm({ ...form, company: e.target.value })}
                 className="w-full p-4 rounded-2xl bg-white dark:bg-zinc-900 
@@ -475,13 +493,14 @@ export default function App() {
            outline-none transition-all" />
 
               {/* متن پیام */}
-              <label htmlFor="contact-message" className="block text-sm font-medium">Message *</label>
+              <label htmlFor="contact-message" className="block text-sm font-medium">{t("messageLabel")}</label>
               <textarea
+                dir="auto"
                 id="contact-message"
                 name="message"
                 maxLength={2000}
                 required
-                placeholder="What do you need built or improved? Include your timeline and budget range if available."
+                placeholder={t("messagePlaceholder")}
                 rows={5}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -501,10 +520,10 @@ export default function App() {
                   onExpire={() => setCaptchaToken(null)}
                   onError={() => {
                     setCaptchaToken(null);
-                    setStatus({ type: "error", message: "Security verification could not load. Please retry or contact me by email." });
+                    setStatus({ type: "error", messageKey: "captchaError" });
                   }}
-                  options={{ theme: dark ? "dark" : "light" }}
-                /> : <p className="text-sm text-red-600 dark:text-red-400">The form is temporarily unavailable. Please use the email link above.</p>}
+                  options={{ theme: dark ? "dark" : "light", language }}
+                /> : <p className="text-sm text-red-600 dark:text-red-400">{t("formUnavailable")}</p>}
               </div>
 
               {/* دکمه ارسال */}
@@ -513,26 +532,25 @@ export default function App() {
                 disabled={loading || !siteKey || !webhookUrl}
                 className="w-full py-4 bg-green-600 hover:bg-green-700 disabled:bg-zinc-400 disabled:cursor-not-allowed text-white rounded-2xl font-medium text-lg transition-all"
               >
-                {loading ? "Sending..." : "Send Message"}
+                {loading ? t("sending") : t("send")}
               </button>
-              {status.message && <p role={status.type === "error" ? "alert" : "status"} className={status.type === "error" ? "text-sm text-red-600 dark:text-red-400" : "text-sm text-green-700 dark:text-green-400"}>{status.message}</p>}
+              {status.messageKey && <p role={status.type === "error" ? "alert" : "status"} className={status.type === "error" ? "text-sm text-red-600 dark:text-red-400" : "text-sm text-green-700 dark:text-green-400"}>{t(status.messageKey)}</p>}
             </form>
 
             <div className="mt-6 space-y-2 text-center">
               <p className="text-xs text-zinc-500">
-                Your inquiry is processed through my n8n workflow and delivered to my Telegram inbox.
+                {t("deliveryNotice")}
               </p>
 
               <p className="text-xs text-zinc-500 max-w-md mx-auto leading-relaxed">
-                By submitting this form, you acknowledge the processing described in the privacy notice.
-                Please do not include passwords, payment details, or other sensitive information.
+                {t("acknowledgement")}
               </p>
 
               <button
                 onClick={() => setShowPolicy(true)}
                 className="text-xs text-blue-600 hover:underline"
               >
-                Read Privacy Policy
+                {t("readPrivacy")}
               </button>
             </div>
           </div>
@@ -541,10 +559,8 @@ export default function App() {
       {/* FLOATING CONTACT */}
       <a
         href="#contact"
-        aria-label="Discuss your project"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110"
+        aria-label={t("floatingContact")}
+        className="fixed bottom-6 end-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110"
       >
         <MessageCircle size={28} />
       </a>
@@ -555,36 +571,37 @@ export default function App() {
         className="m-auto w-full max-w-2xl max-h-[85vh] rounded-3xl bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white p-8 shadow-2xl backdrop:bg-black/60"
       >
         <div className="flex justify-between items-center gap-4 mb-6">
-          <h2 id="privacy-title" className="text-2xl font-bold">Privacy Notice</h2>
-          <button type="button" autoFocus onClick={() => setShowPolicy(false)} aria-label="Close privacy notice" className="p-2 text-zinc-500 hover:text-red-500 text-xl">✕</button>
+          <h2 id="privacy-title" className="text-2xl font-bold">{t("privacyTitle")}</h2>
+          <button type="button" autoFocus onClick={() => setShowPolicy(false)} aria-label={t("closePrivacy")} className="p-2 text-zinc-500 hover:text-red-500 text-xl">✕</button>
         </div>
         <div className="space-y-5 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-          <p>This website is operated by Amin Haghi for presenting development work and receiving project inquiries.</p>
-          <p>The contact form sends your name, email address, message, optional phone number and company, submission time, and a security verification token to my self-hosted n8n workflow. Your inquiry is then delivered to my Telegram inbox so I can respond and discuss your project.</p>
-          <p>Cloudflare Turnstile verifies the security token to help prevent spam. Cloudflare may process technical information, including your IP address and browser information, for this verification. My hosting server may also record technical request logs. This form does not request your location from an IP lookup service or include browser profiling details in the inquiry payload.</p>
-          <p>Your inquiry may be stored in n8n execution history and my Telegram inbox. It is used to respond to you, discuss potential work, and prevent misuse. I do not sell inquiry information or use it for advertising. Cloudflare and Telegram process information as part of these services.</p>
-          <p>You can request removal of inquiry records under my control by emailing <a href="mailto:aminhaghi@gmail.com" className="text-blue-600 dark:text-blue-400 underline">aminhaghi@gmail.com</a>. Please avoid submitting passwords, payment information, or other sensitive details.</p>
-          <p><a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="underline">Cloudflare privacy policy</a> · <a href="https://telegram.org/privacy" target="_blank" rel="noopener noreferrer" className="underline">Telegram privacy policy</a></p>
+          <p>{t("privacyOperator")}</p>
+          <p>{t("privacyData")}</p>
+          <p>{t("privacySecurity")}</p>
+          <p>{t("privacyStorage")}</p>
+          <p>{t("privacyPreferences")}</p>
+          <p>{t("privacyDeletion")} <a href="mailto:aminhaghi@gmail.com" className="text-blue-600 dark:text-blue-400 underline"><bdi dir="ltr">aminhaghi@gmail.com</bdi></a>{t("privacySensitive")}</p>
+          <p><a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="underline">{t("cloudflarePrivacy")}</a> · <a href="https://telegram.org/privacy" target="_blank" rel="noopener noreferrer" className="underline">{t("telegramPrivacy")}</a></p>
         </div>
       </dialog>
       {/* FOOTER */}
       <footer className="py-12 text-center text-sm text-zinc-500 border-t border-zinc-200 dark:border-white/10 space-y-4">
 
-        <p>© {new Date().getFullYear()} Amin Haghi • Built with React & Tailwind</p>
+        <p>{t("copyright", { year: new Date().getFullYear() })}</p>
 
         <div className="flex justify-center gap-6 text-xs">
           <button
             onClick={() => setShowPolicy(true)}
             className="hover:text-blue-600 transition"
           >
-            Privacy Policy
+            {t("privacy")}
           </button>
 
           <a
             href="mailto:aminhaghi@gmail.com"
             className="hover:text-blue-600 transition"
           >
-            Contact
+            {t("footerContact")}
           </a>
         </div>
 

@@ -8,3 +8,20 @@ body{
   color:white;
   font-family:Arial, Helvetica, sans-serif;
 }
+html[lang="fa"] body {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  line-height: 1.9;
+}
+
+html[lang="fa"] h1,
+html[lang="fa"] h2,
+html[lang="fa"] h3 {
+  line-height: 1.6;
+}
+
+/* Keep focus visible for keyboard users in either language. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+}

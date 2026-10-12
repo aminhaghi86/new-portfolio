@@ -1,0 +1,152 @@
+{
+  "brand": "Amin Haghi",
+  "mainNav": "Main navigation",
+  "mobileNav": "Mobile navigation",
+  "lightTheme": "Switch to light theme",
+  "darkTheme": "Switch to dark theme",
+  "hello": "Hi, I'm",
+  "discuss": "Discuss Your Project",
+  "cv": "View CV",
+  "about": "About Me",
+  "servicesIntro": "Practical development services for businesses and agencies.",
+  "requirements": "Discuss Your Requirements →",
+  "github": "GitHub",
+  "linkedin": "LinkedIn",
+  "liveDemo": "Live Demo",
+  "watchDemo": "Watch Demo",
+  "automationLabel": "Automation in use on this website",
+  "automationTitle": "Portfolio Inquiry Automation",
+  "automationDescription": "I connected this contact form to a workflow on my n8n server. Project inquiries are delivered to my Telegram inbox, so I can follow up with the sender by email.",
+  "similarWorkflow": "Discuss a Similar Workflow →",
+  "experience": "Background & Experience",
+  "freelance": "Freelance Web Developer",
+  "freelanceDates": "2023 - Present",
+  "freelanceDescription": "Developing web applications and workflow integrations. Available for freelance projects and collaboration with agencies.",
+  "training": "Frontend Development Training — Sweden",
+  "trainingDates": "2022 - 2023",
+  "trainingDescription": "Completed frontend development training in Sweden, working on practical web development projects.",
+  "contact": "Get In Touch",
+  "location": "Location",
+  "city": "Mashhad, Iran",
+  "call": "Call me",
+  "email": "Email",
+  "formTitle": "Tell Me About Your Project",
+  "nameLabel": "Name *",
+  "emailLabel": "Email address *",
+  "phoneLabel": "Phone (optional)",
+  "companyLabel": "Company (optional)",
+  "messageLabel": "Message *",
+  "namePlaceholder": "Your Name *",
+  "emailPlaceholder": "Email Address *",
+  "phonePlaceholder": "e.g. +98…",
+  "companyPlaceholder": "Company (Optional)",
+  "messagePlaceholder": "What do you need built or improved? Include your timeline and budget range if available.",
+  "sending": "Sending...",
+  "send": "Send Message",
+  "formUnavailable": "The form is temporarily unavailable. Please use the email link above.",
+  "deliveryNotice": "Your inquiry is processed through my n8n workflow and delivered to my Telegram inbox.",
+  "acknowledgement": "By submitting this form, you acknowledge the processing described in the privacy notice.\n                Please do not include passwords, payment details, or other sensitive information.",
+  "readPrivacy": "Read Privacy Policy",
+  "floatingContact": "Discuss your project",
+  "privacyTitle": "Privacy Notice",
+  "closePrivacy": "Close privacy notice",
+  "privacyOperator": "This website is operated by Amin Haghi for presenting development work and receiving project inquiries.",
+  "privacyData": "The contact form sends your name, email address, message, optional phone number and company, submission time, and a security verification token to my self-hosted n8n workflow. Your inquiry is then delivered to my Telegram inbox so I can respond and discuss your project.",
+  "privacySecurity": "Cloudflare Turnstile verifies the security token to help prevent spam. Cloudflare may process technical information, including your IP address and browser information, for this verification. My hosting server may also record technical request logs. This form does not request your location from an IP lookup service or include browser profiling details in the inquiry payload.",
+  "privacyStorage": "Your inquiry may be stored in n8n execution history and my Telegram inbox. It is used to respond to you, discuss potential work, and prevent misuse. I do not sell inquiry information or use it for advertising. Cloudflare and Telegram process information as part of these services.",
+  "privacyDeletion": "You can request removal of inquiry records under my control by emailing",
+  "privacySensitive": ". Please avoid submitting passwords, payment information, or other sensitive details.",
+  "cloudflarePrivacy": "Cloudflare privacy policy",
+  "telegramPrivacy": "Telegram privacy policy",
+  "privacy": "Privacy Policy",
+  "footerContact": "Contact",
+  "validation": "Please enter your name, a valid email address, and a message.",
+  "unconfigured": "The contact form is temporarily unavailable. Please email aminhaghi@gmail.com.",
+  "captchaRequired": "Please complete the security check (Cloudflare Turnstile).",
+  "success": "Your message has been sent. Thank you — I will reply by email.",
+  "failed": "Delivery could not be confirmed. Please email aminhaghi@gmail.com, or try again. If the connection timed out, your message may already have arrived.",
+  "captchaError": "Security verification could not load. Please retry or contact me by email.",
+  "copyright": "© {{year}} Amin Haghi • Built with React & Tailwind",
+  "language": "Change language",
+  "metaTitle": "Amin Haghi | Web Development & Automation",
+  "metaDescription": "Web development, WordPress, WooCommerce, and n8n automation by Amin Haghi. Based in Mashhad, Iran. Get in touch to discuss your project.",
+  "personal": {
+    "name": "Amin Haghi",
+    "role": "Web Developer & Automation Specialist",
+    "bio": "I hold a degree in software engineering and completed frontend development training in Sweden. I build web applications, online stores, and workflow automations.",
+    "description": "I help businesses build web applications, improve WordPress and WooCommerce websites, and automate repetitive tasks with n8n. From customer inquiries to connected business tools, I turn your requirements into practical solutions.",
+    "about": "I work with React and Next.js, REST APIs, PostgreSQL and MongoDB, and integrations between business tools. I can collaborate directly with your team or support an agency with development and automation work."
+  },
+  "nav": [
+    "About",
+    "Services",
+    "Projects",
+    "Contact"
+  ],
+  "serviceCards": [
+    {
+      "title": "Web Applications",
+      "description": "Custom websites and applications with React and Next.js, connected to APIs and databases. I can build a new product or improve an existing application."
+    },
+    {
+      "title": "WordPress & WooCommerce",
+      "description": "Business websites and online stores, including setup, customization, checkout improvements, and integrations with the tools you already use."
+    },
+    {
+      "title": "Workflow Automation",
+      "description": "n8n workflows that connect forms, Telegram, databases, and business tools to reduce repetitive manual work and keep information moving."
+    }
+  ],
+  "services": "How I Can Help",
+  "skillCards": [
+    {
+      "title": "Web Development",
+      "items": "React, Next.js, JavaScript, TypeScript, Tailwind CSS"
+    },
+    {
+      "title": "Stores & Databases",
+      "items": "WordPress, WooCommerce, PostgreSQL, MongoDB, Sequelize"
+    },
+    {
+      "title": "APIs & Automation",
+      "items": "Node.js, Express, REST APIs, n8n, Telegram integrations, Socket.IO"
+    },
+    {
+      "title": "DevOps & CI/CD",
+      "items": "GitHub Actions, CI/CD Pipelines, Linux VPS, SSH/SCP Deployment"
+    }
+  ],
+  "skills": "Skills & Expertise",
+  "projectContent": {
+    "0": {
+      "title": "Debasun Staging E-commerce Website",
+      "desc": "A modern staging e-commerce platform built for a packaging company using WordPress and WooCommerce, customized with Elementor and interactive animations."
+    },
+    "2": {
+      "title": "Designer Portfolio Website",
+      "desc": "Designed and developed a React and SCSS portfolio for a designer, presenting her work through a responsive website."
+    },
+    "1": {
+      "title": "Interactive Chat Application",
+      "desc": "An interactive chat application built with Nuxt.js, Stella, Socket.IO, and GSAP animations."
+    },
+    "3": {
+      "title": "Book Management Application",
+      "desc": "A full-stack application for creating, viewing, updating, and deleting book records, with user registration and login."
+    },
+    "4": {
+      "title": "Interactive Three.js Game",
+      "desc": "A browser game where players navigate a car through obstacles to complete assessments. Built with React, Three.js, and GSAP."
+    },
+    "5": {
+      "title": "Full-stack Task Manager",
+      "desc": "A group project using the PERN stack. Users can register, sign in, and create, view, update, and delete tasks."
+    },
+    "6": {
+      "title": "Real-time Scheduling Application",
+      "desc": "A React scheduling application with a FullCalendar interface, user authentication, and real-time updates using Node.js and Socket.IO."
+    }
+  },
+  "projects": "Featured Projects",
+  "privacyPreferences": "Your language and theme preferences are saved in this browser’s local storage. You can clear them through your browser settings."
+}
