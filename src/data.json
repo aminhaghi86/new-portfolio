@@ -153,6 +153,33 @@
       ],
       "demo": "https://todolist-fullstack.netlify.app/",
       "demoLabel": "Live Demo"
+    },
+    {
+      "id": 6,
+      "title": "Debasun Staging E-commerce Website",
+      "github": "#",
+      "image": "/ecommerce.png",
+      "desc": "A modern staging e-commerce platform built for a packaging company using WordPress and WooCommerce, customized with Elementor and interactive animations.",
+      "tech": [
+        {
+          "skill": "WordPress",
+          "img": "../icon/wordpress.svg"
+        },
+        {
+          "skill": "WooCommerce",
+          "img": "../icon/woocommerce.svg"
+        },
+        {
+          "skill": "Elementor",
+          "img": "../icon/elementor.svg"
+        },
+        {
+          "skill": "GSAP",
+          "img": "../icon/gsap.svg"
+        }
+      ],
+      "demo": "https://dibasan.com/",
+      "demoLabel": "Live Staging Demo"
     }
   ],
   "myPersonalInfo": [
