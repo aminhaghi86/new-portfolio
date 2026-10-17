@@ -11,7 +11,7 @@ import ProjectDetailsDialog from "./components/ProjectDetailsDialog";
 import "./portfolio.css";
 import Testimonials from "./components/Testimonials";
 import Collaboration from "./components/Collaboration";
-const featuredProjectIds = [0, 2, 6];
+const featuredProjectIds = [0, 7, 2];
 
 export default function App() {
   const { t, i18n } = useTranslation();
@@ -22,6 +22,9 @@ export default function App() {
     catch { return true; }
   });
   const policyRef = useRef(null);
+  const captchaContainerRef = useRef(null);
+  const lastCaptchaSize = useRef("compact");
+  const [captchaSize, setCaptchaSize] = useState("compact");
   const sendingRef = useRef(false);
   const [status, setStatus] = useState({ type: "", messageKey: "" });
   const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
@@ -57,6 +60,20 @@ export default function App() {
     if (showPolicy && dialog && !dialog.open) dialog.showModal();
     if (!showPolicy && dialog?.open) dialog.close();
   }, [showPolicy]);
+
+  useEffect(() => {
+    const container = captchaContainerRef.current;
+    if (!container || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(([entry]) => {
+      const size = entry.contentRect.width < 300 ? "compact" : "flexible";
+      if (size === lastCaptchaSize.current) return;
+      lastCaptchaSize.current = size;
+      setCaptchaToken(null);
+      setCaptchaSize(size);
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   const sendToN8N = async (event) => {
     event.preventDefault();
@@ -402,7 +419,7 @@ export default function App() {
               </h3>
 
               <form onSubmit={sendToN8N} className="space-y-4" aria-busy={loading}>
-                <fieldset disabled={loading} className="space-y-4" aria-label={t("formTitle")}>
+                <fieldset disabled={loading} className="min-w-0 space-y-4" aria-label={t("formTitle")}>
                   <label htmlFor="contact-service" className="block text-sm font-medium">{t("inquiryService")}</label>
                   <select id="contact-service" name="service" className="contact-service" value={selectedService} onChange={event => setSelectedService(event.target.value)}>
                     <option value="">{t("servicePlaceholder")}</option>
@@ -510,9 +527,9 @@ export default function App() {
            outline-none transition-all" />
 
                   {/* ویجت کپچا - بهتر است بالای دکمه باشد تا کاربر اول آن را ببیند */}
-                  <div className="flex justify-center my-2 overflow-x-auto">
+                  <div ref={captchaContainerRef} className="flex justify-center my-2 overflow-x-auto">
                     {siteKey ? <Turnstile
-                      key={`${captchaKey}-${language}-${dark}`}
+                      key={`${captchaKey}-${language}-${dark}-${captchaSize}`}
                       siteKey={siteKey}
                       onSuccess={(token) => setCaptchaToken(token)}
                       onExpire={() => setCaptchaToken(null)}
@@ -520,7 +537,7 @@ export default function App() {
                         setCaptchaToken(null);
                         setStatus({ type: "error", messageKey: "captchaError" });
                       }}
-                      options={{ theme: dark ? "dark" : "light", language, size: "flexible" }}
+                      options={{ theme: dark ? "dark" : "light", language, size: captchaSize }}
                     /> : <p className="text-sm text-red-600 dark:text-red-400">{t("formUnavailable")}</p>}
                   </div>
 
