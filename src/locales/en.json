@@ -260,5 +260,42 @@
   "similarProject": "Discuss a similar project",
   "inquiryService": "Which service do you need? (optional)",
   "servicePlaceholder": "I’m not sure yet; I’d like guidance",
-  "inquiryServicePrefix": "Service requested"
+  "inquiryServicePrefix": "Service requested",
+
+
+  "collaborationTitle": "How we can work together",
+"collaborationIntro": "A clear and practical way to start. Scope and cost are defined before any work begins.",
+"collaborationItems": [
+  {
+    "title": "Discovery conversation",
+    "description": "We discuss your business, current website (if any), and the manual tasks your team handles today."
+  },
+  {
+    "title": "Defined proposal",
+    "description": "You receive a written proposal covering scope, deliverables, timeline, cost and payment terms."
+  },
+  {
+    "title": "Flexible starting points",
+    "description": "We can begin with a full website, improve a specific part of an existing site, or automate one workflow."
+  },
+  {
+    "title": "Direct collaboration",
+    "description": "You work directly with me throughout the project, with regular review points before final handover."
+  }
+],"testimonialsTitle": "What clients say",
+"testimonialsIntro": "Feedback from recent collaboration.",
+"testimonialDibasan": {
+  "quote": "Amin delivered a clean and practical online store for our packaging products. The structure made it easier for customers to explore the catalogue and send inquiries.",
+  "author": "Dibasan team",
+  "role": "Packaging company"
+},
+"caseStudies": {
+  "0": {
+    "badge": "Client project — Staging",
+    "use": "A packaging company needed a clear online presence to present its products and receive customer inquiries in an organized way.",
+    "work": "Built a WordPress and WooCommerce store, customized with Elementor and interactive elements to match the brand and improve product discovery.",
+    "outcome": "The website provides a structured catalogue and a straightforward path for customers to explore products and submit inquiries.",
+    "status": "Staging version. The live domain is available for review."
+  }
+}
 }

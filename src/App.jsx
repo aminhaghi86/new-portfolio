@@ -9,6 +9,8 @@ import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
 import ProjectDetailsDialog from "./components/ProjectDetailsDialog";
 import "./portfolio.css";
+import Testimonials from "./components/Testimonials";
+import Collaboration from "./components/Collaboration";
 const featuredProjectIds = [0, 2, 6];
 
 export default function App() {
@@ -133,7 +135,8 @@ export default function App() {
       <main id="main-content" tabIndex={-1}>
         <HeroSection personal={personal} project={projects.find(project => project.id === 0)} onOpenProject={setActiveProjectId} />
         <ServicesSection onSelectService={setSelectedService} />
-
+        <Testimonials />
+        <Collaboration />
         {/* FEATURED PROJECTS */}
         <section id="projects" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">{t("projects")}</h2>
