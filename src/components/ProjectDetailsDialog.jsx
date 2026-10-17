@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { ExternalLink, X } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 
 export default function ProjectDetailsDialog({ project, onClose }) {
@@ -23,7 +24,7 @@ export default function ProjectDetailsDialog({ project, onClose }) {
         </dl>
         <div className="project-dialog-links">
           {project.demo && <a className="portfolio-button primary" href={project.demo} target="_blank" rel="noopener noreferrer">{t(project.demoLabel === 'Watch Demo' ? 'watchDemo' : 'liveDemo')}<ExternalLink size={17} aria-hidden="true" /></a>}
-          {project.github && project.github !== '#' && <a className="portfolio-button secondary" href={project.github} target="_blank" rel="noopener noreferrer"><Github size={17} aria-hidden="true" />{t('github')}</a>}
+          {project.github && project.github !== '#' && <a className="portfolio-button secondary" href={project.github} target="_blank" rel="noopener noreferrer"><FaGithub size={17} aria-hidden="true" />{t('github')}</a>}
           <a href="#contact" className="project-similar" onClick={() => ref.current.close()}>{t('similarProject')}</a>
         </div>
       </>}
