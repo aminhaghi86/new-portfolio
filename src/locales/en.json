@@ -5,10 +5,10 @@
   "lightTheme": "Switch to light theme",
   "darkTheme": "Switch to dark theme",
   "hello": "Hi, I'm",
-  "discuss": "Discuss Your Project",
+  "discuss": "Tell me about your project",
   "cv": "View CV",
   "about": "About Me",
-  "servicesIntro": "Practical development services for businesses and agencies.",
+  "servicesIntro": "Start with a new website, an improvement to your current one, or a specific workflow integration. We define the scope and cost before work begins.",
   "requirements": "Discuss Your Requirements →",
   "github": "GitHub",
   "linkedin": "LinkedIn",
@@ -78,26 +78,44 @@
     "about": "I work with React and Next.js, REST APIs, PostgreSQL and MongoDB, and integrations between business tools. I can collaborate directly with your team or support an agency with development and automation work."
   },
   "nav": [
-    "About",
     "Services",
     "Projects",
+    "About",
     "Contact"
   ],
   "serviceCards": [
     {
-      "title": "Web Applications",
-      "description": "Custom websites and applications with React and Next.js, connected to APIs and databases. I can build a new product or improve an existing application."
+      "id": "website",
+      "title": "Business websites & stores",
+      "description": "For businesses and manufacturers that need a clear place to present their products and services and receive customer inquiries.",
+      "deliverables": [
+        "Design aligned with your business",
+        "Service pages or a product catalogue",
+        "Contact and quotation inquiry forms"
+      ]
     },
     {
-      "title": "WordPress & WooCommerce",
-      "description": "Business websites and online stores, including setup, customization, checkout improvements, and integrations with the tools you already use."
+      "id": "automation",
+      "title": "Workflow integrations",
+      "description": "For teams moving information manually between forms, messages and business tools.",
+      "deliverables": [
+        "Connect forms to team tools",
+        "Incoming inquiry notifications",
+        "Workflows tailored to your process"
+      ]
     },
     {
-      "title": "Workflow Automation",
-      "description": "n8n workflows that connect forms, Telegram, databases, and business tools to reduce repetitive manual work and keep information moving."
+      "id": "application",
+      "title": "Custom web applications",
+      "description": "When you need more than a presentation website: a dashboard, scheduling interface or a tool for managing business information.",
+      "deliverables": [
+        "User interfaces and authentication",
+        "API and database connections",
+        "Features tailored to your product"
+      ]
     }
   ],
-  "services": "How I Can Help",
+  "services": "The right solution for your business",
   "skillCards": [
     {
       "title": "Web Development",
@@ -149,9 +167,9 @@
   },
   "projects": "Featured Projects",
   "privacyPreferences": "Your language and theme preferences are saved in this browser’s local storage. You can clear them through your browser settings.",
-  "heroEyebrow": "Amin Haghi · Web development & automation",
-  "heroTitle": "A professional website. A clearer path to customer inquiries.",
-  "heroDescription": "I build business websites, online stores and workflow integrations to help you present your services, collect inquiries and reduce repetitive tasks.",
+  "heroEyebrow": "Web development & workflow automation",
+  "heroTitle": "A website that represents your business.",
+  "heroDescription": "I’m Amin Haghi. I build websites and online stores for businesses, manufacturers and service providers, and connect customer inquiries to the tools your team uses.",
   "viewWork": "Explore my work",
   "heroNote": "Explore the examples, then tell me what your business needs.",
   "projectsIntro": "Each example explains its purpose and scope. Staging versions and group projects are identified as such.",
@@ -198,8 +216,8 @@
       "answer": "Hosting, domains, messaging and API services are considered in the proposal. Their costs and payment responsibility should be clear before work starts."
     }
   ],
-  "contactIntro": "Tell me about your business, the current problem and the outcome you need. Include your website link if you have one.",
-  "contactNext": "After reviewing your message, I will follow up by email to discuss details and the next step.",
+  "contactIntro": "Tell me about your business and what you would like to improve. Include your website link if you have one.",
+  "contactNext": "I review inquiries personally and reply by email to clarify your requirements and the next step.",
   "caseStudies": {
     "0": {
       "use": "Presenting a packaging company’s products in an online store.",
@@ -220,5 +238,27 @@
       "badge": "Web application"
     }
   },
-  "skipContent": "Skip to main content"
+  "skipContent": "Skip to main content",
+  "heroTitleAccent": "A clearer path to inquiries.",
+  "heroPrinciples": [
+    "A defined scope",
+    "Review before handover",
+    "Direct contact with your developer"
+  ],
+  "heroProjectCaption": "Debasun: product discovery and inquiries",
+  "heroWorkflowLabel": "A proposed path for your business",
+  "heroWorkflowSteps": [
+    "Present your services",
+    "Collect inquiries",
+    "Organize follow-up"
+  ],
+  "servicesEyebrow": "Where could we start?",
+  "serviceCta": "Discuss this service",
+  "openProject": "View details of {{title}}",
+  "projectDetails": "Project details",
+  "closeProject": "Close project details",
+  "similarProject": "Discuss a similar project",
+  "inquiryService": "Which service do you need? (optional)",
+  "servicePlaceholder": "I’m not sure yet; I’d like guidance",
+  "inquiryServicePrefix": "Service requested"
 }

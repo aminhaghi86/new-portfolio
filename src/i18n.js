@@ -11,7 +11,7 @@ function initialLanguage() {
     const saved = localStorage.getItem('portfolio-language');
     if (supported.includes(saved)) return saved;
   } catch { /* Browser storage may be disabled. */ }
-  return 'en';
+  return 'fa';
 }
 
 function updateDocument(language) {
