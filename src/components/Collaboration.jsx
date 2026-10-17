@@ -1,7 +1,7 @@
-import React from 'react'
+
 import { useTranslation } from "react-i18next";
 const Collaboration = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         // {/* HOW WE WORK TOGETHER */}
         <section className="px-6 py-20 max-w-6xl mx-auto">

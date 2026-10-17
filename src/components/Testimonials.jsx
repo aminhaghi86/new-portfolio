@@ -1,7 +1,7 @@
-import React from 'react'
+
 import { useTranslation } from "react-i18next";
 const Testimonials = () => {
-      const { t, i18n } = useTranslation();
+      const { t } = useTranslation();
   return (
 // {/* TESTIMONIALS */}
 <section className="px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
