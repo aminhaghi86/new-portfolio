@@ -4,7 +4,7 @@
       "id": 0,
       "title": "Debasun Staging E-commerce Website",
       "github": "#",
-      "image": "/ecommerce.png",
+      "image": "/ecommerce.webp",
       "desc": "A modern staging e-commerce platform built for a packaging company using WordPress and WooCommerce, customized with Elementor and interactive animations.",
       "tech": [
         {
@@ -31,7 +31,7 @@
       "id": 2,
       "title": "Designer Portfolio Website",
       "github": "https://github.com/aminhaghi86/maryam-portfolio",
-      "image": "/portfoliomaryam.png",
+      "image": "/portfoliomaryam.webp",
       "desc": "Designed and developed a React and SCSS portfolio for a designer, presenting her work through a responsive website.",
       "tech": [
         {
@@ -154,7 +154,7 @@
       "id": 6,
       "title": "Real-time Scheduling Application",
       "github": "https://github.com/aminhaghi86/school-full",
-      "image": "/socket.png",
+      "image": "/socket.webp",
       "desc": "A React scheduling application with a FullCalendar interface, user authentication, and real-time updates using Node.js and Socket.IO.",
       "tech": [
         {

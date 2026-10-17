@@ -18,6 +18,7 @@ function updateDocument(language) {
   const lang = language === 'fa' ? 'fa' : 'en';
   document.documentElement.lang = lang;
   document.documentElement.dir = i18n.dir(lang);
+  document.querySelector('meta[property="og:locale"]')?.setAttribute("content", lang === "fa" ? "fa_IR" : "en_US");
   document.title = i18n.t('metaTitle', { lng: lang });
   const metadata = [
     ['meta[name="description"]', 'metaDescription'],

@@ -21,7 +21,17 @@ html[lang="fa"] h3 {
 
 /* Keep focus visible for keyboard users in either language. */
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 4px;
 }
+
+.skip-link { position: fixed; inset-inline-start: 1rem; top: -6rem; z-index: 100; padding: 1rem; background: white; color: #18181b; border-radius: 1rem; }
+.skip-link:focus { top: 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+#main-content:focus { outline: none; }

@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { Moon, Sun } from "lucide-react";
-import { motion } from "framer-motion";
-import { Phone, MessageCircle } from "lucide-react";
+import { Moon, Sun, Phone, MessageCircle } from "lucide-react";
+import { motion, MotionConfig, useReducedMotion } from "framer-motion";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
 import { useTranslation } from "react-i18next";
 import "./i18n";
+const featuredProjectIds = [0, 2, 6];
+
 export default function App() {
   const { t, i18n } = useTranslation();
+  const reduceMotion = useReducedMotion();
   const language = i18n.resolvedLanguage === "fa" ? "fa" : "en";
   const services = t("serviceCards", { returnObjects: true });
   const [dark, setDark] = useState(() => {
@@ -16,6 +18,7 @@ export default function App() {
     catch { return true; }
   });
   const policyRef = useRef(null);
+  const sendingRef = useRef(false);
   const [status, setStatus] = useState({ type: "", messageKey: "" });
   const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
   const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
@@ -51,7 +54,7 @@ export default function App() {
 
   const sendToN8N = async (event) => {
     event.preventDefault();
-    if (loading) return;
+    if (sendingRef.current) return;
     const cleaned = Object.fromEntries(
       Object.entries(form).map(([key, value]) => [key, value.trim()]),
     );
@@ -68,6 +71,7 @@ export default function App() {
       setStatus({ type: "error", messageKey: "captchaRequired" });
       return;
     }
+    sendingRef.current = true;
     setLoading(true);
     setStatus({ type: "", messageKey: "" });
     try {
@@ -86,11 +90,14 @@ export default function App() {
     } finally {
       setCaptchaToken(null);
       setCaptchaKey((previous) => previous + 1);
+      sendingRef.current = false;
       setLoading(false);
     }
   };
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-white dark:bg-[#0b0b10] text-zinc-900 dark:text-white transition-colors duration-300">
+      <a href="#main-content" className="skip-link">{t("skipContent")}</a>
       {/* HEADER / NAVBAR ****/}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
@@ -100,11 +107,11 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-2">
-          <button type="button" onClick={() => i18n.changeLanguage(language === "fa" ? "en" : "fa")} aria-label={t("language")} className="px-3 py-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20" lang={language === "fa" ? "en" : "fa"}>
+          <button type="button" onClick={() => { setCaptchaToken(null); i18n.changeLanguage(language === "fa" ? "en" : "fa"); }} aria-label={t("language")} className="px-3 py-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20" lang={language === "fa" ? "en" : "fa"}>
             {language === "fa" ? "English" : "فارسی"}
           </button>
           <button
-            onClick={() => setDark((previous) => !previous)}
+            onClick={() => { setCaptchaToken(null); setDark((previous) => !previous); }}
             aria-label={dark ? t("lightTheme") : t("darkTheme")}
             className="p-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 transition-all"
           >
@@ -117,29 +124,22 @@ export default function App() {
         </nav>
       </header>
 
+      <main id="main-content" tabIndex={-1}>
       {/* HERO SECTION */}
-      <section id="home" className="scroll-mt-28 min-h-screen flex items-center justify-center px-6 py-20">
+      <section id="home" className="scroll-mt-40 md:scroll-mt-28 flex items-center justify-center px-6 py-20 md:py-28">
         <div className="max-w-5xl mx-auto text-center">
+          <p className="text-sm font-semibold tracking-wide text-blue-600 dark:text-blue-400 mb-6">{t("heroEyebrow")}</p>
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-4xl sm:text-6xl md:text-7xl font-bold leading-tight"
+            transition={{ duration: reduceMotion ? 0 : 0.7 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
           >
-            {t("hello")} <span className="text-blue-600 dark:text-blue-500">{personal.name}</span>
+            {t("heroTitle")}
           </motion.h1>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-2xl sm:text-4xl md:text-5xl font-medium text-zinc-500 dark:text-zinc-400 mt-4"
-          >
-            {personal.role}
-          </motion.h2>
-
           <p className="mt-8 text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            {personal.description}
+            {t("heroDescription")}
           </p>
 
           <div className="mt-12 flex flex-wrap justify-center gap-5">
@@ -150,20 +150,109 @@ export default function App() {
               {t("discuss")}
             </motion.a>
             <motion.a
-              href={cv}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#projects"
               className="px-10 py-4 border border-zinc-300 dark:border-white/20 hover:bg-zinc-100 dark:hover:bg-white/5 rounded-2xl font-medium text-lg transition-all"
             >
-              {t("cv")}
+              {t("viewWork")}
             </motion.a>
           </div>
+          <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">{t("heroNote")}</p>
         </div>
+      </section>
+
+      {/* FEATURED PROJECTS */}
+      <section id="projects" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold text-center mb-4">{t("projects")}</h2>
+        <p className="text-center text-zinc-600 dark:text-zinc-400 max-w-3xl mx-auto mb-12">{t("projectsIntro")}</p>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredProjectIds.map((id) => projects.find((project) => project.id === id)).filter(Boolean).map((project) => (
+            <article
+              key={project.id}
+              className="group flex flex-col bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="relative h-56 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              <div className="p-7 flex flex-col flex-1">
+                <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-3">{t(`caseStudies.${project.id}.badge`)}</p>
+                <h3 className="font-semibold text-xl mb-3">{project.title}</h3>
+                <dl className="space-y-4 text-sm mb-6">
+                  {[["use", "caseUse"], ["work", "caseWork"], ["status", "caseStatus"]].map(([key, label]) => (
+                    <div key={key}><dt className="font-semibold mb-1">{t(label)}</dt><dd className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{t(`caseStudies.${project.id}.${key}`)}</dd></div>
+                  ))}
+                </dl>
+                <div className="flex flex-wrap gap-2 mb-7">
+                  {project.tech.slice(0, 5).map((tech, i) => (
+                    <span
+                      key={i}
+                      className="text-xs px-3 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full text-zinc-700 dark:text-zinc-300"
+                    >
+                      <bdi dir="ltr">{tech.skill}</bdi>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-4 mt-auto">
+                  {project.github && project.github !== "#" && <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center py-3 border border-zinc-300 dark:border-white/20 rounded-2xl hover:bg-zinc-100 dark:hover:bg-white/5 transition"
+                  >
+                    {t("github")}<span className="sr-only"> — {project.title}</span>
+                  </a>}
+                  {project.demo && project.demo !== project.github && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 text-center py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl transition"
+                    >
+                      {t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}<span className="sr-only"> — {project.title}</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <details className="mt-10 rounded-3xl border border-zinc-200 dark:border-white/10 p-6">
+          <summary className="cursor-pointer font-semibold text-lg">{t("moreProjects")}</summary>
+          <div className="grid sm:grid-cols-2 gap-6 mt-6">
+            {projects.filter((project) => !featuredProjectIds.includes(project.id)).map((project) => (
+              <article key={project.id} className="p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-900">
+                <h3 className="font-semibold mb-3">{project.title}</h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">{project.desc}</p>
+                <div className="flex flex-wrap gap-5 text-sm text-blue-600 dark:text-blue-400">
+                  {project.github && project.github !== "#" && <a href={project.github} target="_blank" rel="noopener noreferrer">{t("github")}<span className="sr-only"> — {project.title}</span></a>}
+                  {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer">{t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}<span className="sr-only"> — {project.title}</span></a>}
+                </div>
+              </article>
+            ))}
+          </div>
+        </details>
+      </section>
+
+      <section className="px-6 pb-20 max-w-6xl mx-auto">
+        <article className="p-8 md:p-12 rounded-3xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30">
+          <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-3">{t("automationLabel")}</p>
+          <h2 className="text-3xl font-bold mb-4">{t("automationTitle")}</h2>
+          <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">{t("automationDescription")}</p>
+          <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400"><bdi dir="ltr">React · n8n · Telegram · Cloudflare Turnstile</bdi></p>
+          <a href="#contact" className="inline-block mt-6 text-blue-600 dark:text-blue-400 font-medium">{t("similarWorkflow")}</a>
+        </article>
       </section>
 
       {/* ABOUT ME */}
       {/* ABOUT ME - نسخه بهبود یافته */}
-      <section id="about" className="scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
+      <section id="about" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
         <div className="grid md:grid-cols-2 gap-16 items-center">
 
           <div>
@@ -177,6 +266,7 @@ export default function App() {
               {personal.about}
             </p>
 
+            <a href={cv} target="_blank" rel="noopener noreferrer" className="inline-block mt-6 text-blue-600 dark:text-blue-400 underline">{t("cv")}</a>
             {/* Social Links - جدید */}
             <div className="mt-10 flex gap-4">
               <a
@@ -209,7 +299,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="services" className="scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
+      <section id="services" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
         <h2 className="text-4xl font-bold text-center mb-4">{t("services")}</h2>
         <p className="text-center text-zinc-600 dark:text-zinc-400 mb-12">{t("servicesIntro")}</p>
         <div className="grid md:grid-cols-3 gap-6">
@@ -243,82 +333,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* FEATURED PROJECTS */}
-      <section id="projects" className="scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-12">{t("projects")}</h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group flex flex-col bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              <div className="p-7 flex flex-col flex-1">
-                <h3 className="font-semibold text-xl mb-3">{project.title}</h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-                  {project.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-7">
-                  {project.tech.slice(0, 5).map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-xs px-3 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full text-zinc-700 dark:text-zinc-300"
-                    >
-                      <bdi dir="ltr">{tech.skill}</bdi>
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex gap-4 mt-auto">
-                  {project.github && project.github !== "#" && <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 text-center py-3 border border-zinc-300 dark:border-white/20 rounded-2xl hover:bg-zinc-100 dark:hover:bg-white/5 transition"
-                  >
-                    {t("github")}
-                  </a>}
-                  {project.demo && project.demo !== project.github && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 text-center py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl transition"
-                    >
-                      {t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <section className="px-6 pb-20 max-w-6xl mx-auto">
-        <article className="p-8 md:p-12 rounded-3xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30">
-          <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-3">{t("automationLabel")}</p>
-          <h2 className="text-3xl font-bold mb-4">{t("automationTitle")}</h2>
-          <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">{t("automationDescription")}</p>
-          <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400"><bdi dir="ltr">React · n8n · Telegram · Cloudflare Turnstile</bdi></p>
-          <a href="#contact" className="inline-block mt-6 text-blue-600 dark:text-blue-400 font-medium">{t("similarWorkflow")}</a>
-        </article>
-      </section>
-
       {/* EXPERIENCE */}
       <section className="px-6 py-20 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-4xl mx-auto">
@@ -343,11 +357,37 @@ export default function App() {
         </div>
       </section>
 
+      <section className="px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10" aria-labelledby="process-title">
+        <h2 id="process-title" className="text-3xl sm:text-4xl font-bold mb-4">{t("processTitle")}</h2>
+        <p className="text-zinc-600 dark:text-zinc-400 mb-10">{t("processIntro")}</p>
+        <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {t("processSteps", { returnObjects: true }).map((step, index) => (
+            <li key={step.title} className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900">
+              <span aria-hidden="true" className="text-blue-600 dark:text-blue-400 text-sm">0{index + 1}</span>
+              <h3 className="text-xl font-semibold mt-3 mb-3">{step.title}</h3>
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{step.description}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <section className="px-6 pb-20 max-w-4xl mx-auto" aria-labelledby="faq-title">
+        <h2 id="faq-title" className="text-3xl font-bold mb-8">{t("faqTitle")}</h2>
+        <div className="space-y-4">
+          {t("faqItems", { returnObjects: true }).map((item) => (
+            <details key={item.question} className="border border-zinc-200 dark:border-white/10 rounded-2xl p-6">
+              <summary className="cursor-pointer font-semibold">{item.question}</summary>
+              <p className="mt-4 leading-relaxed text-zinc-600 dark:text-zinc-400">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
       {/* CONTACT */}
       {/* CONTACT SECTION */}
-      <section id="contact" className="scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
+      <section id="contact" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
         <div className="bg-zinc-100 dark:bg-white/5 rounded-3xl p-5 sm:p-8 md:p-12">
-          <h2 className="text-4xl font-bold text-center mb-10">{t("contact")}</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">{t("contact")}</h2>
+          <p className="text-center max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400 mb-3">{t("contactIntro")}</p>
+          <p className="text-center text-sm text-zinc-500 dark:text-zinc-400 mb-10">{t("contactNext")}</p>
 
           {/* اطلاعات تماس */}
           <div className="grid md:grid-cols-2 gap-6 mb-14">
@@ -410,6 +450,7 @@ export default function App() {
             </h3>
 
             <form onSubmit={sendToN8N} className="space-y-4" aria-busy={loading}>
+              <fieldset disabled={loading} className="space-y-4" aria-label={t("formTitle")}>
               {/* نام */}
               <label htmlFor="contact-name" className="block text-sm font-medium">{t("nameLabel")}</label>
               <input
@@ -514,7 +555,7 @@ export default function App() {
               {/* ویجت کپچا - بهتر است بالای دکمه باشد تا کاربر اول آن را ببیند */}
               <div className="flex justify-center my-2 overflow-x-auto">
                 {siteKey ? <Turnstile
-                  key={captchaKey}
+                  key={`${captchaKey}-${language}-${dark}`}
                   siteKey={siteKey}
                   onSuccess={(token) => setCaptchaToken(token)}
                   onExpire={() => setCaptchaToken(null)}
@@ -534,6 +575,7 @@ export default function App() {
               >
                 {loading ? t("sending") : t("send")}
               </button>
+              </fieldset>
               {status.messageKey && <p role={status.type === "error" ? "alert" : "status"} className={status.type === "error" ? "text-sm text-red-600 dark:text-red-400" : "text-sm text-green-700 dark:text-green-400"}>{t(status.messageKey)}</p>}
             </form>
 
@@ -556,6 +598,7 @@ export default function App() {
           </div>
         </div>
       </section>
+      </main>
       {/* FLOATING CONTACT */}
       <a
         href="#contact"
@@ -607,5 +650,6 @@ export default function App() {
 
       </footer>
     </div>
+    </MotionConfig>
   );
 }
