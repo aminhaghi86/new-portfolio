@@ -1,6 +1,6 @@
 # Amin Haghi — Web Development & Automation
 
-Bilingual portfolio built with React, Vite, Tailwind CSS, react-i18next and Framer Motion.
+Bilingual portfolio built with React, Vite, Tailwind CSS, react-i18next.
 
 ## Development
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open `/?lang=fa` or `/?lang=en`. Language and theme preferences are stored in the browser.
+Persian is the default for new visitors. Open `/?lang=fa` or `/?lang=en` to choose explicitly. Language and theme preferences are stored in the browser.
 
 ## Contact form
 
@@ -53,3 +53,10 @@ npm run check:contact-cors -- https://your-n8n-host/webhook/hire-me
 ```
 
 This sends OPTIONS only and checks that both current www portfolio domains are explicitly allowed to POST JSON. It does not submit an inquiry or confirm Telegram delivery. Adapt the origins in scripts/check-contact-cors.mjs if the secondary domain is retired. The webhook must return compatible CORS headers on both preflight and actual responses.
+
+
+## Portfolio experience
+
+The landing page targets businesses in Iran and preserves an English version. HeroSection and ServicesSection present the work and services; ProjectDetailsDialog opens accessible project previews with Escape/close controls. Service links select an optional inquiry category. On submission, the category is included as a text prefix in the existing message field so the webhook schema stays unchanged. It is cleared only after confirmed success.
+
+Vazirmatn is served locally from public/fonts. Its SIL Open Font License is included alongside the unmodified font. No external font service is needed. See https://github.com/rastikerdar/vazirmatn for the original font project.

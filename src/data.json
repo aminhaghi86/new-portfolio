@@ -193,11 +193,6 @@
   ],
   "navbarItems": [
     {
-      "id": 0,
-      "link": "About",
-      "url": "#about"
-    },
-    {
       "id": 1,
       "link": "Services",
       "url": "#services"
@@ -206,6 +201,11 @@
       "id": 2,
       "link": "Projects",
       "url": "#projects"
+    },
+    {
+      "id": 0,
+      "link": "About",
+      "url": "#about"
     },
     {
       "id": 3,
