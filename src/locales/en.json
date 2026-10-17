@@ -137,7 +137,7 @@
   "skills": "Skills & Expertise",
   "projectContent": {
     "0": {
-      "title": "Debasun E-commerce Website — Staging",
+      "title": "Debasun E-commerce Website",
       "desc": "A modern e-commerce platform built for a packaging company using WordPress and WooCommerce, customized with Elementor and interactive animations."
     },
     "2": {
@@ -163,6 +163,10 @@
     "6": {
       "title": "Real-time Scheduling Application",
       "desc": "A React scheduling application with a FullCalendar interface, user authentication, and real-time updates using Node.js and Socket.IO."
+    },
+    "7": {
+      "title": "German Learning Platform for Persian Speakers",
+      "desc": "A personal product with interactive exercises, spaced repetition, level management, an AI coach and administration screens. Developed locally; not publicly launched."
     }
   },
   "projects": "Featured Projects",
@@ -220,10 +224,11 @@
   "contactNext": "I review inquiries personally and reply by email to clarify your requirements and the next step.",
   "caseStudies": {
     "0": {
-      "use": "Presenting a packaging company’s products in an online store.",
-      "work": "WordPress and WooCommerce implementation, customized with Elementor and interactive animations.",
-      "status": "Staging version. The link below opens the Debasun domain.",
-      "badge": "Staging version"
+      "badge": "Client project",
+      "use": "A packaging company needed a clear online presence to present its products and receive customer inquiries in an organized way.",
+      "work": "Built a WordPress and WooCommerce store, customized with Elementor and interactive elements to match the brand and improve product discovery.",
+      "outcome": "The website provides a structured catalogue and a straightforward path for customers to explore products and submit inquiries.",
+      "status": "The website is available on its public domain for review."
     },
     "2": {
       "use": "Giving a designer an organized place to present her work and professional practice.",
@@ -236,6 +241,19 @@
       "work": "React and FullCalendar interface, user authentication, and real-time communication with Node.js and Socket.IO.",
       "status": "Technical example supported by a recorded demo and source repository.",
       "badge": "Web application"
+    },
+    "7": {
+      "badge": "Personal product · Pre-launch",
+      "use": "Bringing German practice, review sessions and learning tools together in a Persian-language environment.",
+      "work": "Developed the Persian RTL interface, APIs and data models for exercises, spaced repetition, level management, AI chat and content administration, alongside subscription and access-limit interfaces.",
+      "status": "Local development version, not publicly launched. The screenshots show the running application; some interface figures and statistics are demonstration values.",
+      "outcome": "A demonstrable product showing web application development, frontend/backend integration and learner and administrator workflows.",
+      "capabilities": [
+        "Flashcard, typing, listening and fill-in-the-blank exercises",
+        "Spaced repetition logic and CEFR level management",
+        "AI coach interface and conversation session management",
+        "Content administration and subscription interfaces"
+      ]
     }
   },
   "skipContent": "Skip to main content",
@@ -261,41 +279,43 @@
   "inquiryService": "Which service do you need? (optional)",
   "servicePlaceholder": "I’m not sure yet; I’d like guidance",
   "inquiryServicePrefix": "Service requested",
-
-
   "collaborationTitle": "How we can work together",
-"collaborationIntro": "A clear and practical way to start. Scope and cost are defined before any work begins.",
-"collaborationItems": [
-  {
-    "title": "Discovery conversation",
-    "description": "We discuss your business, current website (if any), and the manual tasks your team handles today."
+  "collaborationIntro": "A clear and practical way to start. Scope and cost are defined before any work begins.",
+  "collaborationItems": [
+    {
+      "title": "Discovery conversation",
+      "description": "We discuss your business, current website (if any), and the manual tasks your team handles today."
+    },
+    {
+      "title": "Defined proposal",
+      "description": "You receive a written proposal covering scope, deliverables, timeline, cost and payment terms."
+    },
+    {
+      "title": "Flexible starting points",
+      "description": "We can begin with a full website, improve a specific part of an existing site, or automate one workflow."
+    },
+    {
+      "title": "Direct collaboration",
+      "description": "You work directly with me throughout the project, with regular review points before final handover."
+    }
+  ],
+  "testimonialsTitle": "What clients say",
+  "testimonialsIntro": "Feedback from recent collaboration.",
+  "testimonialDibasan": {
+    "quote": "Amin delivered a clean and practical online store for our packaging products. The structure made it easier for customers to explore the catalogue and send inquiries.",
+    "author": "Dibasan team",
+    "role": "Packaging company"
   },
-  {
-    "title": "Defined proposal",
-    "description": "You receive a written proposal covering scope, deliverables, timeline, cost and payment terms."
+  "germanGallery": {
+    "dashboard": "Development dashboard with demonstration statistics",
+    "ai-coach": "AI coach interface with a sample conversation",
+    "study-menu": "Learning tools and study navigation",
+    "admin-menu": "Application administration navigation",
+    "subscription": "Subscription interface; not evidence of verified live payments"
   },
-  {
-    "title": "Flexible starting points",
-    "description": "We can begin with a full website, improve a specific part of an existing site, or automate one workflow."
-  },
-  {
-    "title": "Direct collaboration",
-    "description": "You work directly with me throughout the project, with regular review points before final handover."
-  }
-],"testimonialsTitle": "What clients say",
-"testimonialsIntro": "Feedback from recent collaboration.",
-"testimonialDibasan": {
-  "quote": "Amin delivered a clean and practical online store for our packaging products. The structure made it easier for customers to explore the catalogue and send inquiries.",
-  "author": "Dibasan team",
-  "role": "Packaging company"
-},
-"caseStudies": {
-  "0": {
-    "badge": "Client project — Staging",
-    "use": "A packaging company needed a clear online presence to present its products and receive customer inquiries in an organized way.",
-    "work": "Built a WordPress and WooCommerce store, customized with Elementor and interactive elements to match the brand and improve product discovery.",
-    "outcome": "The website provides a structured catalogue and a straightforward path for customers to explore products and submit inquiries.",
-    "status": "Staging version. The live domain is available for review."
-  }
-}
+  "projectGallery": "Choose a project image",
+  "viewFullImage": "View full image",
+  "openFullImage": "View full image: {{title}}",
+  "caseOutcome": "Project output",
+  "caseCapabilities": "Developed features"
 }

@@ -60,3 +60,10 @@ This sends OPTIONS only and checks that both current www portfolio domains are e
 The landing page targets businesses in Iran and preserves an English version. HeroSection and ServicesSection present the work and services; ProjectDetailsDialog opens accessible project previews with Escape/close controls. Service links select an optional inquiry category. On submission, the category is included as a text prefix in the existing message field so the webhook schema stays unchanged. It is cleared only after confirmed success.
 
 Vazirmatn is served locally from public/fonts. Its SIL Open Font License is included alongside the unmodified font. No external font service is needed. See https://github.com/rastikerdar/vazirmatn for the original font project.
+
+
+## German learning case study
+
+Featured work includes a personal German learning application in local development, explicitly marked pre-launch. Its five screenshots are real application captures cropped to remove browser and desktop chrome and compressed to WebP. No public demo, customer results, learner counts or verified live-payment claims are added. Some UI statistics in the development screenshots are demonstration values.
+
+Gallery captions and case-study text live in both locale files; asset metadata is in src/data.json. The screenshots do not publish the application's private source code.
