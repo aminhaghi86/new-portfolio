@@ -1,7 +1,7 @@
-import { ArrowUpRight, Check, Globe, Workflow, PanelsTopLeft } from 'lucide-react';
+import { ArrowUpRight, Check, Globe, Workflow, ShoppingBag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-const icons = { website: Globe, application: PanelsTopLeft, automation: Workflow };
+const icons = { website: Globe, shop: ShoppingBag, automation: Workflow };
 
 export default function ServicesSection({ onSelectService }) {
   const { t } = useTranslation();
@@ -14,14 +14,24 @@ export default function ServicesSection({ onSelectService }) {
           return (
             <article key={service.id} className="service-card">
               <span className="service-icon"><Icon size={23} aria-hidden="true" /></span>
+              <p className="package-kicker">{t("packageScope")}</p>
               <h3>{service.title}</h3>
               <p>{service.description}</p>
               <ul>{service.deliverables.map(item => <li key={item}><Check size={15} aria-hidden="true" />{item}</li>)}</ul>
+              <dl className="package-facts">
+                {[["pages", "packagePages"], ["training", "packageTraining"], ["support", "packageSupport"], ["extras", "packageExtras"]].map(([key, label]) => <div key={key}><dt>{t(label)}</dt><dd>{service[key]}</dd></div>)}
+              </dl>
               <a href="#contact" className="service-link" onClick={() => onSelectService(service.id)}>{t('serviceCta')}<ArrowUpRight size={18} aria-hidden="true" /><span className="sr-only"> — {service.title}</span></a>
             </article>
           );
         })}
       </div>
+      <p className="package-note">{t('packageNote')}</p>
+      <details className="service-proof">
+        <summary>{t('automationTitle')}</summary>
+        <p>{t('automationDescription')}</p>
+        <a href="#contact" onClick={() => onSelectService('automation')}>{t('similarWorkflow')}</a>
+      </details>
     </section>
   );
 }

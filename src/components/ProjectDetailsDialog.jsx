@@ -22,6 +22,8 @@ export default function ProjectDetailsDialog({ project, onClose }) {
         {project.gallery?.length ? <ProjectGallery key={project.id} images={project.gallery} title={project.title} /> : <img className="project-detail-image" src={project.image} alt={project.title} width="1280" height="720" />}
         <dl className="project-detail-facts">
           {[["use", "caseUse"], ["work", "caseWork"], ["status", "caseStatus"]].map(([key, label]) => <div key={key}><dt>{t(label)}</dt><dd>{t(`caseStudies.${project.id}.${key}`)}</dd></div>)}
+          {t(`caseStudies.${project.id}.period`, { defaultValue: "" }) && <div><dt>{t('casePeriod')}</dt><dd>{t(`caseStudies.${project.id}.period`)}</dd></div>}
+          {t(`caseStudies.${project.id}.role`, { defaultValue: "" }) && <div><dt>{t('caseRole')}</dt><dd>{t(`caseStudies.${project.id}.role`)}</dd></div>}
           {t(`caseStudies.${project.id}.outcome`, { defaultValue: "" }) && <div><dt>{t('caseOutcome')}</dt><dd>{t(`caseStudies.${project.id}.outcome`)}</dd></div>}
         </dl>
         {Array.isArray(t(`caseStudies.${project.id}.capabilities`, { returnObjects: true, defaultValue: null })) && <div className="case-capabilities"><h3>{t('caseCapabilities')}</h3><ul>{t(`caseStudies.${project.id}.capabilities`, { returnObjects: true }).map(item => <li key={item}>{item}</li>)}</ul></div>}
