@@ -39,7 +39,7 @@ export default function useLenis() {
             const hash = link.getAttribute("href");
             if (!hash || hash === "#") return;
 
-            let target = null;
+            let target ;
             try { target = document.querySelector(hash); } catch { return; }
             if (!target) return;
 
