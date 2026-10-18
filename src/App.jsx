@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Moon, Sun, Phone, MessageCircle } from "lucide-react";
+import { Moon, Sun, Phone } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
@@ -11,6 +11,7 @@ import ProjectDetailsDialog from "./components/ProjectDetailsDialog";
 import "./portfolio.css";
 import Testimonials from "./components/Testimonials";
 import Collaboration from "./components/Collaboration";
+import { FaWhatsapp } from "react-icons/fa";
 const featuredProjectIds = [0, 7, 2];
 
 export default function App() {
@@ -47,7 +48,7 @@ export default function App() {
     ...project, ...t(`projectContent.${project.id}`, { returnObjects: true }),
   }));
   const navigation = myData.navbarItems.map((item, index) => ({ ...item, link: t(`nav.${index}`) }));
-  const skills = t("skillCards", { returnObjects: true });
+  const whatsappUrl = `https://wa.me/989304978625?text=${encodeURIComponent(t("whatsappMessage"))}`;
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -152,8 +153,6 @@ export default function App() {
       <main id="main-content" tabIndex={-1}>
         <HeroSection personal={personal} project={projects.find(project => project.id === 0)} onOpenProject={setActiveProjectId} />
         <ServicesSection onSelectService={setSelectedService} />
-        <Testimonials />
-        <Collaboration />
         {/* FEATURED PROJECTS */}
         <section id="projects" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">{t("projects")}</h2>
@@ -223,15 +222,8 @@ export default function App() {
           </details>
         </section>
 
-        <section className="px-6 pb-20 max-w-6xl mx-auto">
-          <article className="p-8 md:p-12 rounded-3xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30">
-            <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-3">{t("automationLabel")}</p>
-            <h2 className="text-3xl font-bold mb-4">{t("automationTitle")}</h2>
-            <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">{t("automationDescription")}</p>
-            <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400"><bdi dir="ltr">React · n8n · Telegram · Cloudflare Turnstile</bdi></p>
-            <a href="#contact" className="inline-block mt-6 text-blue-600 dark:text-blue-400 font-medium">{t("similarWorkflow")}</a>
-          </article>
-        </section>
+        <Testimonials />
+        <Collaboration />
 
         {/* ABOUT ME */}
         {/* ABOUT ME - نسخه بهبود یافته */}
@@ -248,6 +240,12 @@ export default function App() {
               <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {personal.about}
               </p>
+
+              <details className="about-details mt-6">
+                <summary>{t("aboutDetails")}</summary>
+                <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{t("skillsSummary")}</p>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{t("experienceSummary")}</p>
+              </details>
 
               <a href={cv} target="_blank" rel="noopener noreferrer" className="inline-block mt-6 text-blue-600 dark:text-blue-400 underline">{t("cv")}</a>
               {/* Social Links - جدید */}
@@ -282,63 +280,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* SKILLS */}
-        <section className="px-6 py-20 bg-zinc-50 dark:bg-zinc-950">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">{t("skills")}</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {skills.map((skill, i) => (
-                <div
-                  key={i}
-                  className="p-8 rounded-3xl bg-white dark:bg-zinc-900 hover:shadow-xl transition-all duration-300"
-                >
-                  <h3 className="text-2xl font-bold mb-4">{skill.title}</h3>
-                  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                    <bdi dir="ltr">{skill.items}</bdi>
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* EXPERIENCE */}
-        <section className="px-6 py-20 bg-zinc-50 dark:bg-zinc-950">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">{t("experience")}</h2>
-            <div className="space-y-10">
-              <div className="border-s-4 border-blue-600 ps-6">
-                <h3 className="font-semibold text-xl">{t("freelance")}</h3>
-                <p className="text-zinc-500 dark:text-zinc-400">{t("freelanceDates")}</p>
-                <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-                  {t("freelanceDescription")}
-                </p>
-              </div>
-
-              <div className="border-s-4 border-blue-600 ps-6">
-                <h3 className="font-semibold text-xl">{t("training")}</h3>
-                <p className="text-zinc-500 dark:text-zinc-400">{t("trainingDates")}</p>
-                <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-                  {t("trainingDescription")}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10" aria-labelledby="process-title">
-          <h2 id="process-title" className="text-3xl sm:text-4xl font-bold mb-4">{t("processTitle")}</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-10">{t("processIntro")}</p>
-          <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {t("processSteps", { returnObjects: true }).map((step, index) => (
-              <li key={step.title} className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900">
-                <span aria-hidden="true" className="text-blue-600 dark:text-blue-400 text-sm">0{index + 1}</span>
-                <h3 className="text-xl font-semibold mt-3 mb-3">{step.title}</h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{step.description}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
         <section className="px-6 pb-20 max-w-4xl mx-auto" aria-labelledby="faq-title">
           <h2 id="faq-title" className="text-3xl font-bold mb-8">{t("faqTitle")}</h2>
           <div className="space-y-4">
@@ -359,7 +300,7 @@ export default function App() {
             <p className="text-center text-sm text-zinc-500 dark:text-zinc-400 mb-10">{t("contactNext")}</p>
 
             {/* اطلاعات تماس */}
-            <div className="grid md:grid-cols-2 gap-6 mb-14">
+            <div className="grid md:grid-cols-3 gap-4 mb-8">
               {/* Location */}
               <a
                 href="https://www.google.com/maps?q=Mashhad+Iran"
@@ -575,13 +516,13 @@ export default function App() {
       </main>
       {/* FLOATING CONTACT */}
       <a
-        href="https://wa.me/989304978625?text=سلام، می‌خواستم درباره خدمات شما سوال کنم"
+        href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t("floatingContact")}
-        className="fixed bottom-6 end-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110"
+        className="fixed bottom-6 end-6 z-50 flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 py-3 rounded-full shadow-2xl transition-all"
       >
-        <MessageCircle size={28} />
+        <FaWhatsapp size={25} aria-hidden="true" /><span className="text-sm font-semibold">{t("whatsappShort")}</span>
       </a>
       <ProjectDetailsDialog project={projects.find(project => project.id === activeProjectId) ?? null} onClose={() => setActiveProjectId(null)} />
       <dialog

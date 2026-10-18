@@ -25,7 +25,21 @@
         }
       ],
       "demo": "https://dibasan.com/",
-      "demoLabel": "Live Demo"
+      "demoLabel": "Live Demo",
+      "gallery": [
+        {
+          "src": "/projects/dibasan/home.webp",
+          "captionKey": "dibasanGallery.home",
+          "width": 1280,
+          "height": 889
+        },
+        {
+          "src": "/projects/dibasan/contact.webp",
+          "captionKey": "dibasanGallery.contact",
+          "width": 1280,
+          "height": 889
+        }
+      ]
     },
     {
       "id": 2,

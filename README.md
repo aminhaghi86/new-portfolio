@@ -67,3 +67,9 @@ Vazirmatn is served locally from public/fonts. Its SIL Open Font License is incl
 Featured work includes a personal German learning application in local development, explicitly marked pre-launch. Its five screenshots are real application captures cropped to remove browser and desktop chrome and compressed to WebP. No public demo, customer results, learner counts or verified live-payment claims are added. Some UI statistics in the development screenshots are demonstration values.
 
 Gallery captions and case-study text live in both locale files; asset metadata is in src/data.json. The screenshots do not publish the application's private source code.
+
+## Client-facing service structure
+
+The homepage presents services/packages, selected projects, client feedback, one four-step collaboration and handover section, a compact introduction, FAQs and contact. Package scopes live in `src/locales/fa.json` and `src/locales/en.json`; they are proposed starting scopes, with pricing and support duration agreed in the written proposal.
+
+Dibasan's case study includes screenshots of its public home/contact pages, the contributor's implementation scope, and owner-confirmed dates (initial delivery 1403 SH, redesign 1405 SH). The testimonial attribution was supplied by the portfolio owner. No sales, SEO or conversion results are inferred from these screenshots. WhatsApp messages follow the selected language. The contact webhook payload is unchanged.

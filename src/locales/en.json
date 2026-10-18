@@ -8,15 +8,15 @@
   "discuss": "Tell me about your project",
   "cv": "View CV",
   "about": "About Me",
-  "servicesIntro": "Start with a new website, an improvement to your current one, or a specific workflow integration. We define the scope and cost before work begins.",
+  "servicesIntro": "Choose a starting scope. Deliverables, cost and timing are confirmed in a written proposal before work begins.",
   "requirements": "Discuss Your Requirements →",
   "github": "GitHub",
   "linkedin": "LinkedIn",
   "liveDemo": "Live Demo",
   "watchDemo": "Watch Demo",
   "automationLabel": "Automation in use on this website",
-  "automationTitle": "Portfolio Inquiry Automation",
-  "automationDescription": "I connected this contact form to a workflow on my n8n server. Project inquiries are delivered to my Telegram inbox, so I can follow up with the sender by email.",
+  "automationTitle": "Working example: inquiry capture on this website",
+  "automationDescription": "This contact form connects to an inquiry workflow so project details can be recorded and I can be notified for follow-up. Information handling is explained in the privacy notice.",
   "similarWorkflow": "Discuss a Similar Workflow →",
   "experience": "Background & Experience",
   "freelance": "Freelance Web Developer",
@@ -47,7 +47,7 @@
   "deliveryNotice": "You can also contact me directly using the email address or phone number on this page.",
   "acknowledgement": "By submitting this form, you acknowledge the processing described in the privacy notice.\n                Please do not include passwords, payment details, or other sensitive information.",
   "readPrivacy": "Read Privacy Policy",
-  "floatingContact": "Discuss your project",
+  "floatingContact": "Send a message on WhatsApp",
   "privacyTitle": "Privacy Notice",
   "closePrivacy": "Close privacy notice",
   "privacyOperator": "This website is operated by Amin Haghi for presenting development work and receiving project inquiries.",
@@ -75,7 +75,7 @@
     "role": "Web Developer & Automation Specialist",
     "bio": "I hold a degree in software engineering and completed frontend development training in Sweden. I build web applications, online stores, and workflow automations.",
     "description": "I help businesses build web applications, improve WordPress and WooCommerce websites, and automate repetitive tasks with n8n. From customer inquiries to connected business tools, I turn your requirements into practical solutions.",
-    "about": "I work with React and Next.js, REST APIs, PostgreSQL and MongoDB, and integrations between business tools. I can collaborate directly with your team or support an agency with development and automation work."
+    "about": "From business websites and online stores to forms and workflow integrations, I can propose a clear scope based on your business needs."
   },
   "nav": [
     "Services",
@@ -86,36 +86,48 @@
   "serviceCards": [
     {
       "id": "website",
-      "title": "Business websites & stores",
-      "description": "For businesses and manufacturers that need a clear place to present their products and services and receive customer inquiries.",
+      "title": "Business website",
+      "description": "Present your company and services with a clear customer inquiry path.",
       "deliverables": [
-        "Design aligned with your business",
-        "Service pages or a product catalogue",
-        "Contact and quotation inquiry forms"
-      ]
+        "Responsive design aligned with your brand",
+        "Service presentation and contact form",
+        "WordPress setup"
+      ],
+      "pages": "Up to 5 pages: home, about, services, contact and one agreed page.",
+      "training": "Guidance on editing the delivered pages and content.",
+      "extras": "Domain, hosting, paid licences and content production are quoted separately.",
+      "support": "Support scope and duration are agreed in the written proposal."
+    },
+    {
+      "id": "shop",
+      "title": "WordPress store",
+      "description": "Present products and build an ordering flow with WooCommerce.",
+      "deliverables": [
+        "Home, shop, category and product templates",
+        "Cart and checkout",
+        "Initial entry of up to 10 products"
+      ],
+      "pages": "6 core templates: home, shop, category, product, cart and checkout.",
+      "training": "Product and order management guidance; gateway setup subject to provider approval and account details.",
+      "extras": "Hosting, domain, paid plugins, SMS and additional product entry are quoted separately.",
+      "support": "Support scope and duration are agreed in the written proposal."
     },
     {
       "id": "automation",
-      "title": "Workflow integrations",
-      "description": "For teams moving information manually between forms, messages and business tools.",
+      "title": "Inquiry workflow automation",
+      "description": "Capture and follow up inquiries with less manual data transfer.",
       "deliverables": [
-        "Connect forms to team tools",
-        "Incoming inquiry notifications",
-        "Workflows tailored to your process"
-      ]
-    },
-    {
-      "id": "application",
-      "title": "Custom web applications",
-      "description": "When you need more than a presentation website: a dashboard, scheduling interface or a tool for managing business information.",
-      "deliverables": [
-        "User interfaces and authentication",
-        "API and database connections",
-        "Features tailored to your product"
-      ]
+        "One workflow for one agreed process",
+        "Up to 2 services with available APIs",
+        "Success and failure scenario checks"
+      ],
+      "pages": "1 form or data entry point; a complete website is outside this package.",
+      "training": "Workflow operation guide and handover of agreed access.",
+      "extras": "Execution server, subscriptions, SMS and API usage are billed separately.",
+      "support": "Support scope and duration are agreed in the written proposal."
     }
   ],
-  "services": "The right solution for your business",
+  "services": "Services and starting packages",
   "skillCards": [
     {
       "title": "Web Development",
@@ -218,6 +230,14 @@
     {
       "question": "What about hosting and third-party service costs?",
       "answer": "Hosting, domains, messaging and API services are considered in the proposal. Their costs and payment responsibility should be clear before work starts."
+    },
+    {
+      "question": "How are access and management guidance handed over?",
+      "answer": "Access, accounts and training format are specified in the written proposal. Third-party plugins and services remain subject to their own licence terms."
+    },
+    {
+      "question": "What is included in post-delivery support?",
+      "answer": "Support scope and duration are agreed in the written proposal. New features and external service costs are agreed separately."
     }
   ],
   "contactIntro": "Tell me about your business and what you would like to improve. Include your website link if you have one.",
@@ -228,7 +248,15 @@
       "use": "A packaging company needed a clear online presence to present its products and receive customer inquiries in an organized way.",
       "work": "Built a WordPress and WooCommerce store, customized with Elementor and interactive elements to match the brand and improve product discovery.",
       "outcome": "The website provides a structured catalogue and a straightforward path for customers to explore products and submit inquiries.",
-      "status": "The website is available on its public domain for review."
+      "status": "The website is available on its public domain for review.",
+      "role": "WordPress, WooCommerce and Elementor implementation and customisation, including product presentation and inquiry paths.",
+      "capabilities": [
+        "Home page presenting the company and product groups",
+        "WooCommerce catalogue and product categories",
+        "Contact page and customer inquiry path",
+        "Page appearance customised with Elementor"
+      ],
+      "period": "Initial delivery: 1403 SH · Redesign: 1405 SH"
     },
     "2": {
       "use": "Giving a designer an organized place to present her work and professional practice.",
@@ -279,32 +307,12 @@
   "inquiryService": "Which service do you need? (optional)",
   "servicePlaceholder": "I’m not sure yet; I’d like guidance",
   "inquiryServicePrefix": "Service requested",
-  "collaborationTitle": "How we can work together",
-  "collaborationIntro": "A clear and practical way to start. Scope and cost are defined before any work begins.",
-  "collaborationItems": [
-    {
-      "title": "Discovery conversation",
-      "description": "We discuss your business, current website (if any), and the manual tasks your team handles today."
-    },
-    {
-      "title": "Defined proposal",
-      "description": "You receive a written proposal covering scope, deliverables, timeline, cost and payment terms."
-    },
-    {
-      "title": "Flexible starting points",
-      "description": "We can begin with a full website, improve a specific part of an existing site, or automate one workflow."
-    },
-    {
-      "title": "Direct collaboration",
-      "description": "You work directly with me throughout the project, with regular review points before final handover."
-    }
-  ],
-  "testimonialsTitle": "What clients say",
-  "testimonialsIntro": "Feedback from recent collaboration.",
+  "testimonialsTitle": "Client feedback on Dibasan",
+  "testimonialsIntro": "Feedback from the Dibasan packaging website project.",
   "testimonialDibasan": {
     "quote": "Amin delivered a clean and practical online store for our packaging products. The structure made it easier for customers to explore the catalogue and send inquiries.",
-    "author": "Dibasan team",
-    "role": "Packaging company"
+    "author": "Mehdi Taghdisi",
+    "role": "CEO, Dibasan"
   },
   "germanGallery": {
     "dashboard": "Development dashboard with demonstration statistics",
@@ -317,5 +325,42 @@
   "viewFullImage": "View full image",
   "openFullImage": "View full image: {{title}}",
   "caseOutcome": "Project output",
-  "caseCapabilities": "Developed features"
+  "caseCapabilities": "Developed features",
+  "packageScope": "Proposed starting scope",
+  "packagePages": "Pages and scope",
+  "packageTraining": "Training and handover",
+  "packageSupport": "Support",
+  "packageExtras": "Separate costs",
+  "packageNote": "These packages start the discussion. Pricing follows a review of content, design and integrations; scope changes are agreed separately.",
+  "aboutDetails": "Relevant skills and background",
+  "skillsSummary": "Web development with React and Next.js, WordPress and WooCommerce websites, and workflow integrations with n8n and APIs.",
+  "experienceSummary": "Experience building web projects and frontend training in Sweden. Detailed background and dates are available in my CV.",
+  "whatsappShort": "WhatsApp",
+  "whatsappMessage": "Hi Amin, I would like to discuss a website or workflow automation project for my business.",
+  "handoverTitle": "Agreeing on handover before work starts",
+  "handoverItems": [
+    {
+      "title": "Access and ownership",
+      "description": "Admin access, custom code and transferable accounts are specified in the proposal. Third-party licences remain subject to their providers’ terms."
+    },
+    {
+      "title": "Management guidance",
+      "description": "Training format and guidance for the delivered functionality are agreed before work starts."
+    },
+    {
+      "title": "Support",
+      "description": "Support scope and duration are agreed in the written proposal. New features are quoted separately."
+    },
+    {
+      "title": "Ongoing costs",
+      "description": "Domain, hosting, plugins, SMS and external services, including who pays for them, are agreed in advance."
+    }
+  ],
+  "caseRole": "My contribution",
+  "dibasanGallery": {
+    "home": "Home page: company and product group presentation",
+    "shop": "Shop: product browsing and categories",
+    "contact": "Contact page: ways to get in touch and submit an inquiry"
+  },
+  "casePeriod": "Project timeline"
 }

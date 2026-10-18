@@ -4,7 +4,7 @@ const Testimonials = () => {
       const { t } = useTranslation();
   return (
 // {/* TESTIMONIALS */}
-<section className="px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
+<section id="testimonials" className="px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
   <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
     {t("testimonialsTitle")}
   </h2>
