@@ -154,7 +154,7 @@ export default function App() {
       </header>
 
       <main id="main-content" tabIndex={-1} ref={mainRef}>
-        <div data-reveal>
+        <div data-reveal="exit-only">
           <HeroSection personal={personal} project={projects.find(project => project.id === 0)} onOpenProject={setActiveProjectId} />
         </div>
         <div data-reveal>

@@ -13,7 +13,7 @@ const Testimonials = () => {
   </p>
 
   <div className="max-w-3xl mx-auto">
-    <figure className="p-8 md:p-10 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10">
+    <figure data-reveal-item className="p-8 md:p-10 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10">
       <blockquote className="text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
         “{t("testimonialDibasan.quote")}”
       </blockquote>

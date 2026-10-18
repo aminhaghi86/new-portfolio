@@ -12,7 +12,7 @@ export default function ServicesSection({ onSelectService }) {
         {t('serviceCards', { returnObjects: true }).map(service => {
           const Icon = icons[service.id];
           return (
-            <article key={service.id} className="service-card">
+            <article key={service.id} data-reveal-item className="service-card">
               <span className="service-icon"><Icon size={23} aria-hidden="true" /></span>
               <p className="package-kicker">{t("packageScope")}</p>
               <h3>{service.title}</h3>
@@ -26,8 +26,8 @@ export default function ServicesSection({ onSelectService }) {
           );
         })}
       </div>
-      <p className="package-note">{t('packageNote')}</p>
-      <details className="service-proof">
+      <p className="package-note" data-reveal-item>{t('packageNote')}</p>
+      <details className="service-proof" data-reveal-item>
         <summary>{t('automationTitle')}</summary>
         <p>{t('automationDescription')}</p>
         <a href="#contact" onClick={() => onSelectService('automation')}>{t('similarWorkflow')}</a>
