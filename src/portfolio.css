@@ -130,3 +130,8 @@ html[lang='fa'] .hero-copy h1 { line-height: 1.65; letter-spacing: -.035em; }
 .handover-panel dt { font-size: .87rem; font-weight: 600; margin-bottom: .4rem; }
 .handover-panel dd { font-size: .8rem; line-height: 1.9; color: var(--portfolio-muted); }
 @media (max-width: 639px) { .handover-panel dl { grid-template-columns: 1fr; } }
+
+[data-reveal],
+[data-reveal-item] {
+  will-change: transform, opacity;
+}

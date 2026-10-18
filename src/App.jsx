@@ -12,11 +12,14 @@ import "./portfolio.css";
 import Testimonials from "./components/Testimonials";
 import Collaboration from "./components/Collaboration";
 import { FaWhatsapp } from "react-icons/fa";
+import useScrollReveal from "./hooks/useScrollReveal";
 const featuredProjectIds = [0, 7, 2];
 
 export default function App() {
   const { t, i18n } = useTranslation();
+  const mainRef = useRef(null);
   const language = i18n.resolvedLanguage === "fa" ? "fa" : "en";
+  useScrollReveal(mainRef, [language]);
   const services = t("serviceCards", { returnObjects: true });
   const [dark, setDark] = useState(() => {
     try { return localStorage.getItem("theme") !== "light"; }
@@ -150,11 +153,15 @@ export default function App() {
         </nav>
       </header>
 
-      <main id="main-content" tabIndex={-1}>
-        <HeroSection personal={personal} project={projects.find(project => project.id === 0)} onOpenProject={setActiveProjectId} />
-        <ServicesSection onSelectService={setSelectedService} />
+      <main id="main-content" tabIndex={-1} ref={mainRef}>
+        <div data-reveal>
+          <HeroSection personal={personal} project={projects.find(project => project.id === 0)} onOpenProject={setActiveProjectId} />
+        </div>
+        <div data-reveal>
+          <ServicesSection onSelectService={setSelectedService} />
+        </div>
         {/* FEATURED PROJECTS */}
-        <section id="projects" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
+        <section id="projects" data-reveal className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">{t("projects")}</h2>
           <p className="text-center text-zinc-600 dark:text-zinc-400 max-w-3xl mx-auto mb-12">{t("projectsIntro")}</p>
 
@@ -162,6 +169,7 @@ export default function App() {
             {featuredProjectIds.map((id) => projects.find((project) => project.id === id)).filter(Boolean).map((project) => (
               <article
                 key={project.id}
+                  data-reveal-item
                 className="group flex flex-col bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
               >
                 <div className="relative h-56 overflow-hidden">
@@ -221,13 +229,18 @@ export default function App() {
             </div>
           </details>
         </section>
+        <div data-reveal>
 
-        <Testimonials />
-        <Collaboration />
+          <Testimonials />
+        </div>
+        <div data-reveal>
+
+          <Collaboration />
+        </div>
 
         {/* ABOUT ME */}
         {/* ABOUT ME - نسخه بهبود یافته */}
-        <section id="about" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
+        <section id="about" data-reveal="blur" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
             <div>
@@ -280,7 +293,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="px-6 pb-20 max-w-4xl mx-auto" aria-labelledby="faq-title">
+        <section data-reveal className="px-6 pb-20 max-w-4xl mx-auto" aria-labelledby="faq-title">
           <h2 id="faq-title" className="text-3xl font-bold mb-8">{t("faqTitle")}</h2>
           <div className="space-y-4">
             {t("faqItems", { returnObjects: true }).map((item) => (
@@ -293,7 +306,7 @@ export default function App() {
         </section>
         {/* CONTACT */}
         {/* CONTACT SECTION */}
-        <section id="contact" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
+        <section id="contact" data-reveal className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <div className="bg-zinc-100 dark:bg-white/5 rounded-3xl p-5 sm:p-8 md:p-12">
             <h2 className="text-4xl font-bold text-center mb-4">{t("contact")}</h2>
             <p className="text-center max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400 mb-3">{t("contactIntro")}</p>

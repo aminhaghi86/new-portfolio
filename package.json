@@ -11,8 +11,10 @@
     "check:contact-cors": "node scripts/check-contact-cors.mjs"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@marsidev/react-turnstile": "^1.5.1",
     "@tailwindcss/vite": "^4.2.4",
+    "gsap": "^3.15.0",
     "i18next": "^26.4.4",
     "lucide-react": "^1.11.0",
     "react": "^19.2.5",
