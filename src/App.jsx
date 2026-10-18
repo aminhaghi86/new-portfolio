@@ -13,6 +13,10 @@ import Testimonials from "./components/Testimonials";
 import Collaboration from "./components/Collaboration";
 import { FaWhatsapp } from "react-icons/fa";
 import useScrollReveal from "./hooks/useScrollReveal";
+import useLenis from "./hooks/useLenis";
+import useProjectCards from "./hooks/useProjectCards";
+import ScrollProgress from "./components/ScrollProgress";
+import TechMarquee from "./components/TechMarquee";
 const featuredProjectIds = [0, 7, 2];
 
 export default function App() {
@@ -20,6 +24,9 @@ export default function App() {
   const mainRef = useRef(null);
   const language = i18n.resolvedLanguage === "fa" ? "fa" : "en";
   useScrollReveal(mainRef, [language]);
+  useLenis();
+  useScrollReveal(mainRef, [language]);
+  useProjectCards(mainRef, [language]);
   const services = t("serviceCards", { returnObjects: true });
   const [dark, setDark] = useState(() => {
     try { return localStorage.getItem("theme") !== "light"; }
@@ -126,6 +133,7 @@ export default function App() {
   };
   return (
     <div className="min-h-screen bg-white dark:bg-[#0b0b10] text-zinc-900 dark:text-white transition-colors duration-300">
+      <ScrollProgress />
       <a href="#main-content" className="skip-link">{t("skipContent")}</a>
       {/* HEADER / NAVBAR ****/}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
@@ -157,6 +165,7 @@ export default function App() {
         <div data-reveal="exit-only">
           <HeroSection personal={personal} project={projects.find(project => project.id === 0)} onOpenProject={setActiveProjectId} />
         </div>
+        <div data-reveal><TechMarquee /></div>
         <div data-reveal>
           <ServicesSection onSelectService={setSelectedService} />
         </div>
@@ -169,7 +178,7 @@ export default function App() {
             {featuredProjectIds.map((id) => projects.find((project) => project.id === id)).filter(Boolean).map((project) => (
               <article
                 key={project.id}
-                  data-reveal-item
+                data-reveal-item
                 className="group flex flex-col bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
               >
                 <div className="relative h-56 overflow-hidden">
@@ -217,7 +226,21 @@ export default function App() {
             <summary className="cursor-pointer font-semibold text-lg">{t("moreProjects")}</summary>
             <div className="grid sm:grid-cols-2 gap-6 mt-6">
               {projects.filter((project) => !featuredProjectIds.includes(project.id)).map((project) => (
-                <article key={project.id} className="p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-900">
+                <article
+                  key={project.id}
+                  data-reveal-item
+                  data-tilt
+                  className="group flex flex-col bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      data-parallax
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <h3 className="font-semibold mb-3">{project.title}</h3>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">{project.desc}</p>
                   <div className="flex flex-wrap gap-5 text-sm text-blue-600 dark:text-blue-400">
@@ -240,7 +263,7 @@ export default function App() {
 
         {/* ABOUT ME */}
         {/* ABOUT ME - نسخه بهبود یافته */}
-        <section id="about" data-reveal="blur" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
+        <section id="about" data-reveal className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
             <div>
@@ -306,7 +329,7 @@ export default function App() {
         </section>
         {/* CONTACT */}
         {/* CONTACT SECTION */}
-        <section id="contact" data-reveal className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
+        <section id="contact" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <div className="bg-zinc-100 dark:bg-white/5 rounded-3xl p-5 sm:p-8 md:p-12">
             <h2 className="text-4xl font-bold text-center mb-4">{t("contact")}</h2>
             <p className="text-center max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400 mb-3">{t("contactIntro")}</p>
@@ -481,7 +504,10 @@ export default function App() {
            outline-none transition-all" />
 
                   {/* ویجت کپچا - بهتر است بالای دکمه باشد تا کاربر اول آن را ببیند */}
-                  <div ref={captchaContainerRef} className="flex justify-center my-2 overflow-x-auto">
+                  <div ref={captchaContainerRef} className="flex justify-center my-2 overflow-x-auto"
+                    style={{ minHeight: captchaSize === "compact" ? 140 : 65 }}
+                  >
+
                     {siteKey ? <Turnstile
                       key={`${captchaKey}-${language}-${dark}-${captchaSize}`}
                       siteKey={siteKey}

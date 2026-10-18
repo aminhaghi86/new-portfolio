@@ -24,7 +24,7 @@ export default function useScrollReveal(scope, deps = []) {
                                 trigger: section,
                                 start: "top 88%",
                                 end: "top 35%",
-                                scrub: 1.2, // نرمی حرکت؛ عدد بزرگ‌تر = نرم‌تر
+                                scrub: true, // نرمی حرکت؛ عدد بزرگ‌تر = نرم‌تر
                             },
                         });
 
@@ -50,16 +50,19 @@ export default function useScrollReveal(scope, deps = []) {
                         // کارت‌ها یکی‌یکی (stagger)
                         if (items.length) {
                             enter.fromTo(
-                                items,
-                                { opacity: 0, y: 60, scale: 0.96 },
+                                section,
+                                {
+                                    opacity: 0,
+                                    y: 60,
+                                    ...(useBlur && { filter: "blur(8px)" }),
+                                },
                                 {
                                     opacity: 1,
                                     y: 0,
-                                    scale: 1,
                                     ease: "power3.out",
-                                    stagger: items.length > 1 ? 0.5 / items.length : 0,
+                                    ...(useBlur && { filter: "blur(0px)" }),
                                 },
-                                0.15
+                                0
                             );
                         }
                     }
@@ -67,18 +70,17 @@ export default function useScrollReveal(scope, deps = []) {
                     // خروج: وقتی از بالای صفحه خارج می‌شود کم‌کم محو می‌شود
                     gsap.fromTo(
                         section,
-                        { opacity: 1, y: 0, scale: 1 },
+                        { opacity: 1, y: 0 },
                         {
                             opacity: 0,
-                            y: -70,
-                            scale: 0.97,
+                            y: -40,
                             ease: "none",
                             immediateRender: false,
                             scrollTrigger: {
                                 trigger: section,
                                 start: "bottom 30%",
                                 end: "bottom -10%",
-                                scrub: 1,
+                                scrub: true,
                             },
                         }
                     );
@@ -88,10 +90,17 @@ export default function useScrollReveal(scope, deps = []) {
             // وقتی ارتفاع صفحه عوض شود (لود تصاویر lazy، باز شدن details، تغییر زبان)
             // موقعیت‌ها دوباره محاسبه می‌شوند
             let timer;
+            let lastHeight = scope.current.offsetHeight;
             const ro = new ResizeObserver(() => {
                 clearTimeout(timer);
-                timer = setTimeout(() => ScrollTrigger.refresh(), 150);
+                timer = setTimeout(() => {
+                    const height = scope.current.offsetHeight;
+                    if (Math.abs(height - lastHeight) < 8) return; // تغییر ناچیز، نادیده گرفته شود
+                    lastHeight = height;
+                    ScrollTrigger.refresh();
+                }, 250);
             });
+            ro.observe(scope.current);
             ro.observe(scope.current);
 
             return () => {
