@@ -17,8 +17,8 @@ import useLenis from "./hooks/useLenis";
 import useProjectCards from "./hooks/useProjectCards";
 import ScrollProgress from "./components/ScrollProgress";
 import TechMarquee from "./components/TechMarquee";
-const featuredProjectIds = [0, 7, 2];
-
+// const featuredProjectIds = [0, 7, 2];
+const featuredProjectIds = [0, 8, 7];
 export default function App() {
   const { t, i18n } = useTranslation();
   const mainRef = useRef(null);

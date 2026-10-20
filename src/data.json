@@ -251,7 +251,27 @@
           "height": 1297
         }
       ]
-    }
+    },
+    {
+  "id": 8,
+  "title": "Dibasan Editorial Console",
+  "github": "",
+  "image": "/projects/dibasan-console/cover.png",
+  "desc": "A Telegram-based console for drafting, SEO review and approval of WordPress articles, built with n8n.",
+  "tech": [
+    { "skill": "n8n" },
+    { "skill": "Telegram Bot API" },
+    { "skill": "PostgreSQL" },
+    { "skill": "WordPress REST API" },
+    { "skill": "AI integration" }
+  ],
+  "demo": "",
+  "demoLabel": "Live Demo",
+  "gallery": [
+    { "src": "/projects/dibasan-console/flow.png", "captionKey": "consoleGallery.flow", "width": 1600, "height": 900 },
+    { "src": "/projects/dibasan-console/telegram.png", "captionKey": "consoleGallery.telegram", "width": 1000, "height": 1400 }
+  ]
+}
   ],
   "myPersonalInfo": [
     {

@@ -179,6 +179,10 @@
     "7": {
       "title": "German Learning Platform for Persian Speakers",
       "desc": "A personal product with interactive exercises, spaced repetition, level management, an AI coach and administration screens. Developed locally; not publicly launched."
+    },
+    "8": {
+      "title": "Dibasan Editorial Console",
+      "desc": "A Telegram-based console for drafting, SEO review and approval of WordPress articles, built with n8n."
     }
   },
   "projects": "Featured Projects",
@@ -282,6 +286,20 @@
         "AI coach interface and conversation session management",
         "Content administration and subscription interfaces"
       ]
+    },
+    "8": {
+      "badge": "Client project · Test stage",
+      "use": "Lets Dibasan's manager draft and review blog content through Telegram without opening the WordPress admin.",
+      "work": "An n8n workflow with Telegram commands for category selection, per-article verified briefs, AI-assisted drafting, image and SEO completion, and a final human approval, with PostgreSQL tracking request state.",
+      "status": "Version 1 published a test article in a live trial on the Dibasan site. Version 2 has passed local tests but has not yet run on the server; automatic publishing is disabled by default.",
+      "outcome": "A controlled content path where every publish requires explicit admin approval.",
+      "role": "Designed and built the workflow, data model and safety rules.",
+      "capabilities": [
+        "Access restricted to one authorised admin",
+        "Duplicate-event protection and an hourly AI request cap",
+        "Pre-publish checklist and 24-hour approval window",
+        "Publishing blocked if content changes after review"
+      ]
     }
   },
   "skipContent": "Skip to main content",
@@ -320,6 +338,10 @@
     "study-menu": "Learning tools and study navigation",
     "admin-menu": "Application administration navigation",
     "subscription": "Subscription interface; not evidence of verified live payments"
+  },
+  "consoleGallery": {
+    "flow": "Overall path: from Telegram command to approval and publishing",
+    "telegram": "Sample bot conversation; identifiers removed"
   },
   "projectGallery": "Choose a project image",
   "viewFullImage": "View full image",
