@@ -913,3 +913,7 @@ html[lang='fa'] .hero-copy h1 {
     animation: none;
   }
 }
+
+html.dark .case-gallery .project-detail-image {
+  background: var(--portfolio-soft);
+}
