@@ -146,6 +146,24 @@ html[lang='fa'] .hero-copy h1 {
   border-color: var(--portfolio-muted);
 }
 
+.theme-select {
+  min-height: 44px;
+  max-width: 7rem;
+  padding: .5rem .65rem;
+  border: 1px solid var(--portfolio-line);
+  border-radius: 14px;
+  background: var(--portfolio-surface);
+  color: var(--portfolio-ink);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+.theme-select:focus-visible {
+  outline: 2px solid var(--portfolio-accent);
+  outline-offset: 3px;
+}
+
 .hero-promises {
   display: flex;
   flex-wrap: wrap;
