@@ -47,7 +47,9 @@ export default function useHeroIntro(scope) {
           .from(q(".showcase-workflow"), { y: 30, opacity: 0, duration: 0.8 }, 0.9)
           .from(q(".showcase-workflow li"), { y: 14, opacity: 0, duration: 0.5, stagger: 0.1 }, 1.0);
       });
+      return () => mm.revert();
     },
-    { scope } // فقط یک‌بار؛ با تغییر زبان دوباره اجرا نمی‌شود
+
+    { scope }
   );
 }
