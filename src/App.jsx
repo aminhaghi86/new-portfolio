@@ -214,12 +214,13 @@ export default function App() {
                 data-reveal-item
                 className="group flex flex-col bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
               >
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                   <img
                     src={project.image}
                     alt={project.title}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    decoding="async"
+                    className="block w-full h-full object-contain"
                   />
                 </div>
 
@@ -265,13 +266,13 @@ export default function App() {
                   data-tilt
                   className="group flex flex-col bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
                 >
-                  <div className="relative h-56 overflow-hidden">
+                  <div className="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                     <img
                       src={project.image}
                       alt={project.title}
                       loading="lazy"
-                      data-parallax
-                      className="w-full h-full object-cover"
+                      decoding="async"
+                      className="block w-full h-full object-contain"
                     />
                   </div>
                   <h3 className="font-semibold mb-3">{project.title}</h3>
