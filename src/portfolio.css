@@ -28,9 +28,7 @@ html[lang='fa'] body {
   font-family: Vazirmatn, Tahoma, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html:not(.lenis) { scroll-behavior: smooth; }
 
 button,
 input,

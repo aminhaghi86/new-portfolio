@@ -8,7 +8,7 @@ export default function HeroSection({ personal, project, onOpenProject }) {
   const rootRef = useRef(null);
   useHeroIntro(rootRef);
   return (
-    <section ref={rootRef} id="home" className="portfolio-hero scroll-mt-40 md:scroll-mt-28">
+    <section ref={rootRef} id="home" className="portfolio-hero scroll-mt-24 md:scroll-mt-28">
       <div className="hero-layout">
         <div className="hero-copy">
           <p className="section-eyebrow"><span aria-hidden="true" />{t('heroEyebrow')}</p>
