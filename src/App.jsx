@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Moon, Sun, Phone, Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
@@ -17,6 +17,7 @@ import useLenis from "./hooks/useLenis";
 import useProjectCards from "./hooks/useProjectCards";
 import ScrollProgress from "./components/ScrollProgress";
 import TechMarquee from "./components/TechMarquee";
+import { readThemeMode, resolveDark } from "./utils/theme";
 // const featuredProjectIds = [0, 7, 2];
 const featuredProjectIds = [0, 8, 7];
 export default function App() {
@@ -27,10 +28,8 @@ export default function App() {
   useLenis();
   useProjectCards(mainRef, [language]);
   const services = t("serviceCards", { returnObjects: true });
-  const [dark, setDark] = useState(() => {
-    try { return localStorage.getItem("theme") !== "light"; }
-    catch { return true; }
-  });
+  const [themeMode, setThemeMode] = useState(readThemeMode);
+  const [dark, setDark] = useState(() => resolveDark(themeMode));
   const policyRef = useRef(null);
   const captchaContainerRef = useRef(null);
   const lastCaptchaSize = useRef("compact");
@@ -61,10 +60,53 @@ export default function App() {
   const whatsappUrl = `https://wa.me/989304978625?text=${encodeURIComponent(t("whatsappMessage"))}`;
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    try { localStorage.setItem("theme", dark ? "dark" : "light"); }
-    catch { /* Theme still works when browser storage is unavailable. */ }
-  }, [dark]);
+    const root = document.documentElement;
+
+    root.classList.toggle("dark", dark);
+    root.style.colorScheme = dark ? "dark" : "light";
+
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", dark ? "#0b0b10" : "#ffffff");
+
+    try {
+      localStorage.setItem("theme", themeMode);
+    } catch {
+      // Theme still works without browser storage.
+    }
+  }, [dark, themeMode]);
+
+  useEffect(() => {
+    if (themeMode !== "auto") return;
+
+    function refreshTheme() {
+      const nextDark = resolveDark("auto");
+
+      if (nextDark !== dark) {
+        setCaptchaToken(null);
+        setDark(nextDark);
+      }
+    }
+
+    const intervalId = window.setInterval(refreshTheme, 30_000);
+
+    window.addEventListener("focus", refreshTheme);
+    document.addEventListener("visibilitychange", refreshTheme);
+
+    return () => {
+      window.clearInterval(intervalId);
+      window.removeEventListener("focus", refreshTheme);
+      document.removeEventListener("visibilitychange", refreshTheme);
+    };
+  }, [themeMode, dark]);
+
+  function changeThemeMode(event) {
+    const nextMode = event.target.value;
+
+    setCaptchaToken(null);
+    setThemeMode(nextMode);
+    setDark(resolveDark(nextMode));
+  }
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -159,13 +201,22 @@ export default function App() {
             <button type="button" onClick={() => { setCaptchaToken(null); i18n.changeLanguage(language === "fa" ? "en" : "fa"); }} aria-label={t("language")} className="px-3 py-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20" lang={language === "fa" ? "en" : "fa"}>
               {language === "fa" ? "English" : "فارسی"}
             </button>
-            <button
-              onClick={() => { setCaptchaToken(null); setDark((previous) => !previous); }}
-              aria-label={dark ? t("lightTheme") : t("darkTheme")}
-              className="p-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 transition-all"
+            <select
+              value={themeMode}
+              onChange={changeThemeMode}
+              aria-label={language === "fa" ? "انتخاب تم" : "Choose theme"}
+              className="theme-select"
             >
-              {dark ? <Sun size={22} /> : <Moon size={22} />}
-            </button>
+              <option value="auto">
+                {language === "fa" ? "خودکار" : "Auto"}
+              </option>
+              <option value="light">
+                {language === "fa" ? "روشن" : "Light"}
+              </option>
+              <option value="dark">
+                {language === "fa" ? "تیره" : "Dark"}
+              </option>
+            </select>
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
