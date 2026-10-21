@@ -28,7 +28,9 @@ html[lang='fa'] body {
   font-family: Vazirmatn, Tahoma, sans-serif;
 }
 
-html:not(.lenis) { scroll-behavior: smooth; }
+html:not(.lenis) {
+  scroll-behavior: smooth;
+}
 
 button,
 input,
@@ -83,8 +85,9 @@ a {
 }
 
 html[lang='fa'] .hero-copy h1 {
-  line-height: 1.65;
-  letter-spacing: -.035em;
+  font-size: clamp(2rem, 3.2vw, 3.25rem);
+  line-height: 1.45;
+  letter-spacing: 0;
 }
 
 .hero-copy h1>span {
@@ -237,16 +240,11 @@ html[lang='fa'] .hero-copy h1 {
 }
 
 .showcase-open img {
+  display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top;
-  transition: transform .35s;
+  height: auto;
 }
 
-.showcase-open:hover img {
-  transform: scale(1.025);
-}
 
 .showcase-browser figcaption {
   position: relative;
@@ -576,6 +574,10 @@ html[lang='fa'] .hero-copy h1 {
     padding-bottom: 2rem;
   }
 
+  html[lang='fa'] .hero-copy h1 {
+    font-size: clamp(1.8rem, 7.5vw, 2.4rem);
+  }
+
   .hero-layout {
     grid-template-columns: 1fr;
     gap: 2.4rem;
@@ -706,10 +708,12 @@ html[lang='fa'] .hero-copy h1 {
 }
 
 .gallery-thumbnail img {
+  display: block;
   width: 100%;
-  height: 55px;
-  object-fit: cover;
-  object-position: top;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: var(--portfolio-soft);
   border-radius: 5px;
 }
 
