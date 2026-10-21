@@ -5,110 +5,61 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function useScrollReveal(scope, deps = []) {
-    useGSAP(
+  useGSAP(
+    () => {
+      const root = scope.current;
+      if (!root) return;
+
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        "(prefers-reduced-motion: no-preference)",
         () => {
-            const mm = gsap.matchMedia();
+          root.querySelectorAll("[data-reveal]").forEach((section) => {
+            if (section.dataset.reveal === "exit-only") return;
 
-            // اگر کاربر "کاهش حرکت" را در سیستم فعال کرده، انیمیشن اجرا نمی‌شود
-            mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.utils.toArray("[data-reveal]").forEach((section) => {
-                    const items = section.querySelectorAll("[data-reveal-item]");
-                    const useBlur = section.dataset.reveal === "blur";
-                    const exitOnly = section.dataset.reveal === "exit-only";
-
-                    // ورود: با اسکرول رو به پایین نمایان می‌شود، با اسکرول برعکس برمی‌گردد
-                    // (برای Hero اجرا نمی‌شود تا تصویر اصلی از اول دیده شود و LCP خراب نشود)
-                    if (!exitOnly) {
-                        const enter = gsap.timeline({
-                            scrollTrigger: {
-                                trigger: section,
-                                start: "top 88%",
-                                end: "top 35%",
-                                scrub: true, // نرمی حرکت؛ عدد بزرگ‌تر = نرم‌تر
-                            },
-                        });
-
-                        enter.fromTo(
-                            section,
-                            {
-                                opacity: 0,
-                                y: 90,
-                                scale: 0.94,
-                                transformOrigin: "50% 0%",
-                                ...(useBlur && { filter: "blur(12px)" }),
-                            },
-                            {
-                                opacity: 1,
-                                y: 0,
-                                scale: 1,
-                                ease: "power3.out",
-                                ...(useBlur && { filter: "blur(0px)" }),
-                            },
-                            0
-                        );
-
-                        // کارت‌ها یکی‌یکی (stagger)
-                        if (items.length) {
-                            enter.fromTo(
-                                section,
-                                {
-                                    opacity: 0,
-                                    y: 60,
-                                    ...(useBlur && { filter: "blur(8px)" }),
-                                },
-                                {
-                                    opacity: 1,
-                                    y: 0,
-                                    ease: "power3.out",
-                                    ...(useBlur && { filter: "blur(0px)" }),
-                                },
-                                0
-                            );
-                        }
-                    }
-
-                    // خروج: وقتی از بالای صفحه خارج می‌شود کم‌کم محو می‌شود
-                    gsap.fromTo(
-                        section,
-                        { opacity: 1, y: 0 },
-                        {
-                            opacity: 0,
-                            y: -40,
-                            ease: "none",
-                            immediateRender: false,
-                            scrollTrigger: {
-                                trigger: section,
-                                start: "bottom 30%",
-                                end: "bottom -10%",
-                                scrub: true,
-                            },
-                        }
-                    );
-                });
+            gsap.from(section, {
+              y: 24,
+              duration: 0.65,
+              ease: "power2.out",
+              immediateRender: false,
+              clearProps: "transform",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 92%",
+                once: true,
+              },
             });
+          });
+        }
+      );
 
-            // وقتی ارتفاع صفحه عوض شود (لود تصاویر lazy، باز شدن details، تغییر زبان)
-            // موقعیت‌ها دوباره محاسبه می‌شوند
-            let timer;
-            let lastHeight = scope.current.offsetHeight;
-            const ro = new ResizeObserver(() => {
-                clearTimeout(timer);
-                timer = setTimeout(() => {
-                    const height = scope.current.offsetHeight;
-                    if (Math.abs(height - lastHeight) < 8) return; // تغییر ناچیز، نادیده گرفته شود
-                    lastHeight = height;
-                    ScrollTrigger.refresh();
-                }, 250);
-            });
-            ro.observe(scope.current);
-            ro.observe(scope.current);
+      let timer;
+      let lastHeight = root.offsetHeight;
+      let observer;
 
-            return () => {
-                ro.disconnect();
-                clearTimeout(timer);
-                mm.revert();
-            };
-        },
-        { scope, dependencies: deps, revertOnUpdate: true }
-    );
+      if (typeof ResizeObserver !== "undefined") {
+        observer = new ResizeObserver(() => {
+          window.clearTimeout(timer);
+
+          timer = window.setTimeout(() => {
+            const height = root.offsetHeight;
+            if (Math.abs(height - lastHeight) < 8) return;
+
+            lastHeight = height;
+            ScrollTrigger.refresh();
+          }, 250);
+        });
+
+        observer.observe(root);
+      }
+
+      return () => {
+        window.clearTimeout(timer);
+        observer?.disconnect();
+        mm.revert();
+      };
+    },
+    { scope, dependencies: deps, revertOnUpdate: true }
+  );
 }

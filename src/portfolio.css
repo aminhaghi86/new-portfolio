@@ -11,16 +11,16 @@
   --portfolio-muted: #52525b;
   --portfolio-surface: #fff;
   --portfolio-soft: #f4f6fb;
-  --portfolio-line: #e4e4ed;
+  --portfolio-line: #d5dbe5;
   --portfolio-accent: #245fe5;
 }
 
 html.dark {
   --portfolio-ink: #fafafa;
-  --portfolio-muted: #a1a1aa;
   --portfolio-surface: #14141d;
   --portfolio-soft: #11111a;
-  --portfolio-line: #2b2b3a;
+  --portfolio-muted: #b4bac6;
+  --portfolio-line: #363d4d;
   --portfolio-accent: #8db3ff;
 }
 
