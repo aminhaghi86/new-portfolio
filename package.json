@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build-prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "check:contact-cors": "node scripts/check-contact-cors.mjs"

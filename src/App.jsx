@@ -1,10 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useSyncExternalStore,
+} from "react";
 import { Menu, Phone, X } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
 import { useTranslation } from "react-i18next";
-import "./i18n";
+import { initializeBrowserLanguage } from "./i18n";
 import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
 import ProjectDetailsDialog from "./components/ProjectDetailsDialog";
@@ -17,7 +22,12 @@ import useLenis from "./hooks/useLenis";
 import useProjectCards from "./hooks/useProjectCards";
 import ScrollProgress from "./components/ScrollProgress";
 import TechMarquee from "./components/TechMarquee";
-import { readThemeMode, resolveDark } from "./utils/theme";
+import {
+  getThemeSnapshot,
+  getServerThemeSnapshot,
+  subscribeTheme,
+  setThemeMode,
+} from "./utils/theme";
 // const featuredProjectIds = [0, 7, 2];
 const featuredProjectIds = [0, 8, 7];
 export default function App() {
@@ -28,8 +38,14 @@ export default function App() {
   useLenis();
   useProjectCards(mainRef, [language]);
   const services = t("serviceCards", { returnObjects: true });
-  const [themeMode, setThemeMode] = useState(readThemeMode);
-  const [dark, setDark] = useState(() => resolveDark(themeMode));
+  const themeSnapshot = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot
+  );
+
+  const [themeMode, resolvedTheme] = themeSnapshot.split(":");
+  const dark = resolvedTheme === "dark";
   const policyRef = useRef(null);
   const captchaContainerRef = useRef(null);
   const lastCaptchaSize = useRef("compact");
@@ -60,6 +76,10 @@ export default function App() {
   const whatsappUrl = `https://wa.me/989304978625?text=${encodeURIComponent(t("whatsappMessage"))}`;
 
   useEffect(() => {
+    initializeBrowserLanguage();
+  }, []);
+
+  useEffect(() => {
     const root = document.documentElement;
 
     root.classList.toggle("dark", dark);
@@ -68,45 +88,29 @@ export default function App() {
     document
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute("content", dark ? "#0b0b10" : "#ffffff");
-
-    try {
-      localStorage.setItem("theme", themeMode);
-    } catch {
-      // Theme still works without browser storage.
-    }
-  }, [dark, themeMode]);
+  }, [dark]);
 
   useEffect(() => {
-    if (themeMode !== "auto") return;
+    let previous = getThemeSnapshot();
 
-    function refreshTheme() {
-      const nextDark = resolveDark("auto");
+    return subscribeTheme(() => {
+      const next = getThemeSnapshot();
 
-      if (nextDark !== dark) {
+      if (next !== previous) {
+        previous = next;
         setCaptchaToken(null);
-        setDark(nextDark);
       }
-    }
-
-    const intervalId = window.setInterval(refreshTheme, 30_000);
-
-    window.addEventListener("focus", refreshTheme);
-    document.addEventListener("visibilitychange", refreshTheme);
-
-    return () => {
-      window.clearInterval(intervalId);
-      window.removeEventListener("focus", refreshTheme);
-      document.removeEventListener("visibilitychange", refreshTheme);
-    };
-  }, [themeMode, dark]);
+    });
+  }, []);
 
   function changeThemeMode(event) {
-    const nextMode = event.target.value;
-
     setCaptchaToken(null);
-    setThemeMode(nextMode);
-    setDark(resolveDark(nextMode));
+    setThemeMode(event.target.value);
   }
+
+
+
+
 
   useEffect(() => {
     if (!menuOpen) return;
