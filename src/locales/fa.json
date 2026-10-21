@@ -2,6 +2,8 @@
   "brand": "امین حقی",
   "mainNav": "منوی اصلی",
   "mobileNav": "منوی موبایل",
+  "openMenu": "باز کردن منو",
+"closeMenu": "بستن منو",
   "lightTheme": "تغییر به حالت روشن",
   "darkTheme": "تغییر به حالت تیره",
   "hello": "سلام، من",
