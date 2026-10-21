@@ -2,6 +2,8 @@
   "brand": "Amin Haghi",
   "mainNav": "Main navigation",
   "mobileNav": "Mobile navigation",
+  "openMenu": "Open menu",
+  "closeMenu": "Close menu",
   "lightTheme": "Switch to light theme",
   "darkTheme": "Switch to dark theme",
   "hello": "Hi, I'm",

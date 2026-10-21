@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Moon, Sun, Phone } from "lucide-react";
+import { Moon, Sun, Phone, Menu, X } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
@@ -25,7 +25,6 @@ export default function App() {
   const language = i18n.resolvedLanguage === "fa" ? "fa" : "en";
   useScrollReveal(mainRef, [language]);
   useLenis();
-  useScrollReveal(mainRef, [language]);
   useProjectCards(mainRef, [language]);
   const services = t("serviceCards", { returnObjects: true });
   const [dark, setDark] = useState(() => {
@@ -53,6 +52,7 @@ export default function App() {
   const [captchaToken, setCaptchaToken] = useState(null);
   const [selectedService, setSelectedService] = useState("");
   const [activeProjectId, setActiveProjectId] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const personal = { ...myData.MyInformation[0], ...t("personal", { returnObjects: true }) };
   const projects = myData.myProjects.map((project) => ({
     ...project, ...t(`projectContent.${project.id}`, { returnObjects: true }),
@@ -65,6 +65,18 @@ export default function App() {
     try { localStorage.setItem("theme", dark ? "dark" : "light"); }
     catch { /* Theme still works when browser storage is unavailable. */ }
   }, [dark]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (event) => { if (event.key === "Escape") setMenuOpen(false); };
+    const onResize = () => { if (window.innerWidth >= 768) setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     const dialog = policyRef.current;
@@ -154,11 +166,32 @@ export default function App() {
             >
               {dark ? <Sun size={22} /> : <Moon size={22} />}
             </button>
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className="md:hidden p-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 transition-all"
+            >
+              {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            </button>
           </div>
         </div>
-        <nav aria-label={t("mobileNav")} className="md:hidden flex justify-center gap-5 px-4 pb-4 text-sm">
-          {navigation.map((item) => <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>)}
-        </nav>
+        {menuOpen && (
+          <nav id="mobile-menu" aria-label={t("mobileNav")} className="md:hidden flex flex-col px-6 pb-3 text-base">
+            {navigation.map((item) => (
+              <a
+                key={item.id}
+                href={item.url}
+                onClick={() => setMenuOpen(false)}
+                className="py-3.5 border-t border-zinc-200 dark:border-white/10 hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {item.link}
+              </a>
+            ))}
+          </nav>
+        )}
       </header>
 
       <main id="main-content" tabIndex={-1} ref={mainRef}>
@@ -170,7 +203,7 @@ export default function App() {
           <ServicesSection onSelectService={setSelectedService} />
         </div>
         {/* FEATURED PROJECTS */}
-        <section id="projects" data-reveal className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
+        <section id="projects" data-reveal className="scroll-mt-24 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">{t("projects")}</h2>
           <p className="text-center text-zinc-600 dark:text-zinc-400 max-w-3xl mx-auto mb-12">{t("projectsIntro")}</p>
 
@@ -263,7 +296,7 @@ export default function App() {
 
         {/* ABOUT ME */}
         {/* ABOUT ME - نسخه بهبود یافته */}
-        <section id="about" data-reveal className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
+        <section id="about" data-reveal className="scroll-mt-24 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto border-t border-zinc-200 dark:border-white/10">
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
             <div>
@@ -329,7 +362,7 @@ export default function App() {
         </section>
         {/* CONTACT */}
         {/* CONTACT SECTION */}
-        <section id="contact" className="scroll-mt-40 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
+        <section id="contact" className="scroll-mt-24 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <div className="bg-zinc-100 dark:bg-white/5 rounded-3xl p-5 sm:p-8 md:p-12">
             <h2 className="text-4xl font-bold text-center mb-4">{t("contact")}</h2>
             <p className="text-center max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400 mb-3">{t("contactIntro")}</p>
