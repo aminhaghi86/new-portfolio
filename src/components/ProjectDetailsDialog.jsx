@@ -20,6 +20,7 @@ export default function ProjectDetailsDialog({ project, onClose }) {
       {project && <>
         <div className="project-dialog-heading"><div><p className="project-kind">{t(`caseStudies.${project.id}.badge`)}</p><h2 id="project-detail-title">{project.title}</h2></div><button autoFocus type="button" onClick={() => ref.current.close()} aria-label={t('closeProject')} className="dialog-close"><X size={22} aria-hidden="true" /></button></div>
         {project.gallery?.length ? <ProjectGallery key={project.id} images={project.gallery} title={project.title} /> : <img className="project-detail-image" src={project.image} alt={project.title} width="1280" height="720" />}
+        {project.mediaNoteKey && <p className="project-media-note">{t(project.mediaNoteKey)} {project.credits && <a href={project.credits} target="_blank" rel="noopener noreferrer">{t('projectImageCredits')}</a>}</p>}
         <dl className="project-detail-facts">
           {[["use", "caseUse"], ["work", "caseWork"], ["status", "caseStatus"]].map(([key, label]) => <div key={key}><dt>{t(label)}</dt><dd>{t(`caseStudies.${project.id}.${key}`)}</dd></div>)}
           {t(`caseStudies.${project.id}.period`, { defaultValue: "" }) && <div><dt>{t('casePeriod')}</dt><dd>{t(`caseStudies.${project.id}.period`)}</dd></div>}

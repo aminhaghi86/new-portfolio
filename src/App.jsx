@@ -273,11 +273,15 @@ export default function App() {
                       className="block w-full h-full object-contain"
                     />
                   </div>
-                  <h3 className="font-semibold mb-3">{project.title}</h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4">{project.desc}</p>
-                  <div className="flex flex-wrap gap-5 text-sm text-blue-600 dark:text-blue-400">
+                  <div className="p-6 flex flex-col flex-1">
+                  {project.gallery?.length > 0 && <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-3">{t(`caseStudies.${project.id}.badge`)}</p>}
+                  <h3 className="font-semibold text-xl mb-3">{project.title}</h3>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-5">{project.desc}</p>
+                  <div className="flex flex-wrap items-center gap-5 mt-auto text-sm text-blue-600 dark:text-blue-400">
+                    {project.gallery?.length > 0 && <button type="button" className="portfolio-button secondary" onClick={() => setActiveProjectId(project.id)}>{t("projectDetails")}<span className="sr-only"> — {project.title}</span></button>}
                     {project.github && project.github !== "#" && <a href={project.github} target="_blank" rel="noopener noreferrer">{t("github")}<span className="sr-only"> — {project.title}</span></a>}
                     {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer">{t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}<span className="sr-only"> — {project.title}</span></a>}
+                  </div>
                   </div>
                 </article>
               ))}

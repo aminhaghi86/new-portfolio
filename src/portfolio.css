@@ -937,3 +937,53 @@ html[lang='fa'] .hero-copy h1 {
 html.dark .case-gallery .project-detail-image {
   background: var(--portfolio-soft);
 }
+.project-media-note {
+  margin-top: 1rem;
+  padding: .9rem 1rem;
+  border-inline-start: 3px solid var(--portfolio-accent);
+  border-radius: 8px;
+  background: var(--portfolio-soft);
+  color: var(--portfolio-muted);
+  font-size: .8rem;
+  line-height: 1.9;
+}
+.project-media-note a {
+  color: var(--portfolio-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Keep screenshots readable at their natural aspect ratio; long pages scroll. */
+.gallery-viewport {
+  max-height: clamp(240px, 55vh, 560px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  border: 1px solid var(--portfolio-line);
+  border-radius: 12px;
+  background: var(--portfolio-soft);
+}
+.case-gallery .gallery-viewport .project-detail-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  margin-inline: auto;
+  border-radius: 0;
+  object-fit: contain;
+}
+.gallery-viewport:focus-visible {
+  outline: 3px solid var(--portfolio-accent);
+  outline-offset: 3px;
+}
+.gallery-hint {
+  margin-top: .4rem;
+  font-size: .72rem;
+  line-height: 1.8;
+  color: var(--portfolio-muted);
+}
+.gallery-thumbnail img {
+  object-fit: cover;
+  object-position: top;
+}
