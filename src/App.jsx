@@ -4,6 +4,7 @@ import {
   useRef,
   useSyncExternalStore,
 } from "react";
+import ThemeToggle from "./components/ThemeToggle";
 import { Menu, Phone, X } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
@@ -205,22 +206,11 @@ export default function App() {
             <button type="button" onClick={() => { setCaptchaToken(null); i18n.changeLanguage(language === "fa" ? "en" : "fa"); }} aria-label={t("language")} className="px-3 py-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20" lang={language === "fa" ? "en" : "fa"}>
               {language === "fa" ? "English" : "فارسی"}
             </button>
-            <select
-              value={themeMode}
-              onChange={changeThemeMode}
-              aria-label={language === "fa" ? "انتخاب تم" : "Choose theme"}
-              className="theme-select"
-            >
-              <option value="auto">
-                {language === "fa" ? "خودکار" : "Auto"}
-              </option>
-              <option value="light">
-                {language === "fa" ? "روشن" : "Light"}
-              </option>
-              <option value="dark">
-                {language === "fa" ? "تیره" : "Dark"}
-              </option>
-            </select>
+            <ThemeToggle
+              mode={themeMode}
+              language={language}
+              onChange={(mode) => changeThemeMode({ target: { value: mode } })}
+            />
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
