@@ -185,6 +185,10 @@
     "8": {
       "title": "Dibasan Editorial Console",
       "desc": "A Telegram-based console for drafting, SEO review and approval of WordPress articles, built with n8n."
+    },
+    "9": {
+      "title": "Hejazi Immigration — Earlier Website",
+      "desc": "An earlier client project built with Next.js and Strapi, presented through screenshots of a local reconstruction with refreshed content and an interactive booking preview."
     }
   },
   "projects": "Featured Projects",
@@ -302,6 +306,20 @@
         "Pre-publish checklist and 24-hour approval window",
         "Publishing blocked if content changes after review"
       ]
+    },
+    "9": {
+      "badge": "Earlier client project · Local reconstruction",
+      "use": "Present an immigration business’s services and give visitors a clear path through service information, FAQs and consultation scheduling.",
+      "work": "Developed the earlier version with Next.js and Strapi, structured page content and related services, built the responsive interface and added the original Calendly integration.",
+      "role": "Frontend implementation and CMS content modelling; local reconstruction for portfolio presentation.",
+      "status": "The gallery shows a reconstruction of the earlier version. The original content backup was unavailable, so current text and photographs are replacements. Another team developed the company’s current website. No public demo is available.",
+      "outcome": "A reviewable example of CMS-connected pages, related content management and a scheduling journey, without claims about sales or client numbers.",
+      "capabilities": [
+        "Strapi-managed home, about, contact and FAQ content",
+        "Related services, sub-services and nested content",
+        "Responsive desktop and mobile layouts with optimized images",
+        "Current calendar: interactive time selection and details preview, with no live booking"
+      ]
     }
   },
   "skipContent": "Skip to main content",
@@ -387,5 +405,16 @@
     "contact": "Contact page: ways to get in touch and submit an inquiry"
   },
   "casePeriod": "Project timeline",
-  "marqueeLabel": "Tools I work with every day"
+  "marqueeLabel": "Tools I work with every day",
+  "hejaziGallery": {
+    "overview": "First screen of the reconstructed project",
+    "home": "Home page, services and consultation process",
+    "about": "About page and CMS-managed content sections",
+    "booking": "Reconstructed calendar with sample times; no appointment is created",
+    "mobile": "Mobile view of the reconstructed application"
+  },
+  "hejaziMediaNote": "Screenshots are from a local reconstruction, with refreshed text and Unsplash photography. The current calendar is not connected to a live Calendly account.",
+  "projectImageCredits": "Photo sources and licensing",
+  "projectImagePreview": "Image preview: {{title}}",
+  "galleryScrollHint": "Scroll inside the frame to explore long screenshots, or open the full-size image."
 }

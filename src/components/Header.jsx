@@ -25,10 +25,9 @@ export default function Header({ language, themeMode, onThemeChange, onLanguageT
     return (
         <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
             <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-                <a href="#home" className="brand-lockup text-lg sm:text-xl font-bold">
+                <a href="#home" aria-label={t("brand")} className="brand-lockup text-lg sm:text-xl font-bold">
                     <span className="brand-mark" aria-hidden="true" dir="ltr">AH</span>
                     <span className="hidden sm:inline">{t("brand")}</span>
-                    <a href="#home" aria-label={t("brand")} className="brand-lockup text-lg sm:text-xl font-bold"></a>
                 </a>
 
                 <nav aria-label={t("mainNav")} className="hidden md:flex items-center gap-6 text-sm">
