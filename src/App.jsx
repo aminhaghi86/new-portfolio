@@ -4,8 +4,7 @@ import {
   useRef,
   useSyncExternalStore,
 } from "react";
-import ThemeToggle from "./components/ThemeToggle";
-import { Menu, Phone, X } from "lucide-react";
+import { Phone } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
@@ -29,6 +28,7 @@ import {
   subscribeTheme,
   setThemeMode,
 } from "./utils/theme";
+import Header from "./components/Header";
 // const featuredProjectIds = [0, 7, 2];
 const featuredProjectIds = [0, 8, 7];
 export default function App() {
@@ -68,12 +68,11 @@ export default function App() {
   const [captchaToken, setCaptchaToken] = useState(null);
   const [selectedService, setSelectedService] = useState("");
   const [activeProjectId, setActiveProjectId] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false);
+
   const personal = { ...myData.MyInformation[0], ...t("personal", { returnObjects: true }) };
   const projects = myData.myProjects.map((project) => ({
     ...project, ...t(`projectContent.${project.id}`, { returnObjects: true }),
   }));
-  const navigation = myData.navbarItems.map((item, index) => ({ ...item, link: t(`nav.${index}`) }));
   const whatsappUrl = `https://wa.me/989304978625?text=${encodeURIComponent(t("whatsappMessage"))}`;
 
   useEffect(() => {
@@ -104,26 +103,17 @@ export default function App() {
     });
   }, []);
 
-  function changeThemeMode(event) {
+  function changeThemeMode(mode) {
     setCaptchaToken(null);
-    setThemeMode(event.target.value);
+    setThemeMode(mode);
+  }
+
+  function toggleLanguage() {
+    setCaptchaToken(null);
+    i18n.changeLanguage(language === "fa" ? "en" : "fa");
   }
 
 
-
-
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (event) => { if (event.key === "Escape") setMenuOpen(false); };
-    const onResize = () => { if (window.innerWidth >= 768) setMenuOpen(false); };
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("resize", onResize);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("resize", onResize);
-    };
-  }, [menuOpen]);
 
   useEffect(() => {
     const dialog = policyRef.current;
@@ -195,49 +185,12 @@ export default function App() {
       <ScrollProgress />
       <a href="#main-content" className="skip-link">{t("skipContent")}</a>
       {/* HEADER / NAVBAR ****/}
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-          <a href="#home" className="brand-lockup text-lg sm:text-xl font-bold"><span className="brand-mark" aria-hidden="true" dir="ltr">AH</span>{t("brand")}</a>
-          <nav aria-label={t("mainNav")} className="hidden md:flex items-center gap-6 text-sm">
-            {navigation.map((item) => <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>)}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <button type="button" onClick={() => { setCaptchaToken(null); i18n.changeLanguage(language === "fa" ? "en" : "fa"); }} aria-label={t("language")} className="px-3 py-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20" lang={language === "fa" ? "en" : "fa"}>
-              {language === "fa" ? "English" : "فارسی"}
-            </button>
-            <ThemeToggle
-              mode={themeMode}
-              language={language}
-              onChange={(mode) => changeThemeMode({ target: { value: mode } })}
-            />
-            <button
-              type="button"
-              onClick={() => setMenuOpen((open) => !open)}
-              aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              className="md:hidden p-3 rounded-2xl bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 transition-all"
-            >
-              {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
-            </button>
-          </div>
-        </div>
-        {menuOpen && (
-          <nav id="mobile-menu" aria-label={t("mobileNav")} className="md:hidden flex flex-col px-6 pb-3 text-base">
-            {navigation.map((item) => (
-              <a
-                key={item.id}
-                href={item.url}
-                onClick={() => setMenuOpen(false)}
-                className="py-3.5 border-t border-zinc-200 dark:border-white/10 hover:text-blue-600 dark:hover:text-blue-400"
-              >
-                {item.link}
-              </a>
-            ))}
-          </nav>
-        )}
-      </header>
+      <Header
+        language={language}
+        themeMode={themeMode}
+        onThemeChange={changeThemeMode}
+        onLanguageToggle={toggleLanguage}
+      />
 
       <main id="main-content" tabIndex={-1} ref={mainRef}>
         <div data-reveal="exit-only">
