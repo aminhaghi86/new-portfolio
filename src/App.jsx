@@ -595,7 +595,7 @@ export default function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t("floatingContact")}
-        className="fixed bottom-6 end-6 z-50 flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 py-3 rounded-full shadow-2xl transition-all"
+        className="fixed bottom-6 start-6 z-50 flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 py-3 rounded-full shadow-2xl transition-all"
       >
         <FaWhatsapp size={25} aria-hidden="true" /><span className="text-sm font-semibold">{t("whatsappShort")}</span>
       </a>
