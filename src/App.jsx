@@ -12,6 +12,9 @@ import { useTranslation } from "react-i18next";
 import { initializeBrowserLanguage } from "./i18n";
 import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
+import QuoteWizard from "./components/QuoteWizard";
+import DibasanShowcase from "./components/DibasanShowcase";
+import "./inquiry.css";
 import ProjectDetailsDialog from "./components/ProjectDetailsDialog";
 import "./portfolio.css";
 import Testimonials from "./components/Testimonials";
@@ -67,6 +70,11 @@ export default function App() {
   });
   const [captchaToken, setCaptchaToken] = useState(null);
   const [selectedService, setSelectedService] = useState("");
+  useEffect(() => {
+    const receiveQuote = (event) => setForm(current => ({ ...current, message: event.detail.slice(0, 1900) }));
+    window.addEventListener("portfolio:quote", receiveQuote);
+    return () => window.removeEventListener("portfolio:quote", receiveQuote);
+  }, []);
   const [activeProjectId, setActiveProjectId] = useState(null);
 
   const personal = { ...myData.MyInformation[0], ...t("personal", { returnObjects: true }) };
@@ -200,6 +208,7 @@ export default function App() {
         <div data-reveal>
           <ServicesSection onSelectService={setSelectedService} />
         </div>
+        <QuoteWizard />
         {/* FEATURED PROJECTS */}
         <section id="projects" data-reveal className="scroll-mt-24 md:scroll-mt-28 px-6 py-20 max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">{t("projects")}</h2>
@@ -288,6 +297,7 @@ export default function App() {
             </div>
           </details>
         </section>
+        <DibasanShowcase />
         <div data-reveal>
 
           <Testimonials />
