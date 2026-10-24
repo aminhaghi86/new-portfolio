@@ -70,8 +70,8 @@
   "captchaError": "Security verification could not load. Please retry or contact me by email.",
   "copyright": "© {{year}} Amin Haghi • Built with React & Tailwind",
   "language": "Change language",
-  "metaTitle": "Amin Haghi | Web Development & Automation",
-  "metaDescription": "Web development, WordPress, WooCommerce, and n8n automation by Amin Haghi. Based in Mashhad, Iran. Get in touch to discuss your project.",
+  "metaTitle": "Amin Haghi | Business Websites & Workflow Automation",
+  "metaDescription": "Business websites, WooCommerce stores and n8n workflow automation by Amin Haghi. Explore project evidence, service scope and a clear project inquiry process.",
   "personal": {
     "name": "Amin Haghi",
     "role": "Web Developer & Automation Specialist",
@@ -193,8 +193,8 @@
   },
   "projects": "Featured Projects",
   "privacyPreferences": "Your language and theme preferences are saved in this browser’s local storage. You can clear them through your browser settings.",
-  "heroEyebrow": "Web development & workflow automation",
-  "heroTitle": "A website that represents your business.",
+  "heroEyebrow": "Amin Haghi · Websites and automation",
+  "heroTitle": "Business websites and inquiry workflows",
   "heroDescription": "I’m Amin Haghi. I build websites and online stores for businesses, manufacturers and service providers, and connect customer inquiries to the tools your team uses.",
   "viewWork": "Explore my work",
   "heroNote": "Explore the examples, then tell me what your business needs.",
@@ -297,7 +297,7 @@
       "badge": "Client project · Test stage",
       "use": "Lets Dibasan's manager draft and review blog content through Telegram without opening the WordPress admin.",
       "work": "An n8n workflow with Telegram commands for category selection, per-article verified briefs, AI-assisted drafting, image and SEO completion, and a final human approval, with PostgreSQL tracking request state.",
-      "status": "Version 1 published a test article in a live trial on the Dibasan site. Version 2 has passed local tests but has not yet run on the server; automatic publishing is disabled by default.",
+      "status": "The initial workflow published one article in a live test. Version 2 has been used to register briefs, generate drafts and review categories, images and SEO through Telegram. Live publishing with version 2 has not been confirmed in the available evidence.",
       "outcome": "A controlled content path where every publish requires explicit admin approval.",
       "role": "Designed and built the workflow, data model and safety rules.",
       "capabilities": [
@@ -418,5 +418,7 @@
   "projectImagePreview": "Image preview: {{title}}",
   "galleryScrollHint": "Scroll inside the frame to explore long screenshots, or open the full-size image.",
   "telegramContact": "Telegram",
-  "quoteTooLong": "The summary could not be added within the message limit. Your existing text was preserved; copy or email the summary instead."
+  "quoteTooLong": "The summary could not be added within the message limit. Your existing text was preserved; copy or email the summary instead.",
+  "serviceDetails": "Service details (Persian)",
+  "projectFullCase": "Full case study (Persian)"
 }

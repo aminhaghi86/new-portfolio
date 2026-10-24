@@ -32,6 +32,8 @@ import {
   setThemeMode,
 } from "./utils/theme";
 import Header from "./components/Header";
+import { servicePages, casePages } from "./seo/pages";
+import "./seo/seo.css";
 // const featuredProjectIds = [0, 7, 2];
 const featuredProjectIds = [0, 8, 7];
 export default function App() {
@@ -131,7 +133,7 @@ export default function App() {
 
   function toggleLanguage() {
     setCaptchaToken(null);
-    i18n.changeLanguage(language === "fa" ? "en" : "fa");
+    window.location.assign(language === "fa" ? "/en/" : "/");
   }
 
 
@@ -259,6 +261,7 @@ export default function App() {
                     ))}
                   </div>
 
+                  {casePages.find(page => page.projectId === project.id) && <a href={casePages.find(page => page.projectId === project.id).path} className="text-sm text-blue-600 dark:text-blue-400 underline mb-4">{t("projectFullCase")}</a>}
                   <div className="flex gap-4 mt-auto">
                     <button type="button" onClick={() => setActiveProjectId(project.id)} className="flex-1 text-center py-3 border border-zinc-300 dark:border-white/20 rounded-2xl hover:bg-zinc-100 dark:hover:bg-white/5 transition">{t("projectDetails")}<span className="sr-only"> — {project.title}</span></button>
                     {project.demo && project.demo !== project.github && (
@@ -300,6 +303,7 @@ export default function App() {
                   <h3 className="font-semibold text-xl mb-3">{project.title}</h3>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-5">{project.desc}</p>
                   <div className="flex flex-wrap items-center gap-5 mt-auto text-sm text-blue-600 dark:text-blue-400">
+                    {casePages.find(page => page.projectId === project.id) && <a href={casePages.find(page => page.projectId === project.id).path}>{t("projectFullCase")}</a>}
                     {project.gallery?.length > 0 && <button type="button" className="portfolio-button secondary" onClick={() => setActiveProjectId(project.id)}>{t("projectDetails")}<span className="sr-only"> — {project.title}</span></button>}
                     {project.github && project.github !== "#" && <a href={project.github} target="_blank" rel="noopener noreferrer">{t("github")}<span className="sr-only"> — {project.title}</span></a>}
                     {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer">{t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}<span className="sr-only"> — {project.title}</span></a>}
@@ -650,6 +654,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="py-12 text-center text-sm text-zinc-500 border-t border-zinc-200 dark:border-white/10 space-y-4">
 
+        <nav className="seo-service-links" aria-label={t("serviceDetails")}>{servicePages.map(page => <a href={page.path} key={page.path}>{language === "fa" ? page.heading : page.title}</a>)}</nav>
         <p>{t("copyright", { year: new Date().getFullYear() })}</p>
 
         <div className="flex justify-center gap-6 text-xs">

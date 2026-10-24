@@ -1,4 +1,5 @@
 import { ArrowUpRight, Check, Globe, Workflow, ShoppingBag } from 'lucide-react';
+import { servicePages } from '../seo/pages';
 import { useTranslation } from 'react-i18next';
 
 const icons = { website: Globe, shop: ShoppingBag, automation: Workflow };
@@ -21,6 +22,7 @@ export default function ServicesSection({ onSelectService }) {
               <dl className="package-facts">
                 {[["pages", "packagePages"], ["training", "packageTraining"], ["support", "packageSupport"], ["extras", "packageExtras"]].map(([key, label]) => <div key={key}><dt>{t(label)}</dt><dd>{service[key]}</dd></div>)}
               </dl>
+              <a href={servicePages.find(page => page.serviceId === service.id)?.path} className="service-link">{t('serviceDetails')}<ArrowUpRight size={18} aria-hidden="true" /></a>
               <a href="#contact" className="service-link" onClick={() => onSelectService(service.id)}>{t('serviceCta')}<ArrowUpRight size={18} aria-hidden="true" /><span className="sr-only"> — {service.title}</span></a>
             </article>
           );

@@ -38,6 +38,9 @@ jobs:
           VITE_N8N_WEBHOOK_URL: ${{ secrets.VITE_N8N_WEBHOOK_URL }}
           VITE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_TURNSTILE_SITE_KEY }}
 
+      - name: Validate rendered SEO pages
+        run: npm run check:seo
+
       - name: Deploy dist to server
         uses: appleboy/scp-action@v0.1.7
         with:
