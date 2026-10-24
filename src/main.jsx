@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { readThemeMode, resolveDark } from "./utils/theme";
 import "./index.css";
-import App from "./App.jsx";
+import Site from "./Site.jsx";
 
 const initialDark = resolveDark(readThemeMode());
 
@@ -14,7 +14,7 @@ const container = document.getElementById("root");
 
 const app = (
   <StrictMode>
-    <App />
+    <Site path={window.location.pathname} />
   </StrictMode>
 );
 

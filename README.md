@@ -52,7 +52,7 @@ Redirecting secondary domains is a separate hosting task. Preserve paths and lan
 npm run check:contact-cors -- https://your-n8n-host/webhook/hire-me
 ```
 
-This sends OPTIONS only and checks that both current www portfolio domains are explicitly allowed to POST JSON. It does not submit an inquiry or confirm Telegram delivery. Adapt the origins in scripts/check-contact-cors.mjs if the secondary domain is retired. The webhook must return compatible CORS headers on both preflight and actual responses.
+This sends OPTIONS only and checks that the apex and www portfolio origins are explicitly allowed to POST JSON. It does not submit an inquiry or confirm Telegram delivery. Keep these origins aligned with the deployed portfolio domains. The webhook must return compatible CORS headers on both preflight and actual responses.
 
 
 ## Portfolio experience
@@ -73,3 +73,15 @@ Gallery captions and case-study text live in both locale files; asset metadata i
 The homepage presents services/packages, selected projects, client feedback, one four-step collaboration and handover section, a compact introduction, FAQs and contact. Package scopes live in `src/locales/fa.json` and `src/locales/en.json`; they are proposed starting scopes, with pricing and support duration agreed in the written proposal.
 
 Dibasan's case study includes screenshots of its public home/contact pages, the contributor's implementation scope, and owner-confirmed dates (initial delivery 1403 SH, redesign 1405 SH). The testimonial attribution was supplied by the portfolio owner. No sales, SEO or conversion results are inferred from these screenshots. WhatsApp messages follow the selected language. The contact webhook payload is unchanged.
+
+## Brand and search foundation
+
+See [the Persian SEO and Search Console handoff](docs/brand-seo-fa.md) for the keyword-to-page map, evidence limits and release checks.
+
+`npm run build` prerenders the Persian and English homepages, three service pages, two case studies and a noindex 404 page. `npm run check:seo` validates the built HTML, sitemap, metadata, structured data and local links. CI runs these checks before deployment.
+
+English content has a stable `/en/` URL; the homepage language switch navigates between `/` and `/en/`. Existing language query links are handled in the browser. Internal service and case-study pages currently have Persian content only.
+
+The existing Search Console Domain property is `haghiweb.ir`; keep its DNS verification record. No new tag is required for it. An optional `GOOGLE_SITE_VERIFICATION` build variable is supported only for an additional HTML-tag URL-prefix method. Never insert a placeholder verification value.
+
+`deployment/nginx.conf` is used by a newly built Docker image to serve genuine static routes and 404 responses. An existing external Nginx configuration needs separate verification; changing this file does not reconfigure a live server. Domain/HTTPS redirects remain a hosting task.

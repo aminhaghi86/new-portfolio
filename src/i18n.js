@@ -2,43 +2,14 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import en from "./locales/en.json";
 import fa from "./locales/fa.json";
+import { updateMetadata } from "./seo/metadata";
 
 const supported = ["en", "fa"];
 
 function updateDocument(language) {
   if (typeof document === "undefined") return;
-
-  const lang = language === "en" ? "en" : "fa";
-
-  document.documentElement.lang = lang;
-  document.documentElement.dir = i18n.dir(lang);
-  document.title = i18n.t("metaTitle", { lng: lang });
-
-  document
-    .querySelector('meta[property="og:locale"]')
-    ?.setAttribute("content", lang === "fa" ? "fa_IR" : "en_US");
-
-  const metadata = [
-    ['meta[name="description"]', "metaDescription"],
-    ['meta[property="og:title"]', "metaTitle"],
-    ['meta[property="og:description"]', "metaDescription"],
-  ];
-
-  for (const [selector, key] of metadata) {
-    document
-      .querySelector(selector)
-      ?.setAttribute("content", i18n.t(key, { lng: lang }));
-  }
-
-  try {
-    localStorage.setItem("portfolio-language", lang);
-  } catch {
-    // Continue without browser storage.
-  }
-
-  const url = new URL(window.location.href);
-  url.searchParams.set("lang", lang);
-  window.history.replaceState(window.history.state, "", url);
+  updateMetadata(window.location.pathname, language);
+  try { localStorage.setItem("portfolio-language", language); } catch { /* optional preference */ }
 }
 
 i18n.use(initReactI18next).init({
@@ -46,7 +17,7 @@ i18n.use(initReactI18next).init({
     en: { translation: en },
     fa: { translation: fa },
   },
-  lng: "fa",
+  lng: typeof window !== "undefined" && window.location.pathname.startsWith("/en/") ? "en" : "fa",
   fallbackLng: "en",
   supportedLngs: supported,
   initAsync: false,
@@ -58,24 +29,19 @@ i18n.on("languageChanged", updateDocument);
 
 export function initializeBrowserLanguage() {
   const query = new URLSearchParams(window.location.search).get("lang");
-  let desired = supported.includes(query) ? query : null;
-
-  if (!desired) {
-    try {
-      const saved = localStorage.getItem("portfolio-language");
-      if (supported.includes(saved)) desired = saved;
-    } catch {
-      // Continue with the default language.
+  const home = ["/", "/en", "/en/"].includes(window.location.pathname);
+  if (home && supported.includes(query)) {
+    const target = query === "en" ? "/en/" : "/";
+    if (window.location.pathname !== target) {
+      window.location.replace(target + window.location.hash);
+      return;
     }
+    const url = new URL(window.location.href);
+    url.searchParams.delete("lang");
+    window.history.replaceState(window.history.state, "", url);
   }
-
-  desired ??= "fa";
-
-  if (desired !== i18n.resolvedLanguage) {
-    void i18n.changeLanguage(desired);
-  } else {
-    updateDocument(desired);
-  }
+  // Each language has a stable URL. Stored preferences do not replace its content.
+  updateDocument(i18n.resolvedLanguage);
 }
 
 export default i18n;

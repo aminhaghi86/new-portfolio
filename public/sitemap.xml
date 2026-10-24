@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://www.haghiweb.ir/</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.haghiweb.ir/</loc></url>
+  <url><loc>https://www.haghiweb.ir/en/</loc></url>
+  <url><loc>https://www.haghiweb.ir/services/business-websites/</loc></url>
+  <url><loc>https://www.haghiweb.ir/services/woocommerce/</loc></url>
+  <url><loc>https://www.haghiweb.ir/services/n8n-automation/</loc></url>
+  <url><loc>https://www.haghiweb.ir/work/dibasan/</loc></url>
+  <url><loc>https://www.haghiweb.ir/work/hejazi-immigration/</loc></url>
+</urlset>

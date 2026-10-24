@@ -19,6 +19,6 @@ FROM nginx:stable-alpine
 # در پروژه‌های Vite، خروجی در پوشه dist قرار می‌گیرد
 COPY --from=builder /app/dist /usr/share/nginx/html
 # فایل تنظیمات پیش‌فرض انجین‌اکس برای هندل کردن SPA (اختیاری اما توصیه شده)
-RUN echo "server { listen 80; location / { root /usr/share/nginx/html; index index.html; try_files \$uri \$uri/ /index.html; } }" > /etc/nginx/conf.d/default.conf
+COPY deployment/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
