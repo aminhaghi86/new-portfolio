@@ -299,15 +299,15 @@ export default function App() {
                     />
                   </div>
                   <div className="p-6 flex flex-col flex-1">
-                  {project.gallery?.length > 0 && <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-3">{t(`caseStudies.${project.id}.badge`)}</p>}
-                  <h3 className="font-semibold text-xl mb-3">{project.title}</h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-5">{project.desc}</p>
-                  <div className="flex flex-wrap items-center gap-5 mt-auto text-sm text-blue-600 dark:text-blue-400">
-                    {casePages.find(page => page.projectId === project.id) && <a href={casePages.find(page => page.projectId === project.id).path}>{t("projectFullCase")}</a>}
-                    {project.gallery?.length > 0 && <button type="button" className="portfolio-button secondary" onClick={() => setActiveProjectId(project.id)}>{t("projectDetails")}<span className="sr-only"> — {project.title}</span></button>}
-                    {project.github && project.github !== "#" && <a href={project.github} target="_blank" rel="noopener noreferrer">{t("github")}<span className="sr-only"> — {project.title}</span></a>}
-                    {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer">{t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}<span className="sr-only"> — {project.title}</span></a>}
-                  </div>
+                    {project.gallery?.length > 0 && <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-3">{t(`caseStudies.${project.id}.badge`)}</p>}
+                    <h3 className="font-semibold text-xl mb-3">{project.title}</h3>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-5">{project.desc}</p>
+                    <div className="flex flex-wrap items-center gap-5 mt-auto text-sm text-blue-600 dark:text-blue-400">
+                      {casePages.find(page => page.projectId === project.id) && <a href={casePages.find(page => page.projectId === project.id).path}>{t("projectFullCase")}</a>}
+                      {project.gallery?.length > 0 && <button type="button" className="portfolio-button secondary" onClick={() => setActiveProjectId(project.id)}>{t("projectDetails")}<span className="sr-only"> — {project.title}</span></button>}
+                      {project.github && project.github !== "#" && <a href={project.github} target="_blank" rel="noopener noreferrer">{t("github")}<span className="sr-only"> — {project.title}</span></a>}
+                      {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer">{t(project.demoLabel === "Watch Demo" ? "watchDemo" : "liveDemo")}<span className="sr-only"> — {project.title}</span></a>}
+                    </div>
                   </div>
                 </article>
               ))}
@@ -626,9 +626,9 @@ export default function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t("floatingContact")}
-        className="fixed bottom-6 start-6 z-50 flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-4 py-3 rounded-full shadow-2xl transition-all"
+        className="fixed bottom-6 start-6 z-50 flex items-center justify-center w-14 h-14 bg-green-700 hover:bg-green-800 text-white rounded-full shadow-2xl transition-all"
       >
-        <FaWhatsapp size={25} aria-hidden="true" /><span className="text-sm font-semibold">{t("whatsappShort")}</span>
+        <FaWhatsapp size={28} aria-hidden="true" />
       </a>
       <ProjectDetailsDialog project={projects.find(project => project.id === activeProjectId) ?? null} onClose={() => setActiveProjectId(null)} />
       <dialog
