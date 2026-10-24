@@ -34,6 +34,7 @@ export default function Header({ language, themeMode, onThemeChange, onLanguageT
                     {navigation.map((item) => (
                         <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>
                     ))}
+                    <a href="#inquiry" className="rounded-xl bg-blue-600 px-4 py-2.5 font-semibold text-white hover:bg-blue-700">{language === "fa" ? "استعلام قیمت" : "Get a quote"}</a>
                 </nav>
 
                 <div className="flex items-center gap-2">
@@ -64,6 +65,7 @@ export default function Header({ language, themeMode, onThemeChange, onLanguageT
 
             {menuOpen && (
                 <nav id="mobile-menu" aria-label={t("mobileNav")} className="md:hidden flex flex-col px-6 pb-3 text-base">
+                    <a href="#inquiry" onClick={() => setMenuOpen(false)} className="py-3.5 border-t border-zinc-200 dark:border-white/10 font-semibold text-blue-600 dark:text-blue-400">{language === "fa" ? "استعلام قیمت" : "Get a quote"}</a>
                     {navigation.map((item) => (
                         <a
                             key={item.id}
