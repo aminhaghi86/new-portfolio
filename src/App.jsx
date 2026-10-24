@@ -4,7 +4,7 @@ import {
   useRef,
   useSyncExternalStore,
 } from "react";
-import { Phone } from "lucide-react";
+import { Phone, Send } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
 import cv from "/cv.pdf";
@@ -71,7 +71,20 @@ export default function App() {
   const [captchaToken, setCaptchaToken] = useState(null);
   const [selectedService, setSelectedService] = useState("");
   useEffect(() => {
-    const receiveQuote = (event) => setForm(current => ({ ...current, message: event.detail.slice(0, 1900) }));
+    const receiveQuote = (event) => {
+      if (typeof event.detail !== "string") return;
+      setForm(current => {
+        if (current.message.includes(event.detail)) return current;
+        const message = [current.message.trim(), event.detail].filter(Boolean).join("\n\n");
+        if (message.length > 1900) return current;
+        return { ...current, message };
+      });
+      // Keep existing input intact if the combined text exceeds the form limit.
+      const existing = document.getElementById("contact-message")?.value || "";
+      if (!existing.includes(event.detail) && [existing.trim(), event.detail].filter(Boolean).join("\n\n").length > 1900) {
+        setStatus({ type: "error", messageKey: "quoteTooLong" });
+      } else setStatus({ type: "", messageKey: "" });
+    };
     window.addEventListener("portfolio:quote", receiveQuote);
     return () => window.removeEventListener("portfolio:quote", receiveQuote);
   }, []);
@@ -382,7 +395,7 @@ export default function App() {
             <p className="text-center text-sm text-zinc-500 dark:text-zinc-400 mb-10">{t("contactNext")}</p>
 
             {/* اطلاعات تماس */}
-            <div className="grid md:grid-cols-3 gap-4 mb-8">
+            <div className="grid sm:grid-cols-2 gap-4 mb-8">
               {/* Location */}
               <a
                 href="https://www.google.com/maps?q=Mashhad+Iran"
@@ -432,7 +445,11 @@ export default function App() {
                 </div>
               </a>
 
-              {/* LinkedIn & GitHub - می‌توانی بعداً اضافه کنی */}
+              <a href="https://t.me/a_hgh86" target="_blank" rel="noopener noreferrer"
+                className="group flex items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700">
+                <div className="w-12 h-12 shrink-0 flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl"><Send size={26} aria-hidden="true" /></div>
+                <div><p className="font-semibold">{t("telegramContact")}</p><p dir="ltr" className="text-zinc-500 dark:text-zinc-400">@a_hgh86</p></div>
+              </a>
             </div>
 
             {/* فرم ارسال پیام */}
