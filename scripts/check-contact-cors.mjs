@@ -1,7 +1,7 @@
 import process from 'node:process';
 
 const endpoint = process.argv[2];
-const origins = ['https://www.haghiweb.ir', 'https://www.irandeutschlab.ir'];
+const origins = ['https://haghiweb.ir', 'https://www.haghiweb.ir'];
 
 if (!endpoint) {
   console.error('Usage: npm run check:contact-cors -- https://your-n8n-host/webhook/hire-me');

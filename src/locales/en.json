@@ -416,5 +416,7 @@
   "hejaziMediaNote": "Screenshots are from a local reconstruction, with refreshed text and Unsplash photography. The current calendar is not connected to a live Calendly account.",
   "projectImageCredits": "Photo sources and licensing",
   "projectImagePreview": "Image preview: {{title}}",
-  "galleryScrollHint": "Scroll inside the frame to explore long screenshots, or open the full-size image."
+  "galleryScrollHint": "Scroll inside the frame to explore long screenshots, or open the full-size image.",
+  "telegramContact": "Telegram",
+  "quoteTooLong": "The summary could not be added within the message limit. Your existing text was preserved; copy or email the summary instead."
 }
