@@ -4,6 +4,7 @@ import {
   useRef,
   useSyncExternalStore,
 } from "react";
+import { FileText, ExternalLink } from "lucide-react";  
 import { Phone, Send } from "lucide-react";
 import { Turnstile } from '@marsidev/react-turnstile';
 import myData from "./data.json";
@@ -19,6 +20,7 @@ import ProjectDetailsDialog from "./components/ProjectDetailsDialog";
 import "./portfolio.css";
 import Testimonials from "./components/Testimonials";
 import Collaboration from "./components/Collaboration";
+import { FaInstagram, FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import useScrollReveal from "./hooks/useScrollReveal";
 import useLenis from "./hooks/useLenis";
@@ -345,26 +347,75 @@ export default function App() {
                 <p className="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{t("skillsSummary")}</p>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{t("experienceSummary")}</p>
               </details>
+              <a
+                href={cv}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+    group mt-6 inline-flex min-h-12 items-center justify-center
+    gap-3 rounded-xl border border-zinc-300
+    bg-white px-5 py-3
+    text-sm font-semibold text-zinc-800
+    shadow-sm transition-all duration-200
+    hover:-translate-y-0.5 hover:border-blue-500
+    hover:bg-blue-50 hover:shadow-md
+    focus-visible:outline-2 focus-visible:outline-offset-2
+    focus-visible:outline-blue-500
+    dark:border-zinc-700 dark:bg-zinc-900
+    dark:text-zinc-100 dark:hover:border-blue-400
+    dark:hover:bg-zinc-800
+  "
+              >
+                <FileText
+                  size={19}
+                  aria-hidden="true"
+                  className="text-blue-600 dark:text-blue-400"
+                />
 
-              <a href={cv} target="_blank" rel="noopener noreferrer" className="inline-block mt-6 text-blue-600 dark:text-blue-400 underline">{t("cv")}</a>
-              {/* Social Links - جدید */}
-              <div className="mt-10 flex gap-4">
+                <span>{t("cv")}</span>
+
+                <ExternalLink
+                  size={15}
+                  aria-hidden="true"
+                  className="text-zinc-400 transition-transform group-hover:-translate-y-0.5"
+                />
+              </a>{/* Social Links - جدید */}
+              {/* Social Links */}
+              <div
+                className="mt-6 grid grid-cols-3 gap-2 sm:gap-3"
+                aria-label="Social profiles"
+              >
+                <a
+                  href="https://www.instagram.com/haghiweb/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram @haghiweb"
+                  className="flex min-w-0 min-h-14 flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-orange-500 px-2 sm:px-4 py-3 text-white text-xs sm:text-sm font-semibold transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                >
+                  <FaInstagram size={20} aria-hidden="true" />
+                  <span>Instagram</span>
+                </a>
+
                 <a
                   href={myData.myPersonalInfo[0].linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-6 py-3 bg-[#0A66C2] text-white rounded-2xl hover:bg-[#0A66C2]/90 transition-all"
+                  aria-label="LinkedIn"
+                  className="flex min-w-0 min-h-14 flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 rounded-xl bg-[#0A66C2] px-2 sm:px-4 py-3 text-white text-xs sm:text-sm font-semibold transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 >
-                  <span>{t("linkedin")}</span>
+                  <FaLinkedinIn size={19} aria-hidden="true" />
+                  <span>LinkedIn</span>
                 </a>
 
                 <a
                   href={myData.myPersonalInfo[0].github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-6 py-3 bg-zinc-800 dark:bg-white text-white dark:text-zinc-900 rounded-2xl hover:bg-zinc-700 dark:hover:bg-zinc-100 transition-all"
+                  aria-label="GitHub"
+                  className="flex min-w-0 min-h-14 flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 rounded-xl bg-zinc-800 dark:bg-zinc-100 text-white dark:text-zinc-900 px-2 sm:px-4 py-3 text-xs sm:text-sm font-semibold transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 >
-                  <span>{t("github")}</span>
+                  <FaGithub size={19} aria-hidden="true" />
+                  <span>GitHub</span>
                 </a>
               </div>
             </div>
