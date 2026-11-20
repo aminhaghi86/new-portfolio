@@ -35,7 +35,9 @@ The site is deployed by Vercel's Git integration on pushes to main. GitHub Actio
 
 - src/locales/fa.json and en.json: interface and project descriptions.
 - src/data.json: project links, images and technical metadata.
-- src/App.jsx: page layout and featured project IDs.
+- src/App.jsx: page composition only; each section lives in src/components/sections/.
+- src/components/contact/: contact form, its webhook submission hook and Turnstile captcha.
+- src/components/sections/ProjectsSection.jsx: featured project IDs.
 - public/: images, CV, social preview, robots and sitemap.
 
 Examples include staging and technical work. Describe status and personal contribution accurately. Publish client names, testimonials or commercial metrics only with established facts and permission.
@@ -80,7 +82,7 @@ See [the Persian SEO and Search Console handoff](docs/brand-seo-fa.md) for the k
 
 `npm run build` prerenders the Persian and English homepages, three service pages, two case studies and a noindex 404 page. `npm run check:seo` validates the built HTML, sitemap, metadata, structured data and local links. CI runs these checks before deployment.
 
-English content has a stable `/en/` URL; the homepage language switch navigates between `/` and `/en/`. Existing language query links are handled in the browser. Internal service and case-study pages currently have Persian content only.
+English content has a stable `/en/` URL. The homepage language switch changes language in place (no reload) and updates the address between `/` and `/en/`, so both URLs stay prerendered for search engines and the browser Back button works. Existing language query links are handled in the browser. Internal service and case-study pages currently have Persian content only.
 
 The existing Search Console Domain property is `haghiweb.ir`; keep its DNS verification record. No new tag is required for it. An optional `GOOGLE_SITE_VERIFICATION` build variable is supported only for an additional HTML-tag URL-prefix method. Never insert a placeholder verification value.
 
