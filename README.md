@@ -29,7 +29,7 @@ npm run build
 npm run preview
 ```
 
-GitHub Actions installs, lints and builds before copying dist to the existing server destination on pushes to main. The separate quality workflow runs lint and build for improve/** branches and pull requests to main without deployment credentials. Production deployments are serialized to avoid overlapping copies. Vercel Git deployments are configured separately. This workflow does not configure Vercel or domain redirects.
+The site is deployed by Vercel's Git integration on pushes to main. GitHub Actions only runs quality checks (lint, build, SEO validation) on pushes to main and improve/** branches and on pull requests to main; it holds no deployment credentials and does not configure Vercel or domain redirects.
 
 ## Content
 
