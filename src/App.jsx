@@ -629,7 +629,11 @@ export default function App() {
                     {siteKey ? <Turnstile
                       key={`${captchaKey}-${language}-${dark}-${captchaSize}`}
                       siteKey={siteKey}
-                      onSuccess={(token) => setCaptchaToken(token)}
+                      onSuccess={(token) => {
+                        setCaptchaToken(token);
+                        setStatus(current => current.messageKey === "captchaError" || current.messageKey === "captchaRequired"
+                          ? { type: "", messageKey: "" } : current);
+                      }}
                       onExpire={() => setCaptchaToken(null)}
                       onError={() => {
                         setCaptchaToken(null);
