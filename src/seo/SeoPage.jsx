@@ -10,10 +10,10 @@ export default function SeoPage({ page }) {
   const project = page?.projectId === undefined ? null : data.myProjects.find(item => item.id === page.projectId);
   return <div className="seo-page">
     <a href="#page-content" className="skip-link">رفتن به محتوای اصلی</a>
-    <header className="seo-header"><a href="/" className="seo-brand">امین حقی <span lang="en">HaghiWeb</span></a><nav aria-label="منوی اصلی"><a href="/#services">خدمات</a><a href="/#projects">نمونه‌کارها</a><a href="/#contact" className="seo-cta">گفت‌وگو دربارهٔ پروژه <ArrowUpRight size={17} aria-hidden="true" /></a></nav></header>
+    <header className="seo-header"><a href="/" className="seo-brand"><bdi dir="ltr">HaghiWeb</bdi> <span>امین حقی</span></a><nav aria-label="منوی اصلی"><a href="/#services">خدمات</a><a href="/#projects">نمونه‌کارها</a><a href="/#contact" className="seo-cta">گفت‌وگو دربارهٔ پروژه <ArrowUpRight size={17} aria-hidden="true" /></a></nav></header>
     <main id="page-content" className="seo-main" tabIndex={-1}>
       <nav aria-label="مسیر صفحه" className="seo-breadcrumb"><a href="/">خانه</a><span aria-hidden="true"> / </span><span>{page ? page.heading : 'صفحه پیدا نشد'}</span></nav>
-      <div className="seo-intro"><p className="section-eyebrow">امین حقی · طراحی سایت و اتوماسیون</p><h1>{page?.heading || 'این صفحه پیدا نشد'}</h1><p>{page?.intro || 'از صفحهٔ اصلی، خدمات و نمونه‌کارهای موجود را بررسی کنید.'}</p></div>
+      <div className="seo-intro"><p className="section-eyebrow">{page?.statusLabel || 'امین حقی · طراحی سایت و اتوماسیون'}</p><h1>{page?.heading || 'این صفحه پیدا نشد'}</h1><p>{page?.intro || 'از صفحهٔ اصلی، خدمات و نمونه‌کارهای موجود را بررسی کنید.'}</p></div>
       {project?.gallery && <div className="seo-gallery"><ProjectGallery images={project.gallery} title={page.heading} />{project.mediaNoteKey && <p className="seo-media-note">{t(project.mediaNoteKey)} <a href={project.credits}>{t('projectImageCredits')}</a></p>}</div>}
       <div className="seo-content">{page?.sections.map(section => <section key={section.heading}><h2>{section.heading}</h2>{section.paragraphs?.map(text => <p key={text}>{text}</p>)}{section.items && <ul>{section.items.map(text => <li key={text}>{text}</li>)}</ul>}</section>)}</div>
       {page?.externalUrl && <a className="portfolio-button secondary" href={page.externalUrl} target="_blank" rel="noopener noreferrer">{page.externalLabel}<ArrowUpRight size={17} aria-hidden="true" /></a>}

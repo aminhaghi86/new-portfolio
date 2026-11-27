@@ -44,7 +44,7 @@ export const servicePages = [
       { heading: 'نمونهٔ مرتبط: کنسول محتوای دیباسان', paragraphs: ['در پروژهٔ دیباسان، تلگرام، n8n، وردپرس و PostgreSQL برای مدیریت درخواست بازبینی به هم متصل شده‌اند. تولید پیش‌نویس، انتخاب دسته و بررسی تصویر و سئو در نسخهٔ آزمایشی اجرا شده‌اند. یک مقاله نیز در آزمون واقعی نسخهٔ اولیه منتشر شده است؛ این شواهد به معنی تضمین همهٔ سناریوها یا نتیجهٔ سئو نیست.'] },
       { heading: 'هزینه‌های اجرا و نگهداری', paragraphs: ['تعداد اتصال‌ها، پیچیدگی قواعد، حجم اجرا و روش میزبانی روی هزینه اثر می‌گذارند. هزینهٔ سرور، مصرف مدل هوش مصنوعی، پیامک یا سرویس‌های بیرونی جداگانه محاسبه می‌شود. دسترسی‌ها، نسخهٔ پشتیبان و مسئول رفع خطا پیش از تحویل مشخص می‌شوند.', 'برای شروع، یک نمونهٔ واقعی از کار دستی فعلی و خروجی مطلوب را توضیح دهید. ابتدا امکان اتصال‌ها بررسی می‌شود و سپس محدوده، آزمون‌های پذیرش و زمان‌بندی مکتوب ارائه می‌شود.'] },
     ],
-    proof: '/work/dibasan/', proofLabel: 'مطالعهٔ پروژهٔ دیباسان و اتوماسیون مدیریت محتوا',
+    proof: '/work/payambazar/', proofLabel: 'مطالعهٔ پیام بازار و همگام‌سازی فروشگاه با کانال‌ها',
   },
 ];
 
@@ -52,7 +52,7 @@ const casePage = (id, path, title, description) => {
   const project = data.myProjects.find(item => item.id === id);
   const facts = fa.caseStudies[id];
   return {
-    path, title, description, heading: fa.projectContent[id].title, intro: facts.use,
+    path, title, description, heading: fa.projectContent[id].title, intro: facts.use, statusLabel: facts.badge,
     projectId: id, image: project.image, imageAlt: fa.projectContent[id].title,
     sections: [
       { heading: 'محدودهٔ اجرا و سهم من', paragraphs: [facts.work, facts.role].filter(Boolean) },
@@ -70,6 +70,7 @@ const casePage = (id, path, title, description) => {
 
 export const casePages = [
   casePage(0, '/work/dibasan/', 'طراحی سایت دیباسان و اتوماسیون محتوا | امین حقی', 'مطالعهٔ پروژهٔ دیباسان؛ اجرای سایت وردپرسی و ووکامرس و گردش‌کار مدیریت محتوا از تلگرام با n8n. محدوده، نقش و وضعیت اجرا را ببینید.'),
+  casePage(10, '/work/payambazar/', 'پیام بازار | همگام‌سازی ووکامرس و کانال‌ها | HaghiWeb', 'مطالعهٔ موردی ساخت پیام بازار توسط امین حقی؛ از ثبت‌نام فضای کسب‌وکار و اتصال ووکامرس تا انتشار و به‌روزرسانی محصول در کانال‌ها.'),
   casePage(9, '/work/hejazi-immigration/', 'پروژهٔ وب‌سایت حجازی با Next.js و Strapi | امین حقی', 'نمونهٔ پروژهٔ پیشین حجازی با Next.js و Strapi؛ گالری بازسازی محلی با محتوای تازه و تقویم نمایشی، همراه با توضیح دقیق نقش و وضعیت پروژه.'),
 ];
 export const contentPages = [...servicePages, ...casePages];

@@ -17,25 +17,26 @@ export default function useContactForm({ servicePrefix, onSent }) {
   const [status, setStatus] = useState({ type: "", messageKey: "" });
   const [loading, setLoading] = useState(false);
   const sending = useRef(false);
+  const attachedQuote = useRef("");
 
   // The quote wizard sends its summary through a window event.
   useEffect(() => {
     const receiveQuote = ({ detail }) => {
-      if (typeof detail !== "string") return;
-      setForm((current) => {
-        if (current.message.includes(detail)) return current;
-        const message = appendQuote(current.message, detail);
-        if (message.length > MESSAGE_LIMIT) {
-          setStatus({ type: "error", messageKey: "quoteTooLong" });
-          return current;
-        }
-        setStatus({ type: "", messageKey: "" });
-        return { ...current, message };
-      });
+      if (typeof detail !== "string" || sending.current) return;
+      const previousQuote = attachedQuote.current;
+      const draft = previousQuote ? form.message.replace(previousQuote, "") : form.message;
+      const message = appendQuote(draft, detail);
+      if (message.length > MESSAGE_LIMIT) {
+        setStatus({ type: "error", messageKey: "quoteTooLong" });
+        return;
+      }
+      attachedQuote.current = detail;
+      setForm((current) => ({ ...current, message }));
+      setStatus({ type: "", messageKey: "" });
     };
     window.addEventListener("portfolio:quote", receiveQuote);
     return () => window.removeEventListener("portfolio:quote", receiveQuote);
-  }, []);
+  }, [form.message]);
 
   const updateField = (field) => (event) => setForm((current) => ({ ...current, [field]: event.target.value }));
   const showError = (messageKey) => setStatus({ type: "error", messageKey });
@@ -62,6 +63,7 @@ export default function useContactForm({ servicePrefix, onSent }) {
       const result = await response.json().catch(() => null);
       if (!response.ok || result?.ok !== true) throw new Error("Submission was not confirmed");
       setStatus({ type: "success", messageKey: "success" });
+      attachedQuote.current = "";
       setForm(EMPTY_FORM);
       onSent?.();
     } catch {

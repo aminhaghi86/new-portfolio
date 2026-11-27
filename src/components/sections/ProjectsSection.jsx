@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import FeaturedProjectCard from "../projects/FeaturedProjectCard";
 import ProjectCard from "../projects/ProjectCard";
 
-const FEATURED_PROJECT_IDS = [0, 8, 7];
+const FEATURED_PROJECT_IDS = [0, 10, 9];
 
 export default function ProjectsSection({ projects, onOpenProject }) {
   const { t } = useTranslation();

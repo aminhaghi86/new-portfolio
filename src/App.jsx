@@ -7,7 +7,6 @@ import TechMarquee from "./components/TechMarquee";
 import ServicesSection from "./components/ServicesSection";
 import QuoteWizard from "./components/QuoteWizard";
 import ProjectsSection from "./components/sections/ProjectsSection";
-import DibasanShowcase from "./components/DibasanShowcase";
 import Testimonials from "./components/Testimonials";
 import Collaboration from "./components/Collaboration";
 import AboutSection from "./components/sections/AboutSection";
@@ -57,14 +56,13 @@ export default function App() {
         <div data-reveal="exit-only">
           <HeroSection personal={personal} project={findProject(HERO_PROJECT_ID)} onOpenProject={setActiveProjectId} />
         </div>
-        <div data-reveal><TechMarquee /></div>
         <div data-reveal><ServicesSection onSelectService={setSelectedService} /></div>
-        <QuoteWizard />
         <ProjectsSection projects={projects} onOpenProject={setActiveProjectId} />
-        <DibasanShowcase />
         <div data-reveal><Testimonials /></div>
         <div data-reveal><Collaboration /></div>
+        <QuoteWizard />
         <AboutSection personal={personal} />
+        <div data-reveal><TechMarquee /></div>
         <FaqSection />
         <ContactSection
           language={language}

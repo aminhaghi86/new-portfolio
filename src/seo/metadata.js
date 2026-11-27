@@ -18,7 +18,7 @@ export function getMetadata(path = '/', language = 'fa') {
   const personId = SITE_ORIGIN + '/#person';
   const graph = [
     { '@type': 'Person', '@id': personId, name: 'امین حقی', alternateName: 'Amin Haghi', url: SITE_ORIGIN + '/', image: SITE_ORIGIN + '/mypic.jpeg', jobTitle: 'طراح سایت و توسعه‌دهندهٔ اتوماسیون', sameAs: ['https://github.com/aminhaghi86', 'https://www.linkedin.com/in/aminhaghi', 'https://t.me/a_hgh86'] },
-    { '@type': 'WebSite', '@id': SITE_ORIGIN + '/#website', url: SITE_ORIGIN + '/', name: 'امین حقی', alternateName: ['Amin Haghi', 'HaghiWeb'], publisher: { '@id': personId }, inLanguage: ['fa', 'en'] },
+    { '@type': 'WebSite', '@id': SITE_ORIGIN + '/#website', url: SITE_ORIGIN + '/', name: 'HaghiWeb', alternateName: ['امین حقی', 'Amin Haghi'], publisher: { '@id': personId }, inLanguage: ['fa', 'en'] },
     { '@type': 'WebPage', '@id': canonical + '#webpage', url: canonical, name: title, description, inLanguage: lang, isPartOf: { '@id': SITE_ORIGIN + '/#website' }, about: { '@id': personId } },
   ];
   if (page) graph.push({ '@type': 'BreadcrumbList', itemListElement: [

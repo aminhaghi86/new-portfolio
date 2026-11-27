@@ -80,7 +80,7 @@ Dibasan's case study includes screenshots of its public home/contact pages, the 
 
 See [the Persian SEO and Search Console handoff](docs/brand-seo-fa.md) for the keyword-to-page map, evidence limits and release checks.
 
-`npm run build` prerenders the Persian and English homepages, three service pages, two case studies and a noindex 404 page. `npm run check:seo` validates the built HTML, sitemap, metadata, structured data and local links. CI runs these checks before deployment.
+`npm run build` prerenders the Persian and English homepages, three service pages, three case studies and a noindex 404 page. `npm run check:seo` validates the built HTML, sitemap, metadata, structured data and local links. CI runs these checks before deployment.
 
 English content has a stable `/en/` URL. The homepage language switch changes language in place (no reload) and updates the address between `/` and `/en/`, so both URLs stay prerendered for search engines and the browser Back button works. Existing language query links are handled in the browser. Internal service and case-study pages currently have Persian content only.
 

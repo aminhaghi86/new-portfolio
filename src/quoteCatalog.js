@@ -1,16 +1,24 @@
-// Indicative price bands in million Iranian tomans; editorial estimates, not verified market quotations.
+// HaghiWeb estimates in million Iranian tomans, benchmarked against published 1405 pricing.
+// https://uiverse.ir/landing/website-cost
+// https://webiro.ir/price-listing/
+// https://webrizan.com/pricing
+export const PRIMARY_QUOTE_OPTIONS = new Set(['website', 'store', 'custom']);
+
 export const QUOTE_OPTIONS = [
-  { id: 'website', min: 25, max: 45, minDays: 12, maxDays: 25, fa: { title: 'سایت شرکتی حرفه‌ای', description: 'معرفی برند، صفحات خدمات، فرم تماس و مدیریت محتوا' }, en: { title: 'Business website', description: 'Brand presentation, service pages, inquiry form and CMS' } },
-  { id: 'store', min: 45, max: 85, minDays: 20, maxDays: 40, fa: { title: 'فروشگاه ووکامرس', description: 'کاتالوگ، دسته‌بندی، محصول، سبد خرید و سفارش' }, en: { title: 'WooCommerce store', description: 'Catalogue, products, checkout and order flow' } },
-  { id: 'custom', min: 65, max: 150, minDays: 25, maxDays: 60, fa: { title: 'وب‌اپلیکیشن اختصاصی', description: 'React / Next.js، داشبورد و API بر اساس نیاز' }, en: { title: 'Custom web application', description: 'React / Next.js dashboard and API development' } },
-  { id: 'inquiry', min: 12, max: 28, minDays: 5, maxDays: 12, fa: { title: 'فرم استعلام و مدیریت سرنخ', description: 'فرم چندمرحله‌ای، اعلان و پیگیری درخواست‌ها' }, en: { title: 'Inquiry and lead capture', description: 'Multi-step form, notifications and lead tracking' } },
-  { id: 'automation', min: 25, max: 65, minDays: 10, maxDays: 25, fa: { title: 'اتوماسیون n8n و CRM سبک', description: 'اتصال فرم‌ها، پیام‌رسان‌ها و گردش‌کار فروش' }, en: { title: 'n8n automation and light CRM', description: 'Connect forms, messaging and sales workflows' } },
-  { id: 'ai', min: 45, max: 120, minDays: 15, maxDays: 40, fa: { title: 'اتوماسیون و دستیار هوش مصنوعی', description: 'تولید محتوای تأییدمحور، پردازش داده و اتصال API' }, en: { title: 'AI assistant and automation', description: 'Human-approved content, data processing and API integrations' } },
-  { id: 'seo', min: 10, max: 30, minDays: 5, maxDays: 15, fa: { title: 'سئو فنی و بهینه‌سازی سرعت', description: 'متادیتا، ساختار صفحات، Core Web Vitals و تحلیل' }, en: { title: 'Technical SEO and performance', description: 'Metadata, page structure, web vitals and audit' } },
-  { id: 'infra', min: 12, max: 40, minDays: 4, maxDays: 15, fa: { title: 'استقرار و زیرساخت سرور', description: 'Linux، Docker، Nginx، CI/CD و پایش اولیه' }, en: { title: 'Server and deployment', description: 'Linux, Docker, Nginx, CI/CD and basic monitoring' } },
+  { id: 'website', min: 22, max: 45, minDays: 12, maxDays: 25, fa: { title: 'سایت شرکتی وردپرسی', description: 'تا پنج صفحهٔ معرفی، مدیریت محتوا و فرم تماس ساده' }, en: { title: 'WordPress business website', description: 'Up to five pages, content management and a basic contact form' } },
+  { id: 'store', min: 35, max: 75, minDays: 18, maxDays: 35, fa: { title: 'فروشگاه ووکامرس', description: 'کاتالوگ، سبد خرید، تسویه‌حساب و ورود اولیه تا ۱۰ محصول' }, en: { title: 'WooCommerce store', description: 'Catalogue, cart, checkout and setup for up to 10 products' } },
+  { id: 'custom', min: 90, max: 180, minDays: 30, maxDays: 60, fa: { title: 'نسخهٔ اولیهٔ وب‌اپلیکیشن اختصاصی', description: 'یک فرایند اصلی با پنل و API اختصاصی' }, en: { title: 'Custom web application MVP', description: 'One core workflow with a custom dashboard and API' } },
+  { id: 'inquiry', min: 10, max: 25, minDays: 5, maxDays: 12, fa: { title: 'فرم استعلام چندمرحله‌ای', description: 'فرم اختصاصی با اعتبارسنجی و ارسال اعلان به یک مقصد' }, en: { title: 'Multi-step inquiry form', description: 'Custom form with validation and notifications to one destination' } },
+  { id: 'automation', min: 12, max: 40, minDays: 5, maxDays: 18, fa: { title: 'اتوماسیون با n8n', description: 'یک گردش‌کار مستقل با اتصال حداکثر دو سرویس' }, en: { title: 'n8n automation', description: 'One standalone workflow connecting up to two services' } },
+  { id: 'ai', min: 25, max: 80, minDays: 10, maxDays: 30, fa: { title: 'دستیار هوش مصنوعی', description: 'یک کاربرد مشخص، اتصال به مدل و بازبینی انسانی' }, en: { title: 'AI assistant', description: 'One use case, model integration and human review' } },
+  { id: 'seo', min: 10, max: 25, minDays: 5, maxDays: 15, fa: { title: 'ممیزی فنی سئو و سرعت', description: 'بررسی تخصصی و اصلاح موارد توافق‌شده، به‌صورت یک‌باره' }, en: { title: 'Technical SEO and performance audit', description: 'One-time technical review and agreed fixes' } },
+  { id: 'infra', min: 8, max: 25, minDays: 3, maxDays: 10, fa: { title: 'راه‌اندازی سرور اختصاص‌یافته به پروژه', description: 'پیکربندی سرور، استقرار، نسخهٔ پشتیبان و پایش اولیه' }, en: { title: 'Project server setup', description: 'Server configuration, deployment, backup and baseline monitoring' } },
 ];
-export function estimateQuote(ids) {
+export function estimateQuote(ids, { existingSite = false } = {}) {
   const selected = QUOTE_OPTIONS.filter(option => ids.includes(option.id));
+  if (!selected.length || (existingSite && selected.some(item => PRIMARY_QUOTE_OPTIONS.has(item.id)))) {
+    return null;
+  }
   return selected.reduce((total, item) => ({
     min: total.min + item.min, max: total.max + item.max,
     minDays: total.minDays + item.minDays, maxDays: total.maxDays + item.maxDays,
