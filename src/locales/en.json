@@ -366,8 +366,7 @@
   "testimonialsIntro": "Feedback from the Dibasan packaging website project.",
   "testimonialDibasan": {
     "quote": "Amin delivered a clean and practical online store for our packaging products. The structure made it easier for customers to explore the catalogue and send inquiries.",
-    "author": "Mehdi Taghdisi",
-    "role": "CEO, Dibasan"
+    "attribution": "Client feedback from Dibasan"
   },
   "germanGallery": {
     "dashboard": "Development dashboard with demonstration statistics",

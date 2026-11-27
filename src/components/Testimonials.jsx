@@ -17,13 +17,8 @@ const Testimonials = () => {
       <blockquote className="text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
         “{t("testimonialDibasan.quote")}”
       </blockquote>
-      <figcaption className="mt-8 flex items-center gap-4">
-        <div>
-          <p className="font-semibold">{t("testimonialDibasan.author")}</p>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            {t("testimonialDibasan.role")}
-          </p>
-        </div>
+      <figcaption className="mt-8 text-sm font-semibold text-zinc-600 dark:text-zinc-400">
+        {t("testimonialDibasan.attribution")}
       </figcaption>
     </figure>
   </div>
