@@ -12,6 +12,7 @@ export default function SiteFooter({ language, onOpenPrivacy }) {
       <div className="flex justify-center gap-6 text-xs">
         <button type="button" onClick={onOpenPrivacy} className="hover:text-blue-600 transition">{t("privacy")}</button>
         <a href="mailto:aminhaghi@gmail.com" className="hover:text-blue-600 transition">{t("footerContact")}</a>
+        <a href="https://www.instagram.com/haghiweb/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition" dir="ltr">Instagram @haghiweb</a>
       </div>
     </footer>
   );

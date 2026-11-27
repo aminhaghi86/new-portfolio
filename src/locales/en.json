@@ -1,5 +1,5 @@
 {
-  "brand": "Amin Haghi",
+  "brand": "HaghiWeb by Amin Haghi",
   "mainNav": "Main navigation",
   "mobileNav": "Mobile navigation",
   "openMenu": "Open menu",
@@ -7,18 +7,18 @@
   "lightTheme": "Switch to light theme",
   "darkTheme": "Switch to dark theme",
   "hello": "Hi, I'm",
-  "discuss": "Tell me about your project",
+  "discuss": "Request a project review",
   "cv": "View CV",
-  "about": "About Me",
-  "servicesIntro": "Choose a starting scope. Deliverables, cost and timing are confirmed in a written proposal before work begins.",
+  "about": "Amin Haghi, developer behind HaghiWeb",
+  "servicesIntro": "Start with a specific need: present your services, sell online or cut repetitive work. Scope, cost and timing are confirmed in a written proposal.",
   "requirements": "Discuss Your Requirements →",
   "github": "GitHub",
   "linkedin": "LinkedIn",
   "liveDemo": "Live Demo",
   "watchDemo": "Watch Demo",
   "automationLabel": "Automation in use on this website",
-  "automationTitle": "Working example: inquiry capture on this website",
-  "automationDescription": "This contact form connects to an inquiry workflow so project details can be recorded and I can be notified for follow-up. Information handling is explained in the privacy notice.",
+  "automationTitle": "Automation in use: this website’s inquiry form",
+  "automationDescription": "When you submit a project inquiry, an n8n workflow notifies me on Telegram so I can review it. The privacy notice explains how submitted information is handled.",
   "similarWorkflow": "Discuss a Similar Workflow →",
   "experience": "Background & Experience",
   "freelance": "Freelance Web Developer",
@@ -68,10 +68,10 @@
   "success": "Your message has been sent. Thank you — I will reply by email.",
   "failed": "Delivery could not be confirmed. Please email aminhaghi@gmail.com, or try again. If the connection timed out, your message may already have arrived.",
   "captchaError": "Security verification could not load. Please retry or contact me by email.",
-  "copyright": "© {{year}} Amin Haghi • Built with React & Tailwind",
+  "copyright": "© {{year}} HaghiWeb · Amin Haghi",
   "language": "Change language",
-  "metaTitle": "Amin Haghi | Business Websites & Workflow Automation",
-  "metaDescription": "Business websites, WooCommerce stores and n8n workflow automation by Amin Haghi. Explore project evidence, service scope and a clear project inquiry process.",
+  "metaTitle": "HaghiWeb | Websites, WooCommerce & Automation by Amin Haghi",
+  "metaDescription": "Business websites, WooCommerce stores and workflow automation by Amin Haghi. Explore the Dibasan, Payam Bazaar and Hejazi projects.",
   "personal": {
     "name": "Amin Haghi",
     "role": "Web Developer & Automation Specialist",
@@ -89,7 +89,7 @@
     {
       "id": "website",
       "title": "Business website",
-      "description": "Present your company and services with a clear customer inquiry path.",
+      "description": "For companies, independent professionals and service providers who need a website with an inquiry or booking path.",
       "deliverables": [
         "Responsive design aligned with your brand",
         "Service presentation and contact form",
@@ -116,8 +116,8 @@
     },
     {
       "id": "automation",
-      "title": "Inquiry workflow automation",
-      "description": "Capture and follow up inquiries with less manual data transfer.",
+      "title": "Workflow automation",
+      "description": "Reduce repetitive work such as routing inquiries, sending notifications and keeping tools in sync.",
       "deliverables": [
         "One workflow for one agreed process",
         "Up to 2 services with available APIs",
@@ -189,16 +189,20 @@
     "9": {
       "title": "Hejazi Immigration — Earlier Website",
       "desc": "An earlier client project built with Next.js and Strapi, presented through screenshots of a local reconstruction with refreshed content and an interactive booking preview."
+    },
+    "10": {
+      "title": "Payam Bazaar — Store-to-Channel Sync",
+      "desc": "Products are managed in WooCommerce, and Payam Bazaar sends updates to connected messaging channels."
     }
   },
-  "projects": "Featured Projects",
+  "projects": "Selected work",
   "privacyPreferences": "Your language and theme preferences are saved in this browser’s local storage. You can clear them through your browser settings.",
-  "heroEyebrow": "Amin Haghi · Websites and automation",
-  "heroTitle": "Business websites and inquiry workflows",
-  "heroDescription": "I’m Amin Haghi. I build websites and online stores for businesses, manufacturers and service providers, and connect customer inquiries to the tools your team uses.",
-  "viewWork": "Explore my work",
+  "heroEyebrow": "HaghiWeb · Amin Haghi",
+  "heroTitle": "Websites, online stores and automation",
+  "heroDescription": "I build websites for companies, retailers and service providers, and connect inquiries, bookings and product updates to the tools they already use.",
+  "viewWork": "See selected work",
   "heroNote": "Explore the examples, then tell me what your business needs.",
-  "projectsIntro": "Each example explains its purpose and scope. Staging versions and group projects are identified as such.",
+  "projectsIntro": "Explore three different projects: a product catalogue and inquiry flow, store-to-channel synchronization, and a service website with a booking flow.",
   "moreProjects": "Explore more technical projects",
   "caseUse": "Purpose",
   "caseWork": "Implementation",
@@ -250,7 +254,7 @@
       "answer": "Support scope and duration are agreed in the written proposal. New features and external service costs are agreed separately."
     }
   ],
-  "contactIntro": "Tell me about your business and what you would like to improve. Include your website link if you have one.",
+  "contactIntro": "Tell me what you do and what needs to improve. Include your website link if you have one. If you’re unsure which service fits, start with the problem.",
   "contactNext": "I review inquiries personally and reply by email to clarify your requirements and the next step.",
   "caseStudies": {
     "0": {
@@ -320,10 +324,24 @@
         "Responsive desktop and mobile layouts with optimized images",
         "Current calendar: interactive time selection and details preview, with no live booking"
       ]
+    },
+    "10": {
+      "badge": "Independent product · Staging",
+      "use": "Update a product once in WooCommerce. Payam Bazaar sends changes to connected channels on Telegram, Bale and Rubika.",
+      "work": "A business owner creates a workspace with an email verification code and can enable two-factor authentication using an authenticator app. After securely connecting WooCommerce, they add Telegram, Bale or Rubika channels. Creating or editing a product in WooCommerce starts the synchronization and publication update.",
+      "role": "Designed and built the Persian dashboard, registration and connection flows, catalogue event processing and publication queue.",
+      "status": "Running in staging. The screenshots show the application with test data. Update times depend on the volume of changes and how each platform responds.",
+      "outcome": "Store managers update product information once in WooCommerce and track publication status and items that need review from the dashboard.",
+      "capabilities": [
+        "Separate business workspaces, email verification and optional authenticator-based two-factor authentication",
+        "WooCommerce integration and management of Telegram, Bale and Rubika channels",
+        "Event-driven synchronization after product creation or edits",
+        "Publication queue and history to track results and items needing review"
+      ]
     }
   },
   "skipContent": "Skip to main content",
-  "heroTitleAccent": "A clearer path to inquiries.",
+  "heroTitleAccent": "for your business",
   "heroPrinciples": [
     "A defined scope",
     "Review before handover",
@@ -336,7 +354,6 @@
     "Collect inquiries",
     "Organize follow-up"
   ],
-  "servicesEyebrow": "Where could we start?",
   "serviceCta": "Discuss this service",
   "openProject": "View details of {{title}}",
   "projectDetails": "Project details",
@@ -420,5 +437,9 @@
   "telegramContact": "Telegram",
   "quoteTooLong": "The summary could not be added within the message limit. Your existing text was preserved; copy or email the summary instead.",
   "serviceDetails": "Service details (Persian)",
-  "projectFullCase": "Full case study (Persian)"
+  "projectFullCase": "Full case study (Persian)",
+  "payambazarGallery": {
+    "overview": "Dashboard overview with test data",
+    "publications": "Publication queue and history with test data"
+  }
 }

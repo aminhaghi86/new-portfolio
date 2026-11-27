@@ -25,8 +25,8 @@ export default function Header({ language, themeMode, onThemeChange, onLanguageT
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0b0b10]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
         <a href="#home" onClick={closeMenu} aria-label={t("brand")} className="brand-lockup text-lg sm:text-xl font-bold">
-          <span className="brand-mark" aria-hidden="true" dir="ltr">AH</span>
-          <span className="hidden sm:inline">{t("brand")}</span>
+          <span className="brand-mark" aria-hidden="true" dir="ltr">HW</span>
+          <bdi dir="ltr" className="hidden sm:inline">HaghiWeb</bdi>
         </a>
         <nav aria-label={t("mainNav")} className="hidden md:flex items-center gap-6 text-sm">
           {navigation.map(item => <a key={item.id} href={item.url} className="hover:text-blue-600 dark:hover:text-blue-400">{item.link}</a>)}

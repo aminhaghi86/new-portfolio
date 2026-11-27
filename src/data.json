@@ -347,6 +347,41 @@
           "height": 1400
         }
       ]
+    },
+    {
+      "id": 10,
+      "image": "/projects/payambazar/overview.png",
+      "tech": [
+        {
+          "skill": "WooCommerce"
+        },
+        {
+          "skill": "React"
+        },
+        {
+          "skill": "FastAPI"
+        },
+        {
+          "skill": "PostgreSQL"
+        },
+        {
+          "skill": "Redis"
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/projects/payambazar/overview.png",
+          "captionKey": "payambazarGallery.overview",
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "src": "/projects/payambazar/publications.png",
+          "captionKey": "payambazarGallery.publications",
+          "width": 1440,
+          "height": 1000
+        }
+      ]
     }
   ],
   "myPersonalInfo": [

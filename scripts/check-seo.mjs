@@ -5,7 +5,7 @@ const origin = 'https://www.haghiweb.ir';
 const root = new URL('../dist/', import.meta.url);
 const sitemap = await readFile(new URL('sitemap.xml', root), 'utf8');
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-assert.equal(urls.length, 7, 'Unexpected indexable route count.');
+assert.equal(urls.length, 8, 'Unexpected indexable route count.');
 assert.equal(new Set(urls).size, urls.length, 'Duplicate sitemap URL.');
 const titles = new Set();
 for (const url of urls) {
@@ -26,7 +26,7 @@ for (const url of urls) {
   assert.ok(!/caseStudies\.\d+\./.test(html), `Untranslated case key: ${url}`);
   if (path === '/' || path === '/en/') {
     for (const lang of ['fa', 'en', 'x-default']) assert.ok(html.includes(`hreflang="${lang}"`), `Missing alternate: ${url}`);
-    if (path === '/en/') assert.ok(html.includes('Business websites and inquiry workflows'), 'English SSR missing.');
+    if (path === '/en/') assert.ok(html.includes('Websites, online stores and automation'), 'English SSR missing.');
   }
   for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:[#?][^"]*)?"/g)) {
     if (match[1] === '/404.html') continue;

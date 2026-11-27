@@ -8,7 +8,7 @@ export default function ServicesSection({ onSelectService }) {
   const { t } = useTranslation();
   return (
     <section id="services" className="portfolio-services scroll-mt-24 md:scroll-mt-28" aria-labelledby="services-title">
-      <div className="section-heading"><div><p className="section-eyebrow">{t('servicesEyebrow')}</p><h2 id="services-title">{t('services')}</h2></div><p>{t('servicesIntro')}</p></div>
+      <div className="section-heading"><h2 id="services-title">{t('services')}</h2><p>{t('servicesIntro')}</p></div>
       <div className="service-grid">
         {t('serviceCards', { returnObjects: true }).map(service => {
           const Icon = icons[service.id];
